@@ -1,0 +1,6 @@
+Options -Indexes
+
+# Redireciona a raiz do projeto para public/
+RewriteEngine On
+RewriteRule ^$ public/ [L]
+RewriteRule ^((?!public/).*)$ public/$1 [L]

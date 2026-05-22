@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:demo.templatesjungle.com)",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\xampp\\\\htdocs\\\\portifolio\\\\app\\\\views\\\\contact\")",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(xargs grep -l \"autoload\\\\|spl_autoload\\\\|require.*model\\\\|require.*controller\")",
+      "Bash(Test-Path \"C:\\\\xampp\\\\htdocs\\\\portifolio\\\\README.md\")"
+    ]
+  }
+}
