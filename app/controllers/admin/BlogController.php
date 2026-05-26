@@ -23,6 +23,7 @@ class AdminBlogController extends Controller {
             'title'        => $this->sanitize($this->input('title', '')),
             'excerpt'      => $this->sanitize($this->input('excerpt', '')),
             'content'      => $this->input('content', ''),
+            'external_url' => $this->sanitize($this->input('external_url', '')),
             'is_published' => (int) $this->input('is_published', 0),
         ];
         $data['slug'] = $model->generateSlug($data['title']);
@@ -30,6 +31,11 @@ class AdminBlogController extends Controller {
 
         $img = $this->uploadImage('posts');
         if ($img) $data['image'] = $img;
+
+        $extra = $this->uploadImages('posts');
+        if ($extra) $data['images'] = json_encode($extra);
+
+        $data['links'] = $this->parseLinks();
 
         $model->create($data);
         $this->flash('success', 'Post criado com sucesso.');
@@ -60,6 +66,7 @@ class AdminBlogController extends Controller {
             'title'        => $this->sanitize($this->input('title', '')),
             'excerpt'      => $this->sanitize($this->input('excerpt', '')),
             'content'      => $this->input('content', ''),
+            'external_url' => $this->sanitize($this->input('external_url', '')),
             'is_published' => $isPublished,
         ];
         if ($isPublished && !$wasPublished) {
@@ -68,6 +75,13 @@ class AdminBlogController extends Controller {
 
         $img = $this->uploadImage('posts');
         if ($img) $data['image'] = $img;
+
+        $kept  = $_POST['keep_images'] ?? [];
+        $extra = $this->uploadImages('posts');
+        $all   = array_values(array_unique(array_merge($kept, $extra)));
+        $data['images'] = $all ? json_encode($all) : null;
+
+        $data['links'] = $this->parseLinks();
 
         $model->update($id, $data);
         $this->flash('success', 'Post atualizado.');

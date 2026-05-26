@@ -33,6 +33,11 @@ class AdminPortfolioController extends Controller {
         $img = $this->uploadImage('projects');
         if ($img) $data['image'] = $img;
 
+        $extra = $this->uploadImages('projects');
+        if ($extra) $data['images'] = json_encode($extra);
+
+        $data['links'] = $this->parseLinks();
+
         $model->create($data);
         $this->flash('success', 'Projeto criado com sucesso.');
         $this->redirect('/admin/portfolio');
@@ -69,6 +74,13 @@ class AdminPortfolioController extends Controller {
 
         $img = $this->uploadImage('projects');
         if ($img) $data['image'] = $img;
+
+        $kept  = $_POST['keep_images'] ?? [];
+        $extra = $this->uploadImages('projects');
+        $all   = array_values(array_unique(array_merge($kept, $extra)));
+        $data['images'] = $all ? json_encode($all) : null;
+
+        $data['links'] = $this->parseLinks();
 
         $model->update($id, $data);
         $this->flash('success', 'Projeto atualizado.');

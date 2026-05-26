@@ -100,4 +100,32 @@ abstract class Controller {
         $dest = UPLOAD_PATH . $folder . '/' . $filename;
         return move_uploaded_file($_FILES[$inputName]['tmp_name'], $dest) ? $filename : '';
     }
+
+    protected function parseLinks(): ?string {
+        $labels = $_POST['link_labels'] ?? [];
+        $urls   = $_POST['link_urls']   ?? [];
+        $links  = [];
+        foreach ($urls as $i => $url) {
+            $url = trim($url);
+            if ($url) $links[] = [
+                'label' => $this->sanitize($labels[$i] ?? ''),
+                'url'   => filter_var($url, FILTER_SANITIZE_URL),
+            ];
+        }
+        return $links ? json_encode($links, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : null;
+    }
+
+    protected function uploadImages(string $folder, string $inputName = 'images'): array {
+        $uploaded = [];
+        if (empty($_FILES[$inputName]['name'][0])) return $uploaded;
+        foreach ($_FILES[$inputName]['tmp_name'] as $i => $tmp) {
+            if ($_FILES[$inputName]['error'][$i] !== UPLOAD_ERR_OK) continue;
+            $ext = strtolower(pathinfo($_FILES[$inputName]['name'][$i], PATHINFO_EXTENSION));
+            if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'])) continue;
+            $filename = $folder . '_' . time() . '_' . rand(1000, 9999) . '_' . $i . '.' . $ext;
+            $dest = UPLOAD_PATH . $folder . '/' . $filename;
+            if (move_uploaded_file($tmp, $dest)) $uploaded[] = $filename;
+        }
+        return $uploaded;
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-define('BASE_URL',   'http://localhost/portifolio/public');
+define('BASE_URL',   'https://localhost/portifolio/public');
 define('APP_NAME',   'Portfólio');
 define('APP_VERSION','1.0.0');
 

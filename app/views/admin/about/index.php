@@ -10,6 +10,15 @@
     </a>
 </div>
 
+<!-- Aviso: Currículo está em página separada -->
+<div class="alert mb-4" style="background:rgba(183,117,255,.08); border:1px solid rgba(183,117,255,.25); color:#c8b0f0; border-radius:8px; font-size:13px;">
+    <i class="bi bi-info-circle-fill me-2" style="color:#B775FF;"></i>
+    <strong>Experiência Profissional e Histórico Académico</strong> são geridos em
+    <a href="<?= BASE_URL ?>/admin/resume" style="color:#B775FF; font-weight:600;">
+        <i class="bi bi-file-person me-1"></i>Admin → Currículo
+    </a>.
+</div>
+
 <?php if ($flash): ?>
 <div class="alert alert-<?= $flash['type'] === 'success' ? 'success' : 'danger' ?> alert-dismissible fade show mb-4" role="alert">
     <?= htmlspecialchars($flash['message']) ?>

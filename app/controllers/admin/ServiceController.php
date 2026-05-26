@@ -17,13 +17,20 @@ class AdminServiceController extends Controller {
     public function store(): void {
         $this->requireAdmin();
         $this->verifyCsrf();
-        (new Service())->create([
-            'title'       => $this->sanitize($this->input('title', '')),
-            'description' => $this->sanitize($this->input('description', '')),
-            'icon'        => $this->sanitize($this->input('icon', '')),
-            'sort_order'  => (int) $this->input('sort_order', 0),
-            'is_active'   => (int) $this->input('is_active', 1),
-        ]);
+        $data = [
+            'title'        => $this->sanitize($this->input('title', '')),
+            'description'  => $this->sanitize($this->input('description', '')),
+            'icon'         => $this->sanitize($this->input('icon', '')),
+            'external_url' => $this->sanitize($this->input('external_url', '')),
+            'sort_order'   => (int) $this->input('sort_order', 0),
+            'is_active'    => (int) $this->input('is_active', 1),
+        ];
+        $img = $this->uploadImage('services');
+        if ($img) $data['image'] = $img;
+        $extra = $this->uploadImages('services');
+        if ($extra) $data['images'] = json_encode($extra);
+        $data['links'] = $this->parseLinks();
+        (new Service())->create($data);
         $this->flash('success', 'Serviço criado.');
         $this->redirect('/admin/services');
     }
@@ -39,13 +46,24 @@ class AdminServiceController extends Controller {
     public function update(int $id): void {
         $this->requireAdmin();
         $this->verifyCsrf();
-        (new Service())->update($id, [
-            'title'       => $this->sanitize($this->input('title', '')),
-            'description' => $this->sanitize($this->input('description', '')),
-            'icon'        => $this->sanitize($this->input('icon', '')),
-            'sort_order'  => (int) $this->input('sort_order', 0),
-            'is_active'   => (int) $this->input('is_active', 1),
-        ]);
+        $service = (new Service())->find($id);
+        if (!$service) $this->redirect('/admin/services');
+        $data = [
+            'title'        => $this->sanitize($this->input('title', '')),
+            'description'  => $this->sanitize($this->input('description', '')),
+            'icon'         => $this->sanitize($this->input('icon', '')),
+            'external_url' => $this->sanitize($this->input('external_url', '')),
+            'sort_order'   => (int) $this->input('sort_order', 0),
+            'is_active'    => (int) $this->input('is_active', 1),
+        ];
+        $img = $this->uploadImage('services');
+        if ($img) $data['image'] = $img;
+        $kept  = $_POST['keep_images'] ?? [];
+        $extra = $this->uploadImages('services');
+        $all   = array_values(array_unique(array_merge($kept, $extra)));
+        $data['images'] = $all ? json_encode($all) : null;
+        $data['links'] = $this->parseLinks();
+        (new Service())->update($id, $data);
         $this->flash('success', 'Serviço atualizado.');
         $this->redirect('/admin/services');
     }

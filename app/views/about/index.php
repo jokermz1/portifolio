@@ -219,93 +219,151 @@
   padding: 90px 0;
   background: #0d0c0f;
 }
+
+/* Column title */
 .resume-title {
   font-family: 'Bebas Neue', serif;
-  font-size: 1.8rem;
-  letter-spacing: .1em;
+  font-size: 2rem;
+  letter-spacing: .12em;
   color: #fff;
-  padding-bottom: 12px;
-  border-bottom: 2px solid rgba(183,117,255,.25);
-  margin-bottom: 32px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid rgba(183,117,255,.3);
+  margin-bottom: 36px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 .resume-title i {
-  width: 32px; height: 32px;
-  background: rgba(183,117,255,.12);
-  border: 1px solid rgba(183,117,255,.25);
-  border-radius: 7px;
+  width: 36px; height: 36px;
+  background: rgba(183,117,255,.15);
+  border: 1px solid rgba(183,117,255,.35);
+  border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
-  color: #B775FF; font-size: 14px; flex-shrink: 0;
+  color: #B775FF; font-size: 16px; flex-shrink: 0;
+  box-shadow: 0 0 14px rgba(183,117,255,.18);
 }
+
+/* Timeline wrapper */
+.resume-timeline {
+  border-left: 2px solid rgba(183,117,255,.25);
+  padding-left: 0;
+  margin-left: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Each card item */
 .resume-item {
-  padding: 0 0 32px 28px;
-  border-left: 2px solid rgba(183,117,255,.2);
   position: relative;
+  padding: 0 0 28px 32px;
 }
+.resume-item:last-child { padding-bottom: 0; }
+
+/* Timeline dot */
 .resume-item::before {
   content: '';
   position: absolute;
-  width: 13px; height: 13px;
+  width: 14px; height: 14px;
   border-radius: 50%;
   left: -8px;
-  top: 3px;
+  top: 18px;
   background: #B775FF;
-  box-shadow: 0 0 0 4px rgba(183,117,255,.15);
+  box-shadow: 0 0 0 4px rgba(183,117,255,.18), 0 0 12px rgba(183,117,255,.4);
+  z-index: 1;
 }
-.resume-item:last-child { padding-bottom: 0; }
-.resume-item h4 {
-  font-size: 16px;
-  font-weight: 700;
-  color: #f0eef8;
-  margin: 0 0 10px;
-  line-height: 1.4;
+
+/* Card container */
+.resume-card {
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(183,117,255,.14);
+  border-radius: 12px;
+  padding: 20px 22px;
+  transition: border-color .25s, background .25s;
+}
+.resume-card:hover {
+  background: rgba(183,117,255,.06);
+  border-color: rgba(183,117,255,.3);
+}
+
+/* Item title */
+.resume-card h4 {
+  font-size: 19px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 12px;
+  line-height: 1.35;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #fff 60%, #c99fff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Period badge */
+.resume-card .resume-period {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 20px;
+  background: rgba(183,117,255,.13);
+  border: 1px solid rgba(183,117,255,.28);
+  color: #c99fff;
+  letter-spacing: .07em;
+  margin-bottom: 14px;
+}
+
+/* Institution / company */
+.resume-card .resume-org {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #c0bdd8;
+  margin-bottom: 14px;
   letter-spacing: .01em;
 }
-.resume-item h5 {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 20px;
-  background: rgba(183,117,255,.1);
-  border: 1px solid rgba(183,117,255,.2);
-  color: #B775FF;
-  letter-spacing: .05em;
-  margin-bottom: 12px;
+.resume-card .resume-org::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #B775FF;
+  flex-shrink: 0;
 }
-.resume-item p {
-  font-size: 14px;
-  color: #8888a8;
-  line-height: 1.85;
-  margin: 0 0 8px;
-  word-spacing: .02em;
+
+/* Description text */
+.resume-card p {
+  font-size: 15px;
+  color: #a8a6c0;
+  line-height: 1.95;
+  margin: 0;
 }
-.resume-item p em {
-  color: #686888;
-  font-style: italic;
-  font-size: 13px;
-}
-.resume-item ul {
-  margin: 8px 0 0;
+
+/* Bullet list */
+.resume-card ul {
+  margin: 6px 0 0;
   padding-left: 20px;
-  font-size: 14px;
-  color: #8888a8;
-  line-height: 1.85;
+  font-size: 15px;
+  color: #a8a6c0;
+  line-height: 1.95;
 }
-.resume-item ul li { margin-bottom: 5px; }
-.resume-item.pb-0 {
-  padding-bottom: 32px;
-  margin-bottom: 8px;
+.resume-card ul li {
+  margin-bottom: 7px;
+  padding-left: 4px;
 }
+.resume-card ul li::marker { color: #B775FF; }
 
 /* Empty state */
 .resume-empty {
   font-size: 14px;
-  color: #3a3a5a;
+  color: #5a5878;
   font-style: italic;
-  padding: 8px 0;
+  padding: 12px 0;
 }
 </style>
 
@@ -471,19 +529,23 @@
             <i class="bi bi-person-badge-fill"></i>
             Sumário
           </h3>
-          <div class="resume-item pb-0">
-            <h4><?= htmlspecialchars($settings['owner_name']) ?></h4>
-            <?php if (!empty($settings['resume_summary'])): ?>
-            <p><em><?= nl2br(htmlspecialchars($settings['resume_summary'])) ?></em></p>
-            <?php endif; ?>
-            <?php $hasContacts = !empty($settings['owner_address']) || !empty($settings['owner_phone']) || !empty($settings['owner_email']); ?>
-            <?php if ($hasContacts): ?>
-            <ul>
-              <?php if (!empty($settings['owner_address'])): ?><li><?= htmlspecialchars($settings['owner_address']) ?></li><?php endif; ?>
-              <?php if (!empty($settings['owner_phone'])): ?><li><?= htmlspecialchars($settings['owner_phone']) ?></li><?php endif; ?>
-              <?php if (!empty($settings['owner_email'])): ?><li><?= htmlspecialchars($settings['owner_email']) ?></li><?php endif; ?>
-            </ul>
-            <?php endif; ?>
+          <div class="resume-timeline mb-4">
+            <div class="resume-item">
+              <div class="resume-card">
+                <h4><?= htmlspecialchars($settings['owner_name']) ?></h4>
+                <?php if (!empty($settings['resume_summary'])): ?>
+                <p><?= nl2br(htmlspecialchars($settings['resume_summary'])) ?></p>
+                <?php endif; ?>
+                <?php $hasContacts = !empty($settings['owner_address']) || !empty($settings['owner_phone']) || !empty($settings['owner_email']); ?>
+                <?php if ($hasContacts): ?>
+                <ul style="margin-top:10px;">
+                  <?php if (!empty($settings['owner_address'])): ?><li><?= htmlspecialchars($settings['owner_address']) ?></li><?php endif; ?>
+                  <?php if (!empty($settings['owner_phone'])): ?><li><?= htmlspecialchars($settings['owner_phone']) ?></li><?php endif; ?>
+                  <?php if (!empty($settings['owner_email'])): ?><li><?= htmlspecialchars($settings['owner_email']) ?></li><?php endif; ?>
+                </ul>
+                <?php endif; ?>
+              </div>
+            </div>
           </div>
           <?php endif; ?>
 
@@ -493,20 +555,26 @@
             Educação
           </h3>
           <?php if (!empty($resume['education'])): ?>
+          <div class="resume-timeline">
             <?php foreach ($resume['education'] as $item): ?>
             <div class="resume-item">
-              <h4><?= htmlspecialchars($item['title']) ?></h4>
-              <?php if (!empty($item['period'])): ?>
-              <h5><?= htmlspecialchars($item['period']) ?></h5>
-              <?php endif; ?>
-              <?php if (!empty($item['subtitle'])): ?>
-              <p><em><?= htmlspecialchars($item['subtitle']) ?></em></p>
-              <?php endif; ?>
-              <?php if (!empty($item['description'])): ?>
-              <p><?= nl2br(htmlspecialchars($item['description'])) ?></p>
-              <?php endif; ?>
+              <div class="resume-card">
+                <h4><?= htmlspecialchars($item['title']) ?></h4>
+                <?php if (!empty($item['period'])): ?>
+                <span class="resume-period">
+                  <i class="bi bi-calendar3"></i><?= htmlspecialchars($item['period']) ?>
+                </span>
+                <?php endif; ?>
+                <?php if (!empty($item['subtitle'])): ?>
+                <div class="resume-org"><?= htmlspecialchars($item['subtitle']) ?></div>
+                <?php endif; ?>
+                <?php if (!empty($item['description'])): ?>
+                <p><?= nl2br(htmlspecialchars($item['description'])) ?></p>
+                <?php endif; ?>
+              </div>
             </div>
             <?php endforeach; ?>
+          </div>
           <?php else: ?>
             <p class="resume-empty">Nenhuma formação adicionada ainda.</p>
           <?php endif; ?>
@@ -521,20 +589,22 @@
             Experiência Profissional
           </h3>
           <?php if (!empty($resume['experience'])): ?>
+          <div class="resume-timeline">
             <?php foreach ($resume['experience'] as $item): ?>
             <div class="resume-item">
-              <h4><?= htmlspecialchars($item['title']) ?></h4>
-              <?php if (!empty($item['period'])): ?>
-              <h5><?= htmlspecialchars($item['period']) ?></h5>
-              <?php endif; ?>
-              <?php if (!empty($item['subtitle'])): ?>
-              <p><em><?= htmlspecialchars($item['subtitle']) ?></em></p>
-              <?php endif; ?>
-              <?php if (!empty($item['description'])): ?>
-              <?php
-                // If description contains newlines, render as list items
-                $lines = array_filter(array_map('trim', explode("\n", $item['description'])));
-                if (count($lines) > 1): ?>
+              <div class="resume-card">
+                <h4><?= htmlspecialchars($item['title']) ?></h4>
+                <?php if (!empty($item['period'])): ?>
+                <span class="resume-period">
+                  <i class="bi bi-calendar3"></i><?= htmlspecialchars($item['period']) ?>
+                </span>
+                <?php endif; ?>
+                <?php if (!empty($item['subtitle'])): ?>
+                <div class="resume-org"><?= htmlspecialchars($item['subtitle']) ?></div>
+                <?php endif; ?>
+                <?php if (!empty($item['description'])): ?>
+                <?php $lines = array_filter(array_map('trim', explode("\n", $item['description']))); ?>
+                <?php if (count($lines) > 1): ?>
                 <ul>
                   <?php foreach ($lines as $line): ?>
                   <li><?= htmlspecialchars($line) ?></li>
@@ -543,9 +613,11 @@
                 <?php else: ?>
                 <p><?= nl2br(htmlspecialchars($item['description'])) ?></p>
                 <?php endif; ?>
-              <?php endif; ?>
+                <?php endif; ?>
+              </div>
             </div>
             <?php endforeach; ?>
+          </div>
           <?php else: ?>
             <p class="resume-empty">Nenhuma experiência adicionada ainda.</p>
           <?php endif; ?>
