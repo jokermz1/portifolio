@@ -6,7 +6,7 @@
     </a>
 </div>
 
-<form method="POST" action="<?= BASE_URL ?>/admin/blog" enctype="multipart/form-data">
+<form method="POST" action="<?= BASE_URL ?>/admin/blog/create" enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
 
     <div class="row g-4">

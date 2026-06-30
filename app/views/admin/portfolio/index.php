@@ -15,6 +15,7 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
+                        <th>Ordem</th>
                         <th>Imagem</th>
                         <th>Título</th>
                         <th>Categoria</th>
@@ -27,6 +28,13 @@
                 <tbody>
                     <?php foreach ($projects as $p): ?>
                     <tr>
+                        <td>
+                            <?php if ((int) ($p['sort_order'] ?? 0) > 0): ?>
+                                <span class="badge bg-primary"><?= (int) $p['sort_order'] ?></span>
+                            <?php else: ?>
+                                <small style="color:var(--text-faint);">auto</small>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <?php if ($p['image']): ?>
                                 <img src="<?= UPLOAD_URL ?>projects/<?= htmlspecialchars($p['image']) ?>"
@@ -66,7 +74,7 @@
                     </tr>
                     <?php endforeach; ?>
                     <?php if (empty($projects)): ?>
-                    <tr><td colspan="7">
+                    <tr><td colspan="8">
                         <div class="empty-state">
                             <i class="bi bi-folder2-open"></i>
                             <p>Nenhum projeto criado ainda.</p>

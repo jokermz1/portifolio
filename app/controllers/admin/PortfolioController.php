@@ -2,7 +2,7 @@
 class AdminPortfolioController extends Controller {
     public function index(): void {
         $this->requireAdmin();
-        $projects = (new Project())->all('created_at', 'DESC');
+        $projects = (new Project())->ordered();
         $flash    = $this->getFlash();
         $this->view('admin/portfolio/index', compact('projects', 'flash'), 'admin');
     }
@@ -24,9 +24,11 @@ class AdminPortfolioController extends Controller {
             'description'  => $this->sanitize($this->input('description', '')),
             'content'      => $this->input('content', ''),
             'category'     => $this->sanitize($this->input('category', '')),
+            'client'       => $this->sanitize($this->input('client', '')),
             'project_url'  => $this->sanitize($this->input('project_url', '')),
             'is_featured'  => (int) $this->input('is_featured', 0),
             'is_published' => (int) $this->input('is_published', 1),
+            'sort_order'   => max(0, (int) $this->input('sort_order', 0)),
         ];
         $data['slug'] = $model->generateSlug($data['title']);
 
@@ -34,7 +36,14 @@ class AdminPortfolioController extends Controller {
         if ($img) $data['image'] = $img;
 
         $extra = $this->uploadImages('projects');
-        if ($extra) $data['images'] = json_encode($extra);
+        if ($extra) {
+            $caps    = $_POST['image_captions'] ?? [];
+            $gallery = [];
+            foreach ($extra as $i => $f) {
+                $gallery[] = ['file' => $f, 'caption' => $this->sanitize($caps[$i] ?? '')];
+            }
+            $data['images'] = json_encode($gallery, JSON_UNESCAPED_UNICODE);
+        }
 
         $data['links'] = $this->parseLinks();
 
@@ -67,18 +76,27 @@ class AdminPortfolioController extends Controller {
             'description'  => $this->sanitize($this->input('description', '')),
             'content'      => $this->input('content', ''),
             'category'     => $this->sanitize($this->input('category', '')),
+            'client'       => $this->sanitize($this->input('client', '')),
             'project_url'  => $this->sanitize($this->input('project_url', '')),
             'is_featured'  => (int) $this->input('is_featured', 0),
             'is_published' => (int) $this->input('is_published', 1),
+            'sort_order'   => max(0, (int) $this->input('sort_order', 0)),
         ];
 
         $img = $this->uploadImage('projects');
         if ($img) $data['image'] = $img;
 
-        $kept  = $_POST['keep_images'] ?? [];
-        $extra = $this->uploadImages('projects');
-        $all   = array_values(array_unique(array_merge($kept, $extra)));
-        $data['images'] = $all ? json_encode($all) : null;
+        // Galeria: mantém as imagens existentes (com legenda) e acrescenta as novas
+        $kept     = $_POST['keep_images']    ?? [];
+        $captions = $_POST['image_captions'] ?? [];
+        $gallery  = [];
+        foreach ($kept as $file) {
+            $gallery[] = ['file' => $file, 'caption' => $this->sanitize($captions[$file] ?? '')];
+        }
+        foreach ($this->uploadImages('projects') as $file) {
+            $gallery[] = ['file' => $file, 'caption' => ''];
+        }
+        $data['images'] = $gallery ? json_encode($gallery, JSON_UNESCAPED_UNICODE) : null;
 
         $data['links'] = $this->parseLinks();
 

@@ -1,6 +1,6 @@
 <?php
 $pageTitle   = 'Editar Projeto — Admin';
-$extraImages = json_decode($project['images'] ?? '[]', true) ?: [];
+$extraImages = Project::galleryItems($project['images'] ?? '[]');
 ?>
 <div class="page-header">
     <h1 class="page-title">Editar Projeto</h1>
@@ -25,12 +25,12 @@ $extraImages = json_decode($project['images'] ?? '[]', true) ?: [];
                 <div class="card-header"><i class="bi bi-folder2 me-2" style="color:var(--accent);"></i>Informações do Projeto</div>
                 <div class="card-body">
                     <div class="row g-3">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <label class="form-label">Título *</label>
                             <input type="text" name="title" value="<?= htmlspecialchars($project['title']) ?>"
                                    class="form-control" required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="form-label">Categoria</label>
                             <input type="text" name="category" list="cat-list"
                                    value="<?= htmlspecialchars($project['category'] ?? '') ?>"
@@ -40,6 +40,12 @@ $extraImages = json_decode($project['images'] ?? '[]', true) ?: [];
                                 <option value="<?= htmlspecialchars($cat) ?>">
                                 <?php endforeach; ?>
                             </datalist>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Cliente</label>
+                            <input type="text" name="client"
+                                   value="<?= htmlspecialchars($project['client'] ?? '') ?>"
+                                   class="form-control" placeholder="ex: Hachicko Tee">
                         </div>
                         <div class="col-12">
                             <label class="form-label">Descrição curta</label>
@@ -81,15 +87,20 @@ $extraImages = json_decode($project['images'] ?? '[]', true) ?: [];
                     <!-- Galeria extra existente -->
                     <?php if ($extraImages): ?>
                     <hr style="border-color:rgba(255,255,255,.07); margin:18px 0 14px;">
-                    <label class="form-label">Imagens da Galeria <small style="color:var(--text-faint); font-weight:400;">— clica × para remover</small></label>
-                    <div class="d-flex flex-wrap gap-2 mb-3" id="existing-gallery">
-                        <?php foreach ($extraImages as $img): ?>
-                        <div class="position-relative" id="wrap-<?= md5($img) ?>">
-                            <img src="<?= UPLOAD_URL ?>projects/<?= htmlspecialchars($img) ?>"
-                                 style="height:80px; width:80px; object-fit:cover; border-radius:8px; border:1px solid rgba(183,117,255,.2);" alt="">
-                            <input type="hidden" name="keep_images[]" value="<?= htmlspecialchars($img) ?>" id="keep-<?= md5($img) ?>">
-                            <button type="button" onclick="removeImg('<?= md5($img) ?>')"
-                                    style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#f87171;border:none;color:#fff;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;">×</button>
+                    <label class="form-label">Imagens da Galeria <small style="color:var(--text-faint); font-weight:400;">— dá um título a cada imagem · clica × para remover</small></label>
+                    <div class="row g-3 mb-3" id="existing-gallery">
+                        <?php foreach ($extraImages as $g): $file = $g['file']; $hash = md5($file); ?>
+                        <div class="col-6 col-md-4" id="wrap-<?= $hash ?>">
+                            <div class="position-relative">
+                                <img src="<?= UPLOAD_URL ?>projects/<?= htmlspecialchars($file) ?>"
+                                     style="height:110px; width:100%; object-fit:cover; border-radius:8px; border:1px solid rgba(183,117,255,.2);" alt="">
+                                <input type="hidden" name="keep_images[]" value="<?= htmlspecialchars($file) ?>">
+                                <button type="button" onclick="removeImg('<?= $hash ?>')"
+                                        style="position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:#f87171;border:none;color:#fff;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;">×</button>
+                            </div>
+                            <input type="text" name="image_captions[<?= htmlspecialchars($file) ?>]"
+                                   value="<?= htmlspecialchars($g['caption']) ?>"
+                                   class="form-control form-control-sm mt-2" placeholder="Título da imagem">
                         </div>
                         <?php endforeach; ?>
                     </div>
@@ -117,6 +128,14 @@ $extraImages = json_decode($project['images'] ?? '[]', true) ?: [];
                         <input class="form-check-input" type="checkbox" name="is_featured" value="1"
                                id="is_featured" <?= $project['is_featured'] ? 'checked' : '' ?>>
                         <label class="form-check-label" for="is_featured">Destacado na homepage</label>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Ordem</label>
+                        <input type="number" name="sort_order" min="0"
+                               value="<?= (int) ($project['sort_order'] ?? 0) ?>" class="form-control">
+                        <small style="color:var(--text-faint); font-size:11px;">
+                            <i class="bi bi-info-circle me-1"></i>0 = automático (por data). 1 = aparece primeiro, depois 2, 3…
+                        </small>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">
                         <i class="bi bi-save me-1"></i>Guardar Alterações

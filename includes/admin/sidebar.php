@@ -67,6 +67,17 @@ function adminActive(string $path, string $uri, string $base): string {
             </a>
         </li>
         <li>
+            <a class="nav-link <?= adminActive('/admin/testimonials', $uri, $base) ?>"
+               href="<?= BASE_URL ?>/admin/testimonials">
+                <i class="bi bi-star-half"></i>
+                Depoimentos
+                <?php $pendingReviews = (new Testimonial())->countPending();
+                if ($pendingReviews > 0): ?>
+                    <span class="nav-badge badge bg-warning text-dark"><?= $pendingReviews ?></span>
+                <?php endif; ?>
+            </a>
+        </li>
+        <li>
             <a class="nav-link <?= adminActive('/admin/messages', $uri, $base) ?>"
                href="<?= BASE_URL ?>/admin/messages">
                 <i class="bi bi-envelope"></i>

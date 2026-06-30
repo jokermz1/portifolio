@@ -35,6 +35,7 @@ require_once APP_PATH . '/models/Setting.php';
 require_once APP_PATH . '/models/Faq.php';
 require_once APP_PATH . '/models/TeamMember.php';
 require_once APP_PATH . '/models/ResumeItem.php';
+require_once APP_PATH . '/models/Testimonial.php';
 
 // ── Controllers (públicos) ───────────────────────────────────
 require_once APP_PATH . '/controllers/HomeController.php';
@@ -48,6 +49,7 @@ require_once APP_PATH . '/controllers/CommentController.php';
 require_once APP_PATH . '/controllers/FaqController.php';
 require_once APP_PATH . '/controllers/TeamController.php';
 require_once APP_PATH . '/controllers/AboutController.php';
+require_once APP_PATH . '/controllers/TestimonialController.php';
 
 // ── Controllers (admin) ──────────────────────────────────────
 require_once APP_PATH . '/controllers/admin/AuthController.php';
@@ -64,6 +66,7 @@ require_once APP_PATH . '/controllers/admin/TeamController.php';
 require_once APP_PATH . '/controllers/admin/ResumeController.php';
 require_once APP_PATH . '/controllers/admin/SkillController.php';
 require_once APP_PATH . '/controllers/admin/AboutMeController.php';
+require_once APP_PATH . '/controllers/admin/TestimonialController.php';
 
 // ── Dispatch ─────────────────────────────────────────────────
 $router = new Router();

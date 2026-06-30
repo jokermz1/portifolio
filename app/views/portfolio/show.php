@@ -1,17 +1,30 @@
-<?php $pageTitle = htmlspecialchars($project['title']) . ' — Portfolio'; ?>
+<?php
+$pageTitle = htmlspecialchars($project['title']) . ' — Portfolio';
+$links     = json_decode($project['links'] ?? '[]', true) ?: [];
+$gallery   = Project::galleryItems($project['images'] ?? '[]');
+$projectUrl = $project['project_url'] ?: ($links[0]['url'] ?? '');
+?>
 
     <!-- ═══ PAGE TITLE ══════════════════════════════════════════ -->
     <section id="page-title" class="padding-medium pb-0">
         <div class="container text-white">
             <div class="row justify-content-center text-center">
-                <div class="col-xl-8">
-                    <p class="letter-space text-primary fs-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-xl-9">
+                    <p class="letter-space fs-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
                         <a href="<?= BASE_URL ?>/" class="text-primary text-decoration-none">Home</a>
-                        <span class="mx-2 text-muted">›</span>
+                        <span class="mx-2 text-muted">/</span>
                         <a href="<?= BASE_URL ?>/portfolio" class="text-primary text-decoration-none">Portfolio</a>
-                        <span class="mx-2 text-muted">›</span>
-                        <span class="text-white"><?= htmlspecialchars($project['title']) ?></span>
+                        <span class="mx-2 text-muted">/</span>
+                        <span class="text-muted"><?= htmlspecialchars($project['title']) ?></span>
                     </p>
+                    <h1 class="banner-size display-1" data-aos="fade-up" data-aos-duration="1200">
+                        <?= htmlspecialchars($project['title']) ?>
+                    </h1>
+                    <?php if (!empty($project['description'])): ?>
+                    <p class="fs-5 mt-3" data-aos="fade-up" data-aos-duration="1400">
+                        <?= htmlspecialchars($project['description']) ?>
+                    </p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -30,180 +43,179 @@
 
             <section class="padding-medium">
                 <div class="container">
-                    <div class="row g-5">
 
-                        <!-- ══ Main Content ══════════════════════ -->
-                        <div class="col-lg-8" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- ══ Categoria + Título ══════════════════ -->
+                    <?php if (!empty($project['category'])): ?>
+                    <p class="letter-space text-primary mb-2" style="font-size:0.85rem;" data-aos="fade-up">
+                        <?= htmlspecialchars(strtoupper($project['category'])) ?>
+                    </p>
+                    <?php endif; ?>
+                    <h2 class="display-3 mb-5" data-aos="fade-up"><?= htmlspecialchars($project['title']) ?></h2>
 
-                            <!-- Featured image -->
-                            <?php if (!empty($project['image'])): ?>
-                            <div class="image-zoom rounded-3 overflow-hidden mb-5">
-                                <img src="<?= UPLOAD_URL ?>projects/<?= htmlspecialchars($project['image']) ?>"
-                                     class="img-fluid w-100"
-                                     style="max-height: 500px; object-fit: cover;"
-                                     alt="<?= htmlspecialchars($project['title']) ?>">
+                    <!-- ══ Info (esquerda) + Descrição (direita) ══ -->
+                    <div class="row g-5 mb-5" data-aos="fade-up" data-aos-duration="1000">
+
+                        <div class="col-lg-4">
+                            <?php if (!empty($project['client'])): ?>
+                            <div class="mb-4">
+                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;">CLIENT</p>
+                                <p class="fs-5 text-white mb-0"><?= htmlspecialchars($project['client']) ?></p>
                             </div>
                             <?php endif; ?>
 
-                            <!-- Title + meta row -->
-                            <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
-                                <?php if (!empty($project['category'])): ?>
-                                <span class="letter-space text-primary" style="font-size:0.75rem;">
-                                    <?= htmlspecialchars($project['category']) ?>
-                                </span>
-                                <span class="text-muted">·</span>
-                                <?php endif; ?>
-                                <small class="text-muted">
-                                    <?= date('d M Y', strtotime($project['created_at'])) ?>
-                                </small>
+                            <div class="mb-4">
+                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;">DATE</p>
+                                <p class="fs-5 text-white mb-0"><?= date('d-m-Y', strtotime($project['created_at'])) ?></p>
                             </div>
 
-                            <h1 class="display-4 text-white mb-4"><?= htmlspecialchars($project['title']) ?></h1>
-
-                            <!-- Short description -->
-                            <?php if (!empty($project['description'])): ?>
-                            <p class="fs-5 text-muted lh-lg mb-5">
-                                <?= htmlspecialchars($project['description']) ?>
-                            </p>
+                            <?php if (!empty($project['category'])): ?>
+                            <div class="mb-4">
+                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;">CATEGORY</p>
+                                <p class="fs-5 text-white mb-0"><?= htmlspecialchars($project['category']) ?></p>
+                            </div>
                             <?php endif; ?>
 
-                            <!-- Full content -->
+                            <?php if (!empty($projectUrl)): ?>
+                            <div class="mb-4">
+                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;">PROJECT LINK</p>
+                                <a href="<?= htmlspecialchars($projectUrl) ?>" target="_blank" rel="noopener noreferrer"
+                                   class="fs-5 text-white text-decoration-none text-break border-bottom border-primary">
+                                    <?= htmlspecialchars($projectUrl) ?>
+                                </a>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="col-lg-8">
                             <?php if (!empty($project['content'])): ?>
-                            <div class="text-muted lh-lg mb-5 post-content">
+                            <div class="fs-5 lh-lg post-content">
                                 <?= nl2br(htmlspecialchars($project['content'])) ?>
                             </div>
+                            <?php elseif (!empty($project['description'])): ?>
+                            <p class="fs-4 lh-base fw-light"><?= htmlspecialchars($project['description']) ?></p>
                             <?php endif; ?>
 
-                            <!-- Visit project button -->
-                            <?php if (!empty($project['project_url'])): ?>
-                            <div class="mb-5">
-                                <a href="<?= htmlspecialchars($project['project_url']) ?>"
-                                   target="_blank" rel="noopener noreferrer"
+                            <?php if (!empty($links)): ?>
+                            <div class="d-flex flex-wrap gap-2 mt-4">
+                                <?php foreach ($links as $lnk): if (empty($lnk['url'])) continue; ?>
+                                <a href="<?= htmlspecialchars($lnk['url']) ?>" target="_blank" rel="noopener noreferrer"
                                    class="btn button rounded-pill position-relative pe-5">
-                                    <span>View Live Project</span>
+                                    <span><?= htmlspecialchars($lnk['label'] ?: 'Visitar') ?></span>
                                     <div class="position-absolute top-50 end-0 translate-middle-y me-2">
                                         <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
                                             <use xlink:href="#arrow-right"></use>
                                         </svg>
                                     </div>
                                 </a>
-                            </div>
-                            <?php endif; ?>
-
-                            <hr class="border-light border-opacity-25 my-5">
-
-                            <!-- Flash message -->
-                            <?php if (!empty($flash)): ?>
-                            <div class="alert alert-<?= $flash['type'] === 'success' ? 'success' : 'danger' ?> alert-dismissible fade show mb-4" role="alert">
-                                <?= htmlspecialchars($flash['message']) ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                            <?php endif; ?>
-
-                            <!-- Comments -->
-                            <?php View::partial('comment-list', [
-                                'comments'   => $comments,
-                                'user'       => $user,
-                                'csrf'       => $csrf,
-                                'entityType' => 'project',
-                                'entityId'   => $project['id'],
-                            ]); ?>
-
-                            <hr class="border-light border-opacity-25 my-4">
-
-                            <?php View::partial('comment-form', [
-                                'entityType' => 'project',
-                                'entityId'   => $project['id'],
-                                'csrf'       => $csrf,
-                                'user'       => $user,
-                            ]); ?>
-
-                        </div><!-- /col-lg-8 -->
-
-                        <!-- ══ Sidebar ════════════════════════════ -->
-                        <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1200">
-
-                            <!-- Project info card -->
-                            <div class="border border-light border-opacity-25 rounded-4 p-4 mb-4"
-                                 style="background: rgba(255,255,255,0.04);">
-                                <h5 class="letter-space text-primary mb-4" style="font-size:0.8rem;">Project Info</h5>
-                                <ul class="list-unstyled mb-0">
-                                    <?php if (!empty($project['category'])): ?>
-                                    <li class="d-flex justify-content-between py-3 border-bottom border-light border-opacity-10">
-                                        <span class="text-muted small">Category</span>
-                                        <span class="text-white small fw-semibold"><?= htmlspecialchars($project['category']) ?></span>
-                                    </li>
-                                    <?php endif; ?>
-                                    <li class="d-flex justify-content-between py-3 border-bottom border-light border-opacity-10">
-                                        <span class="text-muted small">Date</span>
-                                        <span class="text-white small fw-semibold">
-                                            <?= date('d M Y', strtotime($project['created_at'])) ?>
-                                        </span>
-                                    </li>
-                                    <li class="d-flex justify-content-between py-3 border-bottom border-light border-opacity-10">
-                                        <span class="text-muted small">Comments</span>
-                                        <span class="text-white small fw-semibold"><?= count($comments) ?></span>
-                                    </li>
-                                    <?php if ($project['is_featured']): ?>
-                                    <li class="d-flex justify-content-between py-3">
-                                        <span class="text-muted small">Featured</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor" class="text-primary" viewBox="0 0 16 16">
-                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                        </svg>
-                                    </li>
-                                    <?php endif; ?>
-                                </ul>
-                            </div>
-
-                            <!-- Buttons -->
-                            <?php if (!empty($project['project_url'])): ?>
-                            <a href="<?= htmlspecialchars($project['project_url']) ?>"
-                               target="_blank" rel="noopener noreferrer"
-                               class="btn button rounded-pill position-relative pe-5 w-100 mb-3">
-                                <span>View Project</span>
-                                <div class="position-absolute top-50 end-0 translate-middle-y me-2">
-                                    <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
-                                        <use xlink:href="#arrow-right"></use>
-                                    </svg>
-                                </div>
-                            </a>
-                            <?php endif; ?>
-
-                            <a href="<?= BASE_URL ?>/portfolio"
-                               class="btn btn-outline-light rounded-pill py-3 w-100 mb-4">
-                                ← All Projects
-                            </a>
-
-                            <!-- Related projects -->
-                            <?php if (!empty($related)): ?>
-                            <div class="border border-light border-opacity-25 rounded-4 p-4"
-                                 style="background: rgba(255,255,255,0.04);">
-                                <h5 class="letter-space text-primary mb-4" style="font-size:0.8rem;">Related Projects</h5>
-                                <?php foreach ($related as $r): ?>
-                                <a href="<?= BASE_URL ?>/portfolio/<?= htmlspecialchars($r['slug']) ?>"
-                                   class="d-flex align-items-center gap-3 mb-3 text-decoration-none">
-                                    <?php if (!empty($r['image'])): ?>
-                                    <img src="<?= UPLOAD_URL ?>projects/<?= htmlspecialchars($r['image']) ?>"
-                                         width="60" height="50"
-                                         style="object-fit:cover; border-radius:8px; flex-shrink:0;"
-                                         alt="">
-                                    <?php else: ?>
-                                    <div class="flex-shrink-0 rounded-3"
-                                         style="width:60px;height:50px;background:rgba(119,16,233,0.3);"></div>
-                                    <?php endif; ?>
-                                    <div>
-                                        <p class="text-white mb-0 small fw-semibold"><?= htmlspecialchars($r['title']) ?></p>
-                                        <p class="text-muted mb-0" style="font-size:0.75rem;"><?= htmlspecialchars($r['category'] ?? '') ?></p>
-                                    </div>
-                                </a>
                                 <?php endforeach; ?>
                             </div>
                             <?php endif; ?>
+                        </div>
+                    </div>
 
-                        </div><!-- /col-lg-4 -->
+                    <!-- ══ Imagem de capa ══════════════════════ -->
+                    <?php if (!empty($project['image'])): ?>
+                    <div class="image-zoom rounded-4 overflow-hidden mb-4" data-aos="fade-up">
+                        <img src="<?= UPLOAD_URL ?>projects/<?= htmlspecialchars($project['image']) ?>"
+                             class="img-fluid w-100" style="max-height:620px; object-fit:cover;"
+                             alt="<?= htmlspecialchars($project['title']) ?>">
+                    </div>
+                    <?php endif; ?>
 
-                    </div><!-- /row -->
+                    <!-- ══ Galeria de imagens (com títulos) ════ -->
+                    <?php if (!empty($gallery)): ?>
+                    <div class="row g-4 mt-2" data-aos="fade-up">
+                        <?php foreach ($gallery as $g): ?>
+                        <div class="col-md-6">
+                            <figure class="mb-0">
+                                <div class="image-zoom rounded-4 overflow-hidden">
+                                    <img src="<?= UPLOAD_URL ?>projects/<?= htmlspecialchars($g['file']) ?>"
+                                         class="w-100" style="aspect-ratio:4/3; object-fit:cover; display:block;"
+                                         alt="<?= htmlspecialchars($g['caption'] ?: $project['title']) ?>">
+                                </div>
+                                <?php if (!empty($g['caption'])): ?>
+                                <figcaption class="fs-5 text-white mt-3 mb-0"><?= htmlspecialchars($g['caption']) ?></figcaption>
+                                <?php endif; ?>
+                            </figure>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- ══ Voltar / Ver projeto ════════════════ -->
+                    <div class="d-flex flex-wrap gap-3 mt-5 pt-3">
+                        <a href="<?= BASE_URL ?>/portfolio" class="btn btn-outline-light rounded-pill px-4 py-3">
+                            ← All Projects
+                        </a>
+                        <?php if (!empty($projectUrl)): ?>
+                        <a href="<?= htmlspecialchars($projectUrl) ?>" target="_blank" rel="noopener noreferrer"
+                           class="btn button rounded-pill position-relative pe-5">
+                            <span>View Live Project</span>
+                            <div class="position-absolute top-50 end-0 translate-middle-y me-2">
+                                <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg>
+                            </div>
+                        </a>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- ══ Projetos relacionados ═══════════════ -->
+                    <?php if (!empty($related)): ?>
+                    <hr class="border-light border-opacity-25 my-5">
+                    <h3 class="display-5 mb-4">Related projects<span class="text-primary">.</span></h3>
+                    <div class="row g-4">
+                        <?php foreach ($related as $r): ?>
+                        <div class="col-md-4">
+                            <div class="blog-post">
+                                <div class="image-zoom rounded-3 overflow-hidden">
+                                    <a href="<?= BASE_URL ?>/portfolio/<?= htmlspecialchars($r['slug']) ?>" class="blog-img">
+                                        <?php if (!empty($r['image'])): ?>
+                                            <img src="<?= UPLOAD_URL ?>projects/<?= htmlspecialchars($r['image']) ?>"
+                                                 class="img-fluid w-100" style="height:220px; object-fit:cover;" alt="">
+                                        <?php else: ?>
+                                            <div style="height:220px; background:rgba(119,16,233,0.25);"></div>
+                                        <?php endif; ?>
+                                    </a>
+                                </div>
+                                <p class="text-uppercase text-primary fw-semibold mt-3 mb-1" style="font-size:0.8rem;">
+                                    <?= htmlspecialchars($r['category'] ?? '') ?>
+                                </p>
+                                <h5 class="fs-4">
+                                    <a href="<?= BASE_URL ?>/portfolio/<?= htmlspecialchars($r['slug']) ?>"
+                                       class="text-white text-decoration-none"><?= htmlspecialchars($r['title']) ?></a>
+                                </h5>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- ══ Comentários ═════════════════════════ -->
+                    <hr class="border-light border-opacity-25 my-5">
+
+                    <?php if (!empty($flash)): ?>
+                    <div class="alert alert-<?= $flash['type'] === 'success' ? 'success' : 'danger' ?> alert-dismissible fade show mb-4" role="alert">
+                        <?= htmlspecialchars($flash['message']) ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php View::partial('comment-list', [
+                        'comments'   => $comments,
+                        'user'       => $user,
+                        'csrf'       => $csrf,
+                        'entityType' => 'project',
+                        'entityId'   => $project['id'],
+                    ]); ?>
+
+                    <?php View::partial('comment-form', [
+                        'entityType' => 'project',
+                        'entityId'   => $project['id'],
+                        'csrf'       => $csrf,
+                        'user'       => $user,
+                    ]); ?>
+
                 </div>
             </section>
 

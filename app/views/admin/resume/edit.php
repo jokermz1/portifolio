@@ -13,7 +13,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form method="POST" action="<?= BASE_URL ?>/admin/resume/<?= $item['id'] ?>/edit">
+        <form method="POST" action="<?= BASE_URL ?>/admin/resume/<?= $item['id'] ?>/edit" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
 
             <div class="row g-3">
@@ -89,6 +89,58 @@
                     <textarea name="description" class="form-control" rows="4"><?= htmlspecialchars($item['description'] ?? '') ?></textarea>
                     <small style="color:var(--text-faint); font-size:11px;">
                         Pode usar nova linha para separar parágrafos.
+                    </small>
+                </div>
+
+                <!-- Anexo / Comprovante -->
+                <div class="col-12">
+                    <label class="form-label">
+                        <i class="bi bi-paperclip me-1" style="color:var(--accent);"></i>
+                        Anexo / Comprovante
+                    </label>
+
+                    <?php if (!empty($item['attachment'])): ?>
+                    <!-- Ficheiro existente -->
+                    <div class="d-flex align-items-center gap-3 mb-2 p-2"
+                         style="background:rgba(183,117,255,.06); border:1px solid rgba(183,117,255,.2); border-radius:8px;">
+                        <?php
+                        $ext = strtolower(pathinfo($item['attachment'], PATHINFO_EXTENSION));
+                        $iconClass = match($ext) {
+                            'pdf'         => 'bi-file-earmark-pdf-fill',
+                            'doc','docx'  => 'bi-file-earmark-word-fill',
+                            'jpg','jpeg','png','webp' => 'bi-file-earmark-image-fill',
+                            default       => 'bi-file-earmark-fill',
+                        };
+                        ?>
+                        <i class="bi <?= $iconClass ?>" style="color:#B775FF; font-size:22px; flex-shrink:0;"></i>
+                        <div style="flex:1; min-width:0;">
+                            <p style="font-size:12px; color:var(--text-primary); margin:0; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                <?= htmlspecialchars($item['attachment_name'] ?? $item['attachment']) ?>
+                            </p>
+                            <a href="<?= UPLOAD_URL ?>resume/<?= htmlspecialchars($item['attachment']) ?>"
+                               target="_blank" style="font-size:11px; color:#B775FF;">
+                                <i class="bi bi-box-arrow-up-right me-1"></i>Abrir ficheiro
+                            </a>
+                        </div>
+                        <div class="form-check mb-0">
+                            <input class="form-check-input" type="checkbox" name="remove_attachment"
+                                   value="1" id="remove_attachment">
+                            <label class="form-check-label" for="remove_attachment"
+                                   style="font-size:12px; color:#ff6b6b;">
+                                Apagar
+                            </label>
+                        </div>
+                    </div>
+                    <label class="form-label" style="font-size:12px; color:var(--text-faint); margin-bottom:4px;">
+                        Substituir por outro ficheiro (opcional):
+                    </label>
+                    <?php endif; ?>
+
+                    <input type="file" name="attachment" class="form-control"
+                           accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx">
+                    <small style="color:var(--text-faint); font-size:11px;">
+                        PDF, imagem ou documento Word. Máx. 15 MB.
+                        <?= !empty($item['attachment']) ? 'Carregar novo substitui o anterior.' : 'Exemplo: diploma, certificado.' ?>
                     </small>
                 </div>
 

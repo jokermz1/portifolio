@@ -11,7 +11,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form method="POST" action="<?= BASE_URL ?>/admin/resume/create">
+        <form method="POST" action="<?= BASE_URL ?>/admin/resume/create" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
 
             <div class="row g-3">
@@ -83,6 +83,20 @@
                     </small>
                 </div>
 
+                <!-- Anexo / Comprovante -->
+                <div class="col-12">
+                    <label class="form-label">
+                        <i class="bi bi-paperclip me-1" style="color:var(--accent);"></i>
+                        Anexo / Comprovante
+                    </label>
+                    <input type="file" name="attachment" class="form-control"
+                           accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx">
+                    <small style="color:var(--text-faint); font-size:11px;">
+                        Opcional. PDF, imagem ou documento Word. Máx. 15 MB.
+                        Exemplo: diploma, certificado, carta de recomendação.
+                    </small>
+                </div>
+
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">
                         <i class="bi bi-save me-1"></i>Criar Item
@@ -95,7 +109,6 @@
 </div>
 
 <script>
-// Ajusta labels consoante o tipo selecionado
 const radios = document.querySelectorAll('input[name="type"]');
 const titleLabel    = document.getElementById('title-label');
 const titleInput    = document.getElementById('title-input');

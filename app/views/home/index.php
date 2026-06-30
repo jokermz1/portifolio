@@ -83,28 +83,27 @@
                     <div class="row" data-aos="fade-up" data-aos-duration="1500">
                         <div class="col-lg-6 mb-5 mb-lg-0">
                             <h3 class="display-3 mb-4">Core Skills<span class="text-primary">.</span></h3>
+                            <div class="row g-3">
                             <?php if (!empty($skills)): ?>
                                 <?php foreach ($skills as $category => $categorySkills): ?>
                                     <?php foreach ($categorySkills as $skill): ?>
-                                    <div class="border-start border-primary ps-3 border-opacity-50 mb-4">
-                                        <h5 class="display-6"><?= htmlspecialchars($skill['name']) ?></h5>
+                                    <div class="col-6">
+                                        <div class="border-start border-primary ps-3 border-opacity-50 h-100 d-flex align-items-center">
+                                            <h5 class="fs-4 mb-0"><?= htmlspecialchars($skill['name']) ?></h5>
+                                        </div>
                                     </div>
                                     <?php endforeach; ?>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                                <div class="border-start border-primary ps-3 border-opacity-50 mb-4">
-                                    <h5 class="display-6">Logo Design</h5>
-                                </div>
-                                <div class="border-start border-primary ps-3 border-opacity-50 mb-4">
-                                    <h5 class="display-6">Web Design</h5>
-                                </div>
-                                <div class="border-start border-primary ps-3 border-opacity-50 mb-4">
-                                    <h5 class="display-6">Brand Identity</h5>
-                                </div>
-                                <div class="border-start border-primary ps-3 border-opacity-50 mb-4">
-                                    <h5 class="display-6">UI/UX Prototyping</h5>
-                                </div>
+                                <?php foreach (['Logo Design','Web Design','Brand Identity','UI/UX Prototyping'] as $sk): ?>
+                                    <div class="col-6">
+                                        <div class="border-start border-primary ps-3 border-opacity-50 h-100 d-flex align-items-center">
+                                            <h5 class="fs-4 mb-0"><?= $sk ?></h5>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
                             <?php endif; ?>
+                            </div>
                         </div>
 
                         <div class="col-lg-6">
@@ -235,60 +234,71 @@
                         <div class="col-md-7">
                             <div class="swiper testimonial-swiper">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide text-center">
-                                        <div class="testimonial-details">
-                                            <svg class="text-primary" width="80" height="80">
-                                                <use xlink:href="#quote-left"></use>
-                                            </svg>
-                                            <p class="fs-2 lh-base fst-italic fw-light">
-                                                <?= htmlspecialchars($settings['testimonial_1'] ?? "Kiwi's designs completely transformed our branding. Her attention to detail and creativity were incredible!") ?>
-                                            </p>
-                                            <div class="text-center mt-4">
-                                                <img src="<?= BASE_URL ?>/images/commentor3.jpg" alt="img"
-                                                     class="img-fluid rounded-circle">
-                                                <div class="mt-2">
-                                                    <p class="m-0 fw-bold"><?= htmlspecialchars($settings['testimonial_1_name'] ?? 'Emma Brown') ?></p>
-                                                    <p class="m-0 fw-light"><?= htmlspecialchars($settings['testimonial_1_location'] ?? 'United States') ?></p>
+                                    <?php if (!empty($testimonials)): ?>
+                                        <?php foreach ($testimonials as $t): ?>
+                                        <div class="swiper-slide text-center">
+                                            <div class="testimonial-details">
+                                                <svg class="text-primary" width="80" height="80">
+                                                    <use xlink:href="#quote-left"></use>
+                                                </svg>
+                                                <?php if (!empty($t['rating'])): ?>
+                                                <div class="mb-2 fs-5">
+                                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                        <i class="bi bi-star<?= $i <= (int) $t['rating'] ? '-fill' : '' ?> text-primary"></i>
+                                                    <?php endfor; ?>
+                                                </div>
+                                                <?php endif; ?>
+                                                <p class="fs-2 lh-base fst-italic fw-light">
+                                                    <?= htmlspecialchars($t['content']) ?>
+                                                </p>
+                                                <div class="text-center mt-4">
+                                                    <?php if (!empty($t['avatar'])): ?>
+                                                        <img src="<?= UPLOAD_URL ?>avatars/<?= htmlspecialchars($t['avatar']) ?>"
+                                                             alt="<?= htmlspecialchars($t['name']) ?>" class="img-fluid rounded-circle"
+                                                             style="width:70px;height:70px;object-fit:cover;">
+                                                    <?php else: ?>
+                                                        <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white fw-bold"
+                                                              style="width:70px;height:70px;font-size:1.6rem;">
+                                                            <?= htmlspecialchars(mb_strtoupper(mb_substr($t['name'], 0, 1))) ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                    <div class="mt-2">
+                                                        <p class="m-0 fw-bold"><?= htmlspecialchars($t['name']) ?></p>
+                                                        <?php $sub = trim(($t['role'] ?? '') . (($t['role'] && $t['location']) ? ' · ' : '') . ($t['location'] ?? '')); ?>
+                                                        <?php if ($sub): ?>
+                                                            <p class="m-0 fw-light"><?= htmlspecialchars($sub) ?></p>
+                                                        <?php endif; ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="swiper-slide text-center">
-                                        <div class="testimonial-details">
-                                            <svg class="text-primary" width="80" height="80">
-                                                <use xlink:href="#quote-left"></use>
-                                            </svg>
-                                            <p class="fs-2 lh-base fst-italic fw-light">
-                                                <?= htmlspecialchars($settings['testimonial_2'] ?? "Working with this designer was an amazing experience. Delivered beyond expectations!") ?>
-                                            </p>
-                                            <div class="text-center mt-4">
-                                                <img src="<?= BASE_URL ?>/images/commentor2.jpg" alt="img"
-                                                     class="img-fluid rounded-circle">
-                                                <div class="mt-2">
-                                                    <p class="m-0 fw-bold"><?= htmlspecialchars($settings['testimonial_2_name'] ?? 'John Carter') ?></p>
-                                                    <p class="m-0 fw-light"><?= htmlspecialchars($settings['testimonial_2_location'] ?? 'United Kingdom') ?></p>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <?php
+                                        $defaultReviews = [
+                                            ['commentor3.jpg', $settings['testimonial_1'] ?? "Kiwi's designs completely transformed our branding. Her attention to detail and creativity were incredible!", $settings['testimonial_1_name'] ?? 'Emma Brown', $settings['testimonial_1_location'] ?? 'United States'],
+                                            ['commentor2.jpg', $settings['testimonial_2'] ?? "Working with this designer was an amazing experience. Delivered beyond expectations!", $settings['testimonial_2_name'] ?? 'John Carter', $settings['testimonial_2_location'] ?? 'United Kingdom'],
+                                            ['commentor1.jpg', $settings['testimonial_3'] ?? "Incredibly talented. The final product exceeded all our expectations — highly recommended!", $settings['testimonial_3_name'] ?? 'Sofia Martins', $settings['testimonial_3_location'] ?? 'Portugal'],
+                                        ];
+                                        foreach ($defaultReviews as $r):
+                                        ?>
+                                        <div class="swiper-slide text-center">
+                                            <div class="testimonial-details">
+                                                <svg class="text-primary" width="80" height="80">
+                                                    <use xlink:href="#quote-left"></use>
+                                                </svg>
+                                                <p class="fs-2 lh-base fst-italic fw-light"><?= htmlspecialchars($r[1]) ?></p>
+                                                <div class="text-center mt-4">
+                                                    <img src="<?= BASE_URL ?>/images/<?= $r[0] ?>" alt="img" class="img-fluid rounded-circle">
+                                                    <div class="mt-2">
+                                                        <p class="m-0 fw-bold"><?= htmlspecialchars($r[2]) ?></p>
+                                                        <p class="m-0 fw-light"><?= htmlspecialchars($r[3]) ?></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="swiper-slide text-center">
-                                        <div class="testimonial-details">
-                                            <svg class="text-primary" width="80" height="80">
-                                                <use xlink:href="#quote-left"></use>
-                                            </svg>
-                                            <p class="fs-2 lh-base fst-italic fw-light">
-                                                <?= htmlspecialchars($settings['testimonial_3'] ?? "Incredibly talented. The final product exceeded all our expectations — highly recommended!") ?>
-                                            </p>
-                                            <div class="text-center mt-4">
-                                                <img src="<?= BASE_URL ?>/images/commentor1.jpg" alt="img"
-                                                     class="img-fluid rounded-circle">
-                                                <div class="mt-2">
-                                                    <p class="m-0 fw-bold"><?= htmlspecialchars($settings['testimonial_3_name'] ?? 'Sofia Martins') ?></p>
-                                                    <p class="m-0 fw-light"><?= htmlspecialchars($settings['testimonial_3_location'] ?? 'Portugal') ?></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="swiper-pagination position-static mt-4 d-lg-none d-block"></div>
                             </div>
@@ -304,6 +314,68 @@
                         <svg class="arrow border border-light border-opacity-25 rounded-circle p-3" width="80" height="80">
                             <use xlink:href="#arrow-left"></use>
                         </svg>
+                    </div>
+
+                    <!-- ── Deixar uma avaliação (público) ──────────────── -->
+                    <?php if (isset($flash) && $flash): ?>
+                        <div class="row justify-content-center mt-5">
+                            <div class="col-lg-8">
+                                <div class="alert alert-<?= $flash['type'] === 'success' ? 'success' : 'danger' ?> alert-dismissible fade show text-center">
+                                    <?= htmlspecialchars($flash['message']) ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <?php $flash = null; // consumido aqui para não repetir noutra secção ?>
+                    <?php endif; ?>
+
+                    <div class="text-center mt-5">
+                        <button class="btn button rounded-pill px-5" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#reviewForm"
+                                aria-expanded="false" aria-controls="reviewForm">
+                            <span>Deixar uma avaliação</span>
+                        </button>
+                    </div>
+
+                    <div class="collapse mt-4" id="reviewForm">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <form action="<?= BASE_URL ?>/reviews" method="POST" class="row g-3">
+                                    <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf ?? '') ?>">
+                                    <div class="col-md-6">
+                                        <input type="text" name="name" placeholder="O seu nome*" required
+                                               class="form-control shadow-none w-100 ps-3 py-3">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="location" placeholder="Localização (ex.: Maputo)"
+                                               class="form-control shadow-none w-100 ps-3 py-3">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="role" placeholder="Cargo / empresa (opcional)"
+                                               class="form-control shadow-none w-100 ps-3 py-3">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select name="rating" class="form-select shadow-none w-100 ps-3 py-3">
+                                            <option value="5" selected>★★★★★ — Excelente</option>
+                                            <option value="4">★★★★ — Muito bom</option>
+                                            <option value="3">★★★ — Bom</option>
+                                            <option value="2">★★ — Razoável</option>
+                                            <option value="1">★ — Fraco</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea name="content" placeholder="A sua avaliação*" required minlength="5"
+                                                  class="form-control shadow-none w-100 ps-3 py-3" style="height:120px;"></textarea>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn button rounded-pill mt-2 px-5">
+                                            <span>Enviar avaliação</span>
+                                        </button>
+                                        <p class="mt-3 fw-light"><small>A sua avaliação será publicada após revisão.</small></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

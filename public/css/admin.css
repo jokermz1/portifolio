@@ -531,6 +531,17 @@ body.admin-login-body {
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
+/* Select: força tema escuro no widget nativo e nos options */
+.form-select {
+  background-color: #1b1a22 !important;
+  color-scheme: dark;
+}
+
+.form-select option {
+  background-color: #1b1a22;
+  color: #d0cce8;
+}
+
 .form-control:focus,
 .form-select:focus {
   border-color: var(--accent) !important;

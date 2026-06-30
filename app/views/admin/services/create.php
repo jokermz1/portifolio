@@ -8,7 +8,7 @@
 
 <div class="row g-4">
     <div class="col-lg-8">
-        <form method="POST" action="<?= BASE_URL ?>/admin/services" enctype="multipart/form-data">
+        <form method="POST" action="<?= BASE_URL ?>/admin/services/create" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
 
             <div class="card mb-4">

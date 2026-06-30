@@ -15,6 +15,9 @@ $router->get('/faqs',           'FaqController@index');
 $router->get('/team',           'TeamController@index');
 $router->get('/about',          'AboutController@index');
 
+// Reviews / Depoimentos (submissão pública, sem login)
+$router->post('/reviews',       'TestimonialController@store');
+
 // ============================================================
 // Autenticação pública
 // ============================================================
@@ -150,6 +153,15 @@ $router->post('/admin/skills/create',        'AdminSkillController@store');
 $router->get('/admin/skills/{id}/edit',      'AdminSkillController@edit');
 $router->post('/admin/skills/{id}/edit',     'AdminSkillController@update');
 $router->post('/admin/skills/{id}/delete',   'AdminSkillController@delete');
+
+// ============================================================
+// Admin — Depoimentos / Reviews
+// ============================================================
+$router->get('/admin/testimonials',                 'AdminTestimonialController@index');
+$router->post('/admin/testimonials/{id}/approve',   'AdminTestimonialController@approve');
+$router->post('/admin/testimonials/{id}/reject',    'AdminTestimonialController@reject');
+$router->post('/admin/testimonials/{id}/feature',   'AdminTestimonialController@feature');
+$router->post('/admin/testimonials/{id}/delete',    'AdminTestimonialController@delete');
 
 // ============================================================
 // Admin — Definições gerais

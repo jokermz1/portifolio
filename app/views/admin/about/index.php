@@ -109,6 +109,54 @@
                             </div>
                         </div>
 
+                    </div><!-- /row g-3 base contacts -->
+
+                    <!-- Contactos Adicionais -->
+                    <hr style="border-color:rgba(255,255,255,.07); margin:20px 0;">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <label class="form-label mb-0">
+                            <i class="bi bi-plus-circle me-1" style="color:var(--accent);"></i>
+                            Contactos Adicionais
+                        </label>
+                        <button type="button" class="btn btn-outline-primary btn-sm" id="add-contact-btn">
+                            <i class="bi bi-plus me-1"></i>Adicionar
+                        </button>
+                    </div>
+                    <div id="contacts-list">
+                        <?php
+                        $extraContacts = [];
+                        if (!empty($settings['owner_contacts_extra'])) {
+                            $decoded = json_decode($settings['owner_contacts_extra'], true);
+                            if (is_array($decoded)) $extraContacts = $decoded;
+                        }
+                        foreach ($extraContacts as $idx => $ct):
+                        ?>
+                        <div class="contact-row d-flex gap-2 mb-2 align-items-center" data-index="<?= $idx ?>">
+                            <select name="contact_type[]" class="form-select contact-type-select" style="max-width:160px;">
+                                <?php
+                                $typeOpts = ['email'=>'Email','phone'=>'Telefone','whatsapp'=>'WhatsApp','address'=>'Morada','skype'=>'Skype','telegram'=>'Telegram','website'=>'Website','other'=>'Outro'];
+                                foreach ($typeOpts as $tv => $tl):
+                                ?>
+                                <option value="<?= $tv ?>" <?= ($ct['type'] ?? '') === $tv ? 'selected' : '' ?>><?= $tl ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <input type="text" name="contact_label[]" class="form-control contact-label"
+                                   placeholder="Etiqueta" value="<?= htmlspecialchars($ct['label'] ?? '') ?>" style="max-width:150px;">
+                            <input type="text" name="contact_value[]" class="form-control"
+                                   placeholder="Valor (ex: +258 84 000 0000)"
+                                   value="<?= htmlspecialchars($ct['value'] ?? '') ?>">
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-contact-btn" style="flex-shrink:0;">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <small style="color:var(--text-faint); font-size:11px;">
+                        Adiciona emails, telefones, WhatsApp ou outros contactos que aparecem na página About.
+                    </small>
+
+                    <div class="row g-3 mt-1"><!-- reopen for CV -->
+
                         <!-- CV -->
                         <div class="col-12">
                             <label class="form-label">Currículo (CV)</label>
@@ -339,4 +387,68 @@ function liveSync(inputName, previewId) {
 liveSync('owner_name',  'prev-name');
 liveSync('owner_title', 'prev-title');
 liveSync('owner_email', 'prev-email');
+
+// ── Contactos Adicionais ──────────────────────────────────────
+const defaultLabels = {
+    email: 'Email', phone: 'Telefone', whatsapp: 'WhatsApp',
+    address: 'Morada', skype: 'Skype', telegram: 'Telegram',
+    website: 'Website', other: 'Outro'
+};
+
+function buildContactRow() {
+    const div = document.createElement('div');
+    div.className = 'contact-row d-flex gap-2 mb-2 align-items-center';
+
+    const typeSelect = document.createElement('select');
+    typeSelect.name = 'contact_type[]';
+    typeSelect.className = 'form-select contact-type-select';
+    typeSelect.style.maxWidth = '160px';
+    Object.entries(defaultLabels).forEach(([v, l]) => {
+        const o = document.createElement('option');
+        o.value = v; o.textContent = l;
+        typeSelect.appendChild(o);
+    });
+
+    const labelInput = document.createElement('input');
+    labelInput.type = 'text';
+    labelInput.name = 'contact_label[]';
+    labelInput.className = 'form-control contact-label';
+    labelInput.placeholder = 'Etiqueta';
+    labelInput.style.maxWidth = '150px';
+    labelInput.value = defaultLabels[typeSelect.value] || '';
+
+    const valueInput = document.createElement('input');
+    valueInput.type = 'text';
+    valueInput.name = 'contact_value[]';
+    valueInput.className = 'form-control';
+    valueInput.placeholder = 'Valor (ex: +258 84 000 0000)';
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'btn btn-outline-danger btn-sm remove-contact-btn';
+    removeBtn.style.flexShrink = '0';
+    removeBtn.innerHTML = '<i class="bi bi-trash"></i>';
+
+    typeSelect.addEventListener('change', function() {
+        if (!labelInput.dataset.edited) {
+            labelInput.value = defaultLabels[this.value] || '';
+        }
+    });
+    labelInput.addEventListener('input', function() {
+        labelInput.dataset.edited = '1';
+    });
+    removeBtn.addEventListener('click', function() { div.remove(); });
+
+    div.append(typeSelect, labelInput, valueInput, removeBtn);
+    return div;
+}
+
+document.getElementById('add-contact-btn').addEventListener('click', function() {
+    document.getElementById('contacts-list').appendChild(buildContactRow());
+});
+
+// Wire up existing remove buttons
+document.querySelectorAll('.remove-contact-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { btn.closest('.contact-row').remove(); });
+});
 </script>

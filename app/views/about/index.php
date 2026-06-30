@@ -415,6 +415,20 @@
               <p><strong>Local:</strong> <?= htmlspecialchars($settings['owner_address']) ?></p>
               <?php endif; ?>
 
+              <?php
+              // Contactos adicionais
+              if (!empty($settings['owner_contacts_extra'])) {
+                  $extra = json_decode($settings['owner_contacts_extra'], true);
+                  if (is_array($extra)) {
+                      foreach ($extra as $ct) {
+                          if (empty($ct['value'])) continue;
+                          echo '<p><strong>' . htmlspecialchars($ct['label']) . ':</strong> '
+                              . htmlspecialchars($ct['value']) . '</p>';
+                      }
+                  }
+              }
+              ?>
+
               <!-- Social links -->
               <?php
               $socials = [
@@ -571,6 +585,14 @@
                 <?php if (!empty($item['description'])): ?>
                 <p><?= nl2br(htmlspecialchars($item['description'])) ?></p>
                 <?php endif; ?>
+                <?php if (!empty($item['attachment'])): ?>
+                <a href="<?= UPLOAD_URL ?>resume/<?= htmlspecialchars($item['attachment']) ?>"
+                   target="_blank" rel="noopener"
+                   style="display:inline-flex; align-items:center; gap:6px; margin-top:10px; font-size:13px; color:#B775FF; text-decoration:none;">
+                    <i class="bi bi-paperclip"></i>
+                    <?= htmlspecialchars($item['attachment_name'] ?? 'Ver comprovante') ?>
+                </a>
+                <?php endif; ?>
               </div>
             </div>
             <?php endforeach; ?>
@@ -613,6 +635,14 @@
                 <?php else: ?>
                 <p><?= nl2br(htmlspecialchars($item['description'])) ?></p>
                 <?php endif; ?>
+                <?php endif; ?>
+                <?php if (!empty($item['attachment'])): ?>
+                <a href="<?= UPLOAD_URL ?>resume/<?= htmlspecialchars($item['attachment']) ?>"
+                   target="_blank" rel="noopener"
+                   style="display:inline-flex; align-items:center; gap:6px; margin-top:10px; font-size:13px; color:#B775FF; text-decoration:none;">
+                    <i class="bi bi-paperclip"></i>
+                    <?= htmlspecialchars($item['attachment_name'] ?? 'Ver comprovante') ?>
+                </a>
                 <?php endif; ?>
               </div>
             </div>
