@@ -1,2 +1,3 @@
-.claude/*
-.uploads/*
+.claude/
+*.zip
+/public/uploads/
