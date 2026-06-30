@@ -13,7 +13,8 @@ class AdminDashboardController extends Controller {
 
         $pendingComments = (new Comment())->pending();
         $unreadMessages  = (new Message())->unread();
+        $csrf            = $this->csrfToken();
 
-        $this->view('admin/dashboard', compact('stats', 'pendingComments', 'unreadMessages'), 'admin');
+        $this->view('admin/dashboard', compact('stats', 'pendingComments', 'unreadMessages', 'csrf'), 'admin');
     }
 }

@@ -1,7 +1,12 @@
 <?php
 class TestimonialController extends Controller {
-    /** Submissão pública de um review — qualquer visitante, sem login. Vai para moderação. */
+    /** Submissão de um review — apenas utilizadores com sessão iniciada. Vai para moderação. */
     public function store(): void {
+        $user = $this->currentUser();
+        if (!$user) {
+            $this->flash('error', 'Precisa de iniciar sessão para deixar uma avaliação.');
+            $this->redirect('/login');
+        }
         $this->verifyCsrf();
 
         $name     = $this->sanitize($this->input('name', ''));
@@ -17,6 +22,7 @@ class TestimonialController extends Controller {
         }
 
         (new Testimonial())->create([
+            'user_id'     => (int) $user['id'],
             'name'        => $name,
             'location'    => $location ?: null,
             'role'        => $role ?: null,

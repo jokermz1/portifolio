@@ -1,3 +1,13 @@
+<?php
+// Garante que o cabeçalho e o rodapé têm sempre os dados,
+// mesmo que o controller não os tenha passado (ex.: login, register).
+$settings = $settings ?? (class_exists('Setting') ? (new Setting())->allKeyed() : []);
+if (!isset($user)) {
+    $user = (isset($_SESSION['user_id']) && class_exists('User'))
+        ? ((new User())->find((int) $_SESSION['user_id']) ?: null)
+        : null;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/css/vendor.css">
 
     <!-- Template Styles -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/css/styles.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/styles.css?v=<?= @filemtime(ROOT_PATH . '/public/css/styles.css') ?>">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

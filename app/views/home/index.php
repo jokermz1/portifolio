@@ -252,8 +252,9 @@
                                                     <?= htmlspecialchars($t['content']) ?>
                                                 </p>
                                                 <div class="text-center mt-4">
-                                                    <?php if (!empty($t['avatar'])): ?>
-                                                        <img src="<?= UPLOAD_URL ?>avatars/<?= htmlspecialchars($t['avatar']) ?>"
+                                                    <?php $avatarFile = $t['user_avatar'] ?? ($t['avatar'] ?? ''); ?>
+                                                    <?php if (!empty($avatarFile)): ?>
+                                                        <img src="<?= UPLOAD_URL ?>avatars/<?= htmlspecialchars($avatarFile) ?>"
                                                              alt="<?= htmlspecialchars($t['name']) ?>" class="img-fluid rounded-circle"
                                                              style="width:70px;height:70px;object-fit:cover;">
                                                     <?php else: ?>
@@ -330,13 +331,20 @@
                     <?php endif; ?>
 
                     <div class="text-center mt-5">
+                        <?php if (!empty($user)): ?>
                         <button class="btn button rounded-pill px-5" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#reviewForm"
                                 aria-expanded="false" aria-controls="reviewForm">
                             <span>Deixar uma avaliação</span>
                         </button>
+                        <?php else: ?>
+                        <a href="<?= BASE_URL ?>/login" class="btn button rounded-pill px-5">
+                            <span>Deixar uma avaliação</span>
+                        </a>
+                        <?php endif; ?>
                     </div>
 
+                    <?php if (!empty($user)): ?>
                     <div class="collapse mt-4" id="reviewForm">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
@@ -344,6 +352,7 @@
                                     <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf ?? '') ?>">
                                     <div class="col-md-6">
                                         <input type="text" name="name" placeholder="O seu nome*" required
+                                               value="<?= htmlspecialchars($user['name'] ?? '') ?>"
                                                class="form-control shadow-none w-100 ps-3 py-3">
                                     </div>
                                     <div class="col-md-6">
@@ -377,6 +386,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
             </section>
 

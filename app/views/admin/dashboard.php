@@ -57,11 +57,11 @@
                         </div>
                         <div class="d-flex gap-1 ms-2 flex-shrink-0">
                             <form method="POST" action="<?= BASE_URL ?>/admin/comments/<?= $c['id'] ?>/approve">
-                                <input type="hidden" name="_csrf" value="<?= $this->csrfToken() ?? '' ?>">
+                                <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf ?? '') ?>">
                                 <button class="btn btn-sm btn-success" title="Aprovar"><i class="bi bi-check"></i></button>
                             </form>
                             <form method="POST" action="<?= BASE_URL ?>/admin/comments/<?= $c['id'] ?>/reject">
-                                <input type="hidden" name="_csrf" value="<?= $this->csrfToken() ?? '' ?>">
+                                <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf ?? '') ?>">
                                 <button class="btn btn-sm btn-danger" title="Rejeitar"><i class="bi bi-x"></i></button>
                             </form>
                         </div>

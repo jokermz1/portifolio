@@ -429,6 +429,12 @@ a.nav-link:hover {
   }
 }
 
+/* Título do hero: tamanho fluido (menor que os contadores) */
+#hero .banner-size {
+  font-size: clamp(2rem, 6vw, 70px) !important;
+  line-height: 1.15;
+}
+
 /*---- portfolio section style start ----*/
 button.filter-button {
   border: none;

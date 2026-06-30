@@ -3,7 +3,7 @@ class AdminTestimonialController extends Controller {
     public function index(): void {
         $this->requireAdmin();
         $pending     = (new Testimonial())->pending();
-        $all         = (new Testimonial())->all('created_at', 'DESC');
+        $all         = (new Testimonial())->allWithUser();
         $flash       = $this->getFlash();
         $csrf        = $this->csrfToken();
         $this->view('admin/testimonials/index', compact('pending', 'all', 'flash', 'csrf'), 'admin');

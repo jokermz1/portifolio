@@ -9,6 +9,19 @@ if (!function_exists('starRow')) {
         return $out;
     }
 }
+if (!function_exists('avatarTag')) {
+    function avatarTag(array $t, int $size = 36): string {
+        $name = $t['name'] ?? '?';
+        if (!empty($t['user_avatar'])) {
+            return '<img src="' . UPLOAD_URL . 'avatars/' . htmlspecialchars($t['user_avatar'])
+                . '" alt="" style="width:' . $size . 'px;height:' . $size . 'px;object-fit:cover;border-radius:50%;flex-shrink:0;">';
+        }
+        $initial = htmlspecialchars(mb_strtoupper(mb_substr($name, 0, 1)));
+        return '<span class="d-inline-flex align-items-center justify-content-center" style="width:' . $size . 'px;height:'
+            . $size . 'px;border-radius:50%;background:rgba(183,117,255,.25);color:#fff;font-weight:600;flex-shrink:0;">'
+            . $initial . '</span>';
+    }
+}
 $statusBadge = [
     'pending'  => ['warning text-dark', 'Pendente'],
     'approved' => ['success', 'Aprovado'],
@@ -40,6 +53,7 @@ $statusBadge = [
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
                     <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <?= avatarTag($t, 36) ?>
                         <strong><?= htmlspecialchars($t['name']) ?></strong>
                         <?php if ($t['role'] || $t['location']): ?>
                             <small style="color:var(--text-muted);">
@@ -110,12 +124,17 @@ $statusBadge = [
                     <?php [$badgeClass, $badgeText] = $statusBadge[$t['status']] ?? $statusBadge['pending']; ?>
                     <tr>
                         <td>
-                            <strong><?= htmlspecialchars($t['name']) ?></strong>
+                            <div class="d-flex align-items-center gap-2">
+                                <?= avatarTag($t, 32) ?>
+                                <div>
+                                    <strong><?= htmlspecialchars($t['name']) ?></strong>
                             <?php if ($t['role'] || $t['location']): ?>
                                 <br><small style="color:var(--text-muted);">
                                     <?= htmlspecialchars(trim(($t['role'] ?? '') . ($t['role'] && $t['location'] ? ' · ' : '') . ($t['location'] ?? ''))) ?>
                                 </small>
                             <?php endif; ?>
+                                </div>
+                            </div>
                         </td>
                         <td style="white-space:nowrap;"><?= starRow((int) $t['rating']) ?></td>
                         <td>

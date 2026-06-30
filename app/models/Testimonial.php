@@ -5,9 +5,11 @@ class Testimonial extends Model {
     /** Depoimentos aprovados E marcados como destaque — para a página inicial. */
     public function featuredApproved(int $limit = 10): array {
         $stmt = $this->db->prepare(
-            "SELECT * FROM {$this->table}
-             WHERE status = 'approved' AND is_featured = 1
-             ORDER BY created_at DESC
+            "SELECT t.*, u.avatar AS user_avatar, u.name AS user_name
+             FROM {$this->table} t
+             LEFT JOIN users u ON t.user_id = u.id
+             WHERE t.status = 'approved' AND t.is_featured = 1
+             ORDER BY t.created_at DESC
              LIMIT :limit"
         );
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -18,9 +20,11 @@ class Testimonial extends Model {
     /** Todos os depoimentos aprovados (usado como fallback caso nenhum esteja em destaque). */
     public function approved(int $limit = 10): array {
         $stmt = $this->db->prepare(
-            "SELECT * FROM {$this->table}
-             WHERE status = 'approved'
-             ORDER BY created_at DESC
+            "SELECT t.*, u.avatar AS user_avatar, u.name AS user_name
+             FROM {$this->table} t
+             LEFT JOIN users u ON t.user_id = u.id
+             WHERE t.status = 'approved'
+             ORDER BY t.created_at DESC
              LIMIT :limit"
         );
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -30,7 +34,22 @@ class Testimonial extends Model {
 
     public function pending(): array {
         $stmt = $this->db->query(
-            "SELECT * FROM {$this->table} WHERE status = 'pending' ORDER BY created_at DESC"
+            "SELECT t.*, u.avatar AS user_avatar, u.name AS user_name
+             FROM {$this->table} t
+             LEFT JOIN users u ON t.user_id = u.id
+             WHERE t.status = 'pending'
+             ORDER BY t.created_at DESC"
+        );
+        return $stmt->fetchAll();
+    }
+
+    /** Todos os depoimentos (admin), já com a foto de perfil do utilizador. */
+    public function allWithUser(): array {
+        $stmt = $this->db->query(
+            "SELECT t.*, u.avatar AS user_avatar, u.name AS user_name
+             FROM {$this->table} t
+             LEFT JOIN users u ON t.user_id = u.id
+             ORDER BY t.created_at DESC"
         );
         return $stmt->fetchAll();
     }
