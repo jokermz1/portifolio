@@ -60,6 +60,12 @@ $statusBadge = [
                                 <?= htmlspecialchars(trim(($t['role'] ?? '') . ($t['role'] && $t['location'] ? ' · ' : '') . ($t['location'] ?? ''))) ?>
                             </small>
                         <?php endif; ?>
+                        <?php if (!empty($t['user_email'])): ?>
+                            <a href="mailto:<?= htmlspecialchars($t['user_email']) ?>" class="small text-decoration-none"
+                               style="color:#b775ff;">
+                                <i class="bi bi-envelope me-1"></i><?= htmlspecialchars($t['user_email']) ?>
+                            </a>
+                        <?php endif; ?>
                         <span><?= starRow((int) $t['rating']) ?></span>
                     </div>
                     <small style="color:var(--text-faint);">
@@ -132,6 +138,12 @@ $statusBadge = [
                                 <br><small style="color:var(--text-muted);">
                                     <?= htmlspecialchars(trim(($t['role'] ?? '') . ($t['role'] && $t['location'] ? ' · ' : '') . ($t['location'] ?? ''))) ?>
                                 </small>
+                            <?php endif; ?>
+                            <?php if (!empty($t['user_email'])): ?>
+                                <br><a href="mailto:<?= htmlspecialchars($t['user_email']) ?>" class="small text-decoration-none"
+                                       style="color:#b775ff;">
+                                    <i class="bi bi-envelope me-1"></i><?= htmlspecialchars($t['user_email']) ?>
+                                </a>
                             <?php endif; ?>
                                 </div>
                             </div>

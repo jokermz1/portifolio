@@ -88,11 +88,33 @@
 
     // Swiper Slider Init
     if ($('.testimonial-swiper').length) {
-      new Swiper('.testimonial-swiper', {
+      var slideCount = document.querySelectorAll('.testimonial-swiper .swiper-slide').length;
+      var multiSlide = slideCount > 1;   // com 1 slide não há para onde navegar
+
+      var testimonialSwiper = new Swiper('.testimonial-swiper', {
         slidesPerView: 1,
+        loop: multiSlide,
+        speed: 700,
+        autoplay: multiSlide ? {
+          delay: 10000,               // avança a cada 10 s
+          disableOnInteraction: false // mantém o autoplay depois de interagir
+        } : false,
         pagination: { el: '.swiper-pagination', clickable: true },
         navigation: { nextEl: '.main-slider-button-next', prevEl: '.main-slider-button-prev' },
       });
+
+      if (!multiSlide) {
+        // Um único depoimento: esconde as setas (não fazem nada)
+        document.querySelectorAll('.main-slider-button-next, .main-slider-button-prev')
+          .forEach(function (b) { b.style.display = 'none'; });
+      } else if (testimonialSwiper.autoplay) {
+        // Pausa o avanço automático enquanto o rato/dedo estiver pressionado sobre o carrossel
+        var swiperEl = document.querySelector('.testimonial-swiper');
+        swiperEl.addEventListener('pointerdown', function () { testimonialSwiper.autoplay.stop(); });
+        // retoma ao largar, mesmo que o ponteiro seja libertado fora do carrossel
+        document.addEventListener('pointerup',     function () { testimonialSwiper.autoplay.start(); });
+        document.addEventListener('pointercancel', function () { testimonialSwiper.autoplay.start(); });
+      }
     }
 
     // Filter Buttons Active State & Filtering

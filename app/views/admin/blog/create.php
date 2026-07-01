@@ -26,6 +26,13 @@
                                   placeholder="Breve resumo exibido na listagem…"><?= htmlspecialchars($_POST['excerpt'] ?? '') ?></textarea>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <input type="text" name="category" class="form-control"
+                               placeholder="Ex.: Design, Tecnologia, Negócios…"
+                               value="<?= htmlspecialchars($_POST['category'] ?? '') ?>">
+                        <div class="form-text" style="color:var(--text-faint);">Aparece como etiqueta sobre a imagem na listagem.</div>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Conteúdo</label>
                         <textarea name="content" rows="12" class="form-control"
                                   placeholder="Conteúdo completo do post…"><?= htmlspecialchars($_POST['content'] ?? '') ?></textarea>

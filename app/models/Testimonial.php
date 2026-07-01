@@ -34,7 +34,7 @@ class Testimonial extends Model {
 
     public function pending(): array {
         $stmt = $this->db->query(
-            "SELECT t.*, u.avatar AS user_avatar, u.name AS user_name
+            "SELECT t.*, u.avatar AS user_avatar, u.name AS user_name, u.email AS user_email
              FROM {$this->table} t
              LEFT JOIN users u ON t.user_id = u.id
              WHERE t.status = 'pending'
@@ -43,14 +43,23 @@ class Testimonial extends Model {
         return $stmt->fetchAll();
     }
 
-    /** Todos os depoimentos (admin), já com a foto de perfil do utilizador. */
+    /** Todos os depoimentos (admin), já com a foto de perfil e email do utilizador. */
     public function allWithUser(): array {
         $stmt = $this->db->query(
-            "SELECT t.*, u.avatar AS user_avatar, u.name AS user_name
+            "SELECT t.*, u.avatar AS user_avatar, u.name AS user_name, u.email AS user_email
              FROM {$this->table} t
              LEFT JOIN users u ON t.user_id = u.id
              ORDER BY t.created_at DESC"
         );
+        return $stmt->fetchAll();
+    }
+
+    /** Depoimentos deixados por um utilizador específico (para a página de perfil). */
+    public function userTestimonials(int $userId): array {
+        $stmt = $this->db->prepare(
+            "SELECT * FROM {$this->table} WHERE user_id = ? ORDER BY created_at DESC"
+        );
+        $stmt->execute([$userId]);
         return $stmt->fetchAll();
     }
 

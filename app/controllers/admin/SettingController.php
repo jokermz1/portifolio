@@ -21,10 +21,11 @@ class AdminSettingController extends Controller {
 
         $fields = [
             'site_name', 'owner_name', 'owner_title', 'owner_bio',
-            'owner_email', 'owner_phone', 'owner_address',
+            'owner_email', 'owner_phone', 'owner_whatsapp', 'owner_address',
             'cv_url', 'hero_text', 'years_experience', 'projects_done', 'clients', 'awards',
             'social_facebook', 'social_github', 'social_linkedin',
             'social_twitter', 'social_instagram', 'social_youtube',
+            'theme_primary', 'theme_primary_2', 'theme_accent',
         ];
 
         $model = new Setting();

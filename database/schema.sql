@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS posts (
   title        VARCHAR(200)  NOT NULL,
   slug         VARCHAR(220)  NOT NULL UNIQUE,
   excerpt      TEXT          DEFAULT NULL,
+  category     VARCHAR(80)   DEFAULT NULL,
   content      LONGTEXT      DEFAULT NULL,
   image        VARCHAR(255)  DEFAULT NULL,
   is_published TINYINT(1)    NOT NULL DEFAULT 0,

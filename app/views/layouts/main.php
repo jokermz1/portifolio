@@ -8,10 +8,30 @@ if (!isset($user)) {
         : null;
 }
 ?>
+<?php
+// ── Cores do tema (definidas no painel de admin) ─────────────
+$__valHex  = fn ($c, $d) => preg_match('/^#[0-9a-fA-F]{6}$/', (string) $c) ? $c : $d;
+$__hex2rgb = function (string $hex): string {
+    $hex = ltrim($hex, '#');
+    return hexdec(substr($hex, 0, 2)) . ', ' . hexdec(substr($hex, 2, 2)) . ', ' . hexdec(substr($hex, 4, 2));
+};
+$themePrimary  = $__valHex($settings['theme_primary']   ?? '', '#7710E9');
+$themePrimary2 = $__valHex($settings['theme_primary_2'] ?? '', '#8F3AEC');
+$themeAccent   = $__valHex($settings['theme_accent']    ?? '', '#B775FF');
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= htmlspecialchars(Lang::current()) ?>">
 <head>
     <meta charset="UTF-8">
+    <script>
+      /* Aplica o tema guardado o mais cedo possível (evita flash) */
+      (function () {
+        try {
+          var t = localStorage.getItem('site-theme');
+          if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle ?? APP_NAME) ?></title>
 
@@ -30,6 +50,17 @@ if (!isset($user)) {
 
     <!-- Template Styles -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/styles.css?v=<?= @filemtime(ROOT_PATH . '/public/css/styles.css') ?>">
+
+    <!-- Cores do tema (personalizáveis no admin) -->
+    <style id="theme-vars">
+      :root {
+        --brand-primary: <?= $themePrimary ?>;
+        --brand-primary-2: <?= $themePrimary2 ?>;
+        --accent-color: <?= $themeAccent ?>;
+        --bs-primary-rgb: <?= $__hex2rgb($themeAccent) ?>;
+        --bs-link-color-rgb: <?= $__hex2rgb($themeAccent) ?>;
+      }
+    </style>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,7 +119,21 @@ if (!isset($user)) {
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
     <script src="<?= BASE_URL ?>/js/plugins.js"></script>
-    <script src="<?= BASE_URL ?>/js/script.js"></script>
+    <script src="<?= BASE_URL ?>/js/script.js?v=<?= @filemtime(ROOT_PATH . '/public/js/script.js') ?>"></script>
+
+    <!-- Alternância de tema claro/escuro -->
+    <script>
+      (function () {
+        var btn = document.getElementById('themeToggle');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          var cur  = document.documentElement.getAttribute('data-theme');
+          var next = cur === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', next);
+          try { localStorage.setItem('site-theme', next); } catch (e) {}
+        });
+      })();
+    </script>
 
     <!-- Botão flutuante Admin -->
     <a href="<?= BASE_URL ?>/admin/login" title="Painel Admin" style="

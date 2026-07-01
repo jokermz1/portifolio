@@ -2,3 +2,6 @@
 *.zip
 /public/uploads/
 .checklist
+
+# Credenciais sensíveis (nunca versionar)
+config/env.php

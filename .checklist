@@ -2,12 +2,14 @@
 2- corrigir erros do PDO ✅
 3- automatizar contagem ✅
 4- respostas de faq em branco ✅
-5- translate de idioma json, pt/en/fr/es
-6- melhorar a aba dos comentarios
-7- todas as paginas devem puxar o rodapé das configuracoes
+5- translate de idioma json, pt/en/fr/es ✅
+6- melhorar a aba dos comentarios ✅
+7- todas as paginas devem puxar o rodapé das configuracoes ✅
 8- melhorar pagina de perfil, permitir clicar no comentario e ir ver directo na pub
-9- aparecer email nas depoimentos
-10- permitir adicionar link de whatsapp nos contacto em settings
-11- permitir tema claro e escuro
-12- permitir mudar cores de tema no painel settings
-13- permitir configurar pela variavel de ambiente
+9- aparecer email nas depoimentos ✅
+10- permitir adicionar link de whatsapp nos contacto em settings ✅
+11- permitir tema claro e escuro ✅
+12- permitir mudar cores de tema no painel settings ✅
+13- permitir configurar pela variavel de ambiente ✅
+14- todas as telas/forms do admin que permitem anexar fotos, devem ter a funcao de copiar e colar ✅
+15- carrossel dos depoimentos nao está dando next, e ele deve ser automatico, a cada 10 s deve dar next. mas nao pode dar next enquanto mouse ou dedo for clicado sobre ele ✅

@@ -108,6 +108,16 @@
                                    class="form-control">
                         </div>
                         <div class="col-md-6">
+                            <label class="form-label">
+                                <i class="bi bi-whatsapp me-1" style="color:#25D366;"></i>WhatsApp
+                            </label>
+                            <input type="text" name="owner_whatsapp"
+                                   value="<?= htmlspecialchars($settings['owner_whatsapp'] ?? '') ?>"
+                                   class="form-control"
+                                   placeholder="ex: +244 923 000 000">
+                            <div class="form-text">Com indicativo do país. Gera automaticamente um link wa.me.</div>
+                        </div>
+                        <div class="col-md-6">
                             <label class="form-label">Endereço</label>
                             <input type="text" name="owner_address"
                                    value="<?= htmlspecialchars($settings['owner_address'] ?? '') ?>"
@@ -214,6 +224,51 @@
                                    placeholder="https://...">
                         </div>
                         <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ APARÊNCIA / TEMA ══════════════════════════════════ -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-palette me-2" style="color:var(--accent);"></i>Aparência — Cores do Tema
+                </div>
+                <div class="card-body">
+                    <?php
+                    $themeColors = [
+                        'theme_primary'   => ['Cor principal',   '#7710E9', 'Cor base da marca (início do gradiente, botões).'],
+                        'theme_primary_2' => ['Cor do gradiente','#8F3AEC', 'Fim do gradiente dos botões e destaques.'],
+                        'theme_accent'    => ['Cor de destaque', '#B775FF', 'Tom claro usado em links e ícones (text-primary).'],
+                    ];
+                    ?>
+                    <div class="row g-3">
+                        <?php foreach ($themeColors as $key => [$label, $default, $hint]):
+                            $val = $settings[$key] ?? $default; ?>
+                        <div class="col-md-4">
+                            <label class="form-label"><?= $label ?></label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="color" name="<?= $key ?>" id="<?= $key ?>_picker"
+                                       value="<?= htmlspecialchars($val) ?>"
+                                       class="form-control form-control-color"
+                                       style="width:48px; height:40px; padding:4px;"
+                                       oninput="document.getElementById('<?= $key ?>_text').value = this.value;">
+                                <input type="text" id="<?= $key ?>_text"
+                                       value="<?= htmlspecialchars($val) ?>"
+                                       class="form-control" style="max-width:120px;"
+                                       oninput="document.getElementById('<?= $key ?>_picker').value = this.value;">
+                            </div>
+                            <div class="form-text"><?= $hint ?></div>
+                        </div>
+                        <?php endforeach; ?>
+
+                        <div class="col-12">
+                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                    onclick="['theme_primary','#7710E9','theme_primary_2','#8F3AEC','theme_accent','#B775FF'].forEach((v,i,a)=>{if(i%2===0){document.getElementById(v+'_picker').value=a[i+1];document.getElementById(v+'_text').value=a[i+1];}});">
+                                <i class="bi bi-arrow-counterclockwise me-1"></i>Repor cores padrão
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

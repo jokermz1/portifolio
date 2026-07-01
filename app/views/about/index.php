@@ -9,6 +9,7 @@
   font-size: 15px;
   line-height: 1.75;
   color: #b8b8d0;
+  background: #0F0E10;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -365,9 +366,55 @@
   font-style: italic;
   padding: 12px 0;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   TEMA CLARO — página About / Resume
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme="light"] .about-page-wrap { background: #f4f2f8; color: #2a2833; }
+[data-theme="light"] .about-section   { background: #f4f2f8; }
+[data-theme="light"] .resume-section  { background: #ece9f3; }
+
+[data-theme="light"] .section-title h2 { color: #16151a; }
+[data-theme="light"] .section-title p  { color: #6c6678; }
+
+[data-theme="light"] .about-info p        { color: #3a3846; border-bottom-color: rgba(0,0,0,.08); }
+[data-theme="light"] .about-info p strong { color: #6c6678; }
+
+[data-theme="light"] .about-social-link {
+  background: rgba(0,0,0,.04);
+  border-color: rgba(0,0,0,.1);
+  color: #6c6678;
+}
+
+[data-theme="light"] .skills-content h5 { color: #16151a; }
+[data-theme="light"] .skill-header span { color: #3a3846; }
+[data-theme="light"] .progress-bar-wrap { background: rgba(0,0,0,.08); }
+
+[data-theme="light"] .about-me-section h4 { color: #16151a; }
+[data-theme="light"] .about-me-section p  { color: #4a4857; }
+
+[data-theme="light"] .section-divider { border-top-color: rgba(0,0,0,.08); }
+
+[data-theme="light"] .resume-title { color: #16151a; }
+[data-theme="light"] .resume-card {
+  background: #ffffff;
+  border-color: rgba(183,117,255,.22);
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+[data-theme="light"] .resume-card:hover { background: #faf7ff; }
+/* Título com gradiente → cor sólida legível no claro */
+[data-theme="light"] .resume-card h4 {
+  color: #16151a;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+[data-theme="light"] .resume-card .resume-org { color: #4a4857; }
+[data-theme="light"] .resume-card p,
+[data-theme="light"] .resume-card ul { color: #55525f; }
+[data-theme="light"] .resume-empty { color: #8a8598; }
 </style>
 
-<div class="about-page-wrap" style="background:#0F0E10; color:#fff;">
+<div class="about-page-wrap">
 
   <!-- ── About Section ─────────────────────────────────────── -->
   <section class="about-section">

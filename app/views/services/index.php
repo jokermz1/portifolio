@@ -6,15 +6,15 @@
             <div class="row justify-content-center text-center">
                 <div class="col-xl-8">
                     <p class="letter-space text-primary fs-5" data-aos="fade-up" data-aos-duration="1000">
-                        <a href="<?= BASE_URL ?>/" class="text-primary text-decoration-none">Home</a>
+                        <a href="<?= BASE_URL ?>/" class="text-primary text-decoration-none"><?= t('Home') ?></a>
                         <span class="mx-2 text-muted">›</span>
-                        <span class="text-white">Services</span>
+                        <span class="text-white"><?= t('Services') ?></span>
                     </p>
                     <h2 class="banner-size display-1" data-aos="fade-up" data-aos-duration="1200">
-                        Services<span class="text-primary">.</span>
+                        <?= t('Services') ?><span class="text-primary">.</span>
                     </h2>
                     <p class="text-muted" data-aos="fade-up" data-aos-duration="1400">
-                        From concept to creation — I deliver end-to-end design solutions tailored to your brand.
+                        <?= t('From concept to creation — I deliver end-to-end design solutions tailored to your brand.') ?>
                     </p>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                                 <div class="mt-4">
                                     <a href="<?= BASE_URL ?>/services/<?= (int) $service['id'] ?>"
                                        class="btn button rounded-pill position-relative pe-5">
-                                        <span>Learn More</span>
+                                        <span><?= t('Learn More') ?></span>
                                         <div class="position-absolute top-50 end-0 translate-middle-y me-2">
                                             <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
                                                 <use xlink:href="#arrow-right"></use>
@@ -88,7 +88,7 @@
 
                     <?php else: ?>
                     <div class="text-center py-5" data-aos="fade-up">
-                        <p class="text-muted fs-5">No services available yet. Check back soon!</p>
+                        <p class="text-muted fs-5"><?= t('No services available yet. Check back soon!') ?></p>
                     </div>
                     <?php endif; ?>
 
@@ -99,11 +99,11 @@
             <section id="cta" class="padding-medium pt-0">
                 <div class="container text-center" data-aos="fade-up" data-aos-duration="1000">
                     <h3 class="display-3 mb-4">
-                        Let's collaborate &amp; design<span class="text-primary">.</span>
+                        <?= t("Let's collaborate & design") ?><span class="text-primary">.</span>
                     </h3>
                     <a href="<?= BASE_URL ?>/contact"
                        class="btn button rounded-pill position-relative pe-5">
-                        <span>Send Message</span>
+                        <span><?= t('Send Message') ?></span>
                         <div class="position-absolute top-50 end-0 translate-middle-y me-2">
                             <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
                                 <use xlink:href="#arrow-right"></use>

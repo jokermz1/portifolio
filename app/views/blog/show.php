@@ -47,13 +47,15 @@
 
                             <!-- Meta -->
                             <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
-                                <p class="letter-space text-primary mb-0" style="font-size: 0.72rem;">Blog</p>
+                                <p class="letter-space text-primary mb-0" style="font-size: 0.72rem;">
+                                    <?= !empty($post['category']) ? htmlspecialchars($post['category']) : e_t('Blog') ?>
+                                </p>
                                 <span class="text-muted">·</span>
                                 <small class="text-muted">
                                     <?= date('d M Y', strtotime($post['published_at'] ?? $post['created_at'])) ?>
                                 </small>
                                 <span class="text-muted">·</span>
-                                <small class="text-muted"><?= count($comments) ?> comment(s)</small>
+                                <small class="text-muted"><?= count($comments) ?> <?= e_t('comment(s)') ?></small>
                             </div>
 
                             <!-- Title -->
@@ -91,7 +93,7 @@
                                 $shareTitle = urlencode($post['title']);
                             ?>
                             <div class="d-flex flex-wrap align-items-center gap-3 mb-5">
-                                <span class="letter-space text-primary" style="font-size: 0.72rem;">Share:</span>
+                                <span class="letter-space text-primary" style="font-size: 0.72rem;"><?= e_t('Share:') ?></span>
                                 <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode($shareUrl) ?>"
                                    target="_blank" rel="noopener" class="nav-link p-0">
                                     <svg class="accent-color" width="20" height="20"><use xlink:href="#facebook"></use></svg>
@@ -116,7 +118,7 @@
                                 <div class="row g-0">
                                     <?php if (!empty($prevNext['prev'])): ?>
                                     <div class="col-6 border-end border-light border-opacity-10 p-4">
-                                        <p class="letter-space text-primary mb-2" style="font-size: 0.7rem;">← Previous</p>
+                                        <p class="letter-space text-primary mb-2" style="font-size: 0.7rem;">← <?= e_t('Previous') ?></p>
                                         <a href="<?= BASE_URL ?>/blog/<?= htmlspecialchars($prevNext['prev']['slug']) ?>"
                                            class="text-white text-decoration-none small fw-semibold">
                                             <?= htmlspecialchars($prevNext['prev']['title']) ?>
@@ -128,7 +130,7 @@
 
                                     <?php if (!empty($prevNext['next'])): ?>
                                     <div class="col-6 p-4 text-end">
-                                        <p class="letter-space text-primary mb-2" style="font-size: 0.7rem;">Next →</p>
+                                        <p class="letter-space text-primary mb-2" style="font-size: 0.7rem;"><?= e_t('Next') ?> →</p>
                                         <a href="<?= BASE_URL ?>/blog/<?= htmlspecialchars($prevNext['next']['slug']) ?>"
                                            class="text-white text-decoration-none small fw-semibold">
                                             <?= htmlspecialchars($prevNext['next']['title']) ?>
@@ -176,7 +178,7 @@
                             <?php if (!empty($recentPosts)): ?>
                             <div class="border border-light border-opacity-25 rounded-4 p-4 mb-4"
                                  style="background: rgba(255,255,255,0.04);">
-                                <h5 class="letter-space text-primary mb-4" style="font-size: 0.8rem;">Recent Posts</h5>
+                                <h5 class="letter-space text-primary mb-4" style="font-size: 0.8rem;"><?= e_t('Recent Posts') ?></h5>
                                 <?php foreach ($recentPosts as $rp): ?>
                                 <a href="<?= BASE_URL ?>/blog/<?= htmlspecialchars($rp['slug']) ?>"
                                    class="d-flex align-items-start gap-3 mb-4 text-decoration-none">
@@ -199,9 +201,9 @@
                                     </div>
                                 </a>
                                 <?php endforeach; ?>
-                                <a href="<?= BASE_URL ?>/blog"
-                                   class="btn btn-outline-light rounded-pill py-2 w-100 mt-2" style="font-size:0.85rem;">
-                                    View All Posts
+                                <a href="<?= BASE_URL ?>/blog" class="read-more-link mt-2">
+                                    <span><?= e_t('View All Posts') ?></span>
+                                    <svg width="18" height="18"><use xlink:href="#arrow-right"></use></svg>
                                 </a>
                             </div>
                             <?php endif; ?>
@@ -209,16 +211,16 @@
                             <!-- Post Info -->
                             <div class="border border-light border-opacity-25 rounded-4 p-4 mb-4"
                                  style="background: rgba(255,255,255,0.04);">
-                                <h5 class="letter-space text-primary mb-4" style="font-size: 0.8rem;">Post Info</h5>
+                                <h5 class="letter-space text-primary mb-4" style="font-size: 0.8rem;"><?= e_t('Post Info') ?></h5>
                                 <ul class="list-unstyled mb-0">
                                     <li class="d-flex justify-content-between py-3 border-bottom border-light border-opacity-10">
-                                        <span class="text-muted small">Published</span>
+                                        <span class="text-muted small"><?= e_t('Published') ?></span>
                                         <span class="text-white small fw-semibold">
                                             <?= date('d M Y', strtotime($post['published_at'] ?? $post['created_at'])) ?>
                                         </span>
                                     </li>
                                     <li class="d-flex justify-content-between py-3">
-                                        <span class="text-muted small">Comments</span>
+                                        <span class="text-muted small"><?= e_t('Comments') ?></span>
                                         <span class="text-white small fw-semibold"><?= count($comments) ?></span>
                                     </li>
                                 </ul>
@@ -227,11 +229,11 @@
                             <!-- CTA card -->
                             <div class="border border-primary border-opacity-50 rounded-4 p-4 text-center"
                                  style="background: rgba(119,16,233,0.12);">
-                                <p class="letter-space text-primary mb-3" style="font-size: 0.72rem;">Have a project?</p>
-                                <h5 class="display-6 mb-4">Let's work together.</h5>
+                                <p class="letter-space text-primary mb-3" style="font-size: 0.72rem;"><?= e_t('Have a project?') ?></p>
+                                <h5 class="display-6 mb-4"><?= e_t("Let's work together.") ?></h5>
                                 <a href="<?= BASE_URL ?>/contact"
                                    class="btn button rounded-pill position-relative pe-5 w-100">
-                                    <span>Get in Touch</span>
+                                    <span><?= e_t('Get in Touch') ?></span>
                                     <div class="position-absolute top-50 end-0 translate-middle-y me-2">
                                         <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
                                             <use xlink:href="#arrow-right"></use>

@@ -18,6 +18,10 @@ require_once APP_PATH . '/core/Model.php';
 require_once APP_PATH . '/core/View.php';
 require_once APP_PATH . '/core/Controller.php';
 require_once APP_PATH . '/core/Router.php';
+require_once APP_PATH . '/core/Lang.php';
+
+// ── Idioma da interface (i18n) ───────────────────────────────
+Lang::boot();
 
 // ── Middleware ───────────────────────────────────────────────
 require_once APP_PATH . '/middleware/AuthMiddleware.php';
@@ -50,6 +54,7 @@ require_once APP_PATH . '/controllers/FaqController.php';
 require_once APP_PATH . '/controllers/TeamController.php';
 require_once APP_PATH . '/controllers/AboutController.php';
 require_once APP_PATH . '/controllers/TestimonialController.php';
+require_once APP_PATH . '/controllers/LangController.php';
 
 // ── Controllers (admin) ──────────────────────────────────────
 require_once APP_PATH . '/controllers/admin/AuthController.php';
@@ -67,6 +72,7 @@ require_once APP_PATH . '/controllers/admin/ResumeController.php';
 require_once APP_PATH . '/controllers/admin/SkillController.php';
 require_once APP_PATH . '/controllers/admin/AboutMeController.php';
 require_once APP_PATH . '/controllers/admin/TestimonialController.php';
+require_once APP_PATH . '/controllers/admin/TranslationController.php';
 
 // ── Dispatch ─────────────────────────────────────────────────
 $router = new Router();

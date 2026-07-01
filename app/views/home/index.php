@@ -6,7 +6,7 @@
             <div class="row justify-content-center text-center">
                 <div class="col-xl-8">
                     <p class="letter-space text-primary fs-4" data-aos="fade-up" data-aos-duration="1000">
-                        Hi, I'm <?= htmlspecialchars($settings['owner_name'] ?? 'Kimi Lewis') ?>
+                        <?= t("Hi, I'm") ?> <?= htmlspecialchars($settings['owner_name'] ?? 'Kimi Lewis') ?>
                     </p>
                     <h2 class="banner-size display-1" data-aos="fade-up" data-aos-duration="1200">
                         <?= htmlspecialchars($settings['owner_title'] ?? 'Logo & Web Designer') ?>
@@ -17,7 +17,7 @@
                     <a href="<?= BASE_URL ?>/portfolio"
                        class="btn button rounded-pill mt-4 position-relative pe-5 z-1"
                        data-aos="fade-up" data-aos-duration="1600">
-                        <span>view all works</span>
+                        <span><?= t('view all works') ?></span>
                         <div class="position-absolute top-50 end-0 translate-middle-y me-2">
                             <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
                                 <use xlink:href="#arrow-right"></use>
@@ -50,7 +50,7 @@
                                     data-count="<?= htmlspecialchars($settings['years_experience'] ?? '25') ?>">0</h4>
                                 <span class="text-primary display-1 fw-lighter">+</span>
                             </div>
-                            <p class="text-capitalize mb-0">years experience</p>
+                            <p class="text-capitalize mb-0"><?= t('years experience') ?></p>
                         </div>
                         <div class="col-lg-3 col-6 text-center">
                             <div class="d-flex justify-content-center align-items-center">
@@ -58,7 +58,7 @@
                                     data-count="<?= htmlspecialchars($settings['clients'] ?? '390') ?>">0</h4>
                                 <span class="text-primary display-1 fw-lighter">+</span>
                             </div>
-                            <p class="text-capitalize mb-0">Satisfied clients</p>
+                            <p class="text-capitalize mb-0"><?= t('Satisfied clients') ?></p>
                         </div>
                         <div class="col-lg-3 col-6 text-center">
                             <div class="d-flex justify-content-center align-items-center">
@@ -66,12 +66,12 @@
                                     data-count="<?= htmlspecialchars($settings['projects_done'] ?? '550') ?>">0</h4>
                                 <span class="text-primary display-1 fw-lighter">+</span>
                             </div>
-                            <p class="text-capitalize mb-0">Projects done</p>
+                            <p class="text-capitalize mb-0"><?= t('Projects done') ?></p>
                         </div>
                         <div class="col-lg-3 col-6 text-center">
                             <h4 class="counter-value display-1 banner-size"
                                 data-count="<?= htmlspecialchars($settings['awards'] ?? '15') ?>">0</h4>
-                            <p class="text-capitalize mb-0">Winning awards</p>
+                            <p class="text-capitalize mb-0"><?= t('Winning awards') ?></p>
                         </div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                 <div class="container">
                     <div class="row" data-aos="fade-up" data-aos-duration="1500">
                         <div class="col-lg-6 mb-5 mb-lg-0">
-                            <h3 class="display-3 mb-4">Core Skills<span class="text-primary">.</span></h3>
+                            <h3 class="display-3 mb-4"><?= t('Core Skills') ?><span class="text-primary">.</span></h3>
                             <div class="row g-3">
                             <?php if (!empty($skills)): ?>
                                 <?php foreach ($skills as $category => $categorySkills): ?>
@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="col-lg-6">
-                            <h3 class="display-3 mb-4">Services<span class="text-primary">.</span></h3>
+                            <h3 class="display-3 mb-4"><?= t('Services') ?><span class="text-primary">.</span></h3>
                             <?php if (!empty($services)): ?>
                                 <?php foreach ($services as $svc): ?>
                                 <div class="border-start border-primary ps-3 border-opacity-50 mb-5">
@@ -126,9 +126,9 @@
             <!-- ═══ PORTFOLIO ═══════════════════════════════════════ -->
             <section id="portfolio" class="padding-medium container" data-aos="fade-up">
                 <div class="text-center">
-                    <h3 class="display-3">Latest projects<span class="text-primary">.</span></h3>
-                    <p>Here's a showcase of some of my favorite projects.<br>
-                       Each design tells a unique story and reflects the client's brand essence.</p>
+                    <h3 class="display-3"><?= t('Latest projects') ?><span class="text-primary">.</span></h3>
+                    <p><?= t("Here's a showcase of some of my favorite projects.") ?><br>
+                       <?= t("Each design tells a unique story and reflects the client's brand essence.") ?></p>
 
                     <?php
                     // Recolhe categorias únicas dos projetos
@@ -141,7 +141,7 @@
                     <?php if (!empty($categories)): ?>
                     <div class="my-5">
                         <p>
-                            <button class="filter-button py-3 px-5 me-2 mb-3 active" data-filter="*">All</button>
+                            <button class="filter-button py-3 px-5 me-2 mb-3 active" data-filter="*"><?= t('All') ?></button>
                             <?php foreach ($categories as $cat): ?>
                                 <button class="filter-button py-3 px-5 me-2 mb-3"
                                         data-filter=".<?= htmlspecialchars(strtolower(preg_replace('/\s+/', '-', $cat))) ?>">
@@ -213,7 +213,7 @@
                 <div class="text-center">
                     <a href="<?= BASE_URL ?>/portfolio"
                        class="btn button rounded-pill mt-4 position-relative pe-5">
-                        <span>view all projects</span>
+                        <span><?= t('view all projects') ?></span>
                         <div class="position-absolute top-50 end-0 translate-middle-y me-2">
                             <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
                                 <use xlink:href="#arrow-right"></use>
@@ -227,7 +227,7 @@
             <section id="testimonial" class="padding-medium pt-0">
                 <div class="container position-relative" data-aos="fade-up" data-aos-duration="1500">
                     <div class="text-center">
-                        <h3 class="display-3">Read our clients reviews<span class="text-primary">.</span></h3>
+                        <h3 class="display-3"><?= t('Read our clients reviews') ?><span class="text-primary">.</span></h3>
                     </div>
 
                     <div class="row justify-content-center mt-4">
@@ -335,11 +335,11 @@
                         <button class="btn button rounded-pill px-5" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#reviewForm"
                                 aria-expanded="false" aria-controls="reviewForm">
-                            <span>Deixar uma avaliação</span>
+                            <span><?= t('Deixar uma avaliação') ?></span>
                         </button>
                         <?php else: ?>
                         <a href="<?= BASE_URL ?>/login" class="btn button rounded-pill px-5">
-                            <span>Deixar uma avaliação</span>
+                            <span><?= t('Deixar uma avaliação') ?></span>
                         </a>
                         <?php endif; ?>
                     </div>
@@ -351,36 +351,36 @@
                                 <form action="<?= BASE_URL ?>/reviews" method="POST" class="row g-3">
                                     <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf ?? '') ?>">
                                     <div class="col-md-6">
-                                        <input type="text" name="name" placeholder="O seu nome*" required
+                                        <input type="text" name="name" placeholder="<?= e_t('O seu nome*') ?>" required
                                                value="<?= htmlspecialchars($user['name'] ?? '') ?>"
                                                class="form-control shadow-none w-100 ps-3 py-3">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" name="location" placeholder="Localização (ex.: Maputo)"
+                                        <input type="text" name="location" placeholder="<?= e_t('Localização (ex.: Maputo)') ?>"
                                                class="form-control shadow-none w-100 ps-3 py-3">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" name="role" placeholder="Cargo / empresa (opcional)"
+                                        <input type="text" name="role" placeholder="<?= e_t('Cargo / empresa (opcional)') ?>"
                                                class="form-control shadow-none w-100 ps-3 py-3">
                                     </div>
                                     <div class="col-md-6">
                                         <select name="rating" class="form-select shadow-none w-100 ps-3 py-3">
-                                            <option value="5" selected>★★★★★ — Excelente</option>
-                                            <option value="4">★★★★ — Muito bom</option>
-                                            <option value="3">★★★ — Bom</option>
-                                            <option value="2">★★ — Razoável</option>
-                                            <option value="1">★ — Fraco</option>
+                                            <option value="5" selected>★★★★★ — <?= t('Excellent') ?></option>
+                                            <option value="4">★★★★ — <?= t('Very good') ?></option>
+                                            <option value="3">★★★ — <?= t('Good') ?></option>
+                                            <option value="2">★★ — <?= t('Fair') ?></option>
+                                            <option value="1">★ — <?= t('Poor') ?></option>
                                         </select>
                                     </div>
                                     <div class="col-12">
-                                        <textarea name="content" placeholder="A sua avaliação*" required minlength="5"
+                                        <textarea name="content" placeholder="<?= e_t('A sua avaliação*') ?>" required minlength="5"
                                                   class="form-control shadow-none w-100 ps-3 py-3" style="height:120px;"></textarea>
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn button rounded-pill mt-2 px-5">
-                                            <span>Enviar avaliação</span>
+                                            <span><?= t('Enviar avaliação') ?></span>
                                         </button>
-                                        <p class="mt-3 fw-light"><small>A sua avaliação será publicada após revisão.</small></p>
+                                        <p class="mt-3 fw-light"><small><?= t('A sua avaliação será publicada após revisão.') ?></small></p>
                                     </div>
                                 </form>
                             </div>
@@ -397,50 +397,18 @@
     <section id="contact" class="padding-medium">
         <div class="container" data-aos="fade-up">
             <div class="text-center">
-                <h3 class="display-3">Let's collaborate & design<span class="text-primary">.</span></h3>
+                <h3 class="display-3"><?= t("Let's collaborate & design") ?><span class="text-primary">.</span></h3>
+                <p class="text-muted fs-5 mt-3 mb-5 mx-auto" style="max-width:560px;">
+                    <?= t("Have a project in mind? Let's talk and bring your vision to life.") ?>
+                </p>
+                <a href="<?= BASE_URL ?>/contact" class="btn button rounded-pill position-relative pe-5">
+                    <span><?= t('Send Message') ?></span>
+                    <div class="position-absolute top-50 end-0 translate-middle-y me-2">
+                        <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
+                            <use xlink:href="#arrow-right"></use>
+                        </svg>
+                    </div>
+                </a>
             </div>
-
-            <?php if (isset($flash) && $flash): ?>
-                <div class="alert alert-<?= $flash['type'] === 'success' ? 'success' : 'danger' ?> mt-4 alert-dismissible fade show">
-                    <?= htmlspecialchars($flash['message']) ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            <?php endif; ?>
-
-            <form id="contactForm" action="<?= BASE_URL ?>/contact" method="POST"
-                  class="form-group contact-form row mt-5">
-                <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf ?? '') ?>">
-                <div class="col-lg-6 mb-3">
-                    <input type="text" name="name" placeholder="Full Name*"
-                           class="form-control shadow-none w-100 ps-3 py-3" required>
-                </div>
-                <div class="col-lg-6 mb-3">
-                    <input type="email" name="email" placeholder="Email*"
-                           class="form-control shadow-none w-100 ps-3 py-3" required>
-                </div>
-                <div class="col-lg-6 mb-3">
-                    <input type="text" name="subject" placeholder="Subject"
-                           class="form-control shadow-none w-100 ps-3 py-3">
-                </div>
-                <div class="col-lg-6 mb-3">
-                    <input type="text" name="phone" placeholder="Phone"
-                           class="form-control shadow-none w-100 ps-3 py-3">
-                </div>
-                <div class="col-lg-12 mb-3">
-                    <textarea name="content" placeholder="Message"
-                              class="form-control shadow-none w-100 ps-3 py-3"
-                              style="height:150px;" required></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn button rounded-pill mt-4 position-relative pe-5">
-                        <span>Send Message</span>
-                        <div class="position-absolute top-50 end-0 translate-middle-y me-2">
-                            <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
-                                <use xlink:href="#arrow-right"></use>
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-            </form>
         </div>
     </section>

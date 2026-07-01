@@ -5,7 +5,13 @@ class HomeController extends Controller {
         $services = (new Service())->active();
         $skills   = (new Skill())->byCategory();
         $settings = (new Setting())->allKeyed();
-        $testimonials = (new Testimonial())->featuredApproved();
+        // Prioriza os depoimentos em destaque; se houver menos de 2,
+        // recorre a todos os aprovados para o carrossel ter conteúdo suficiente.
+        $testimonialModel = new Testimonial();
+        $testimonials     = $testimonialModel->featuredApproved();
+        if (count($testimonials) < 2) {
+            $testimonials = $testimonialModel->approved();
+        }
         $flash    = $this->getFlash();
         $csrf     = $this->csrfToken();
         $user     = $this->currentUser();

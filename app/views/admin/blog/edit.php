@@ -28,6 +28,13 @@ $extraImages = json_decode($post['images'] ?? '[]', true) ?: [];
                         <textarea name="excerpt" rows="2" class="form-control"><?= htmlspecialchars($post['excerpt'] ?? '') ?></textarea>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <input type="text" name="category" class="form-control"
+                               placeholder="Ex.: Design, Tecnologia, Negócios…"
+                               value="<?= htmlspecialchars($post['category'] ?? '') ?>">
+                        <div class="form-text" style="color:var(--text-faint);">Aparece como etiqueta sobre a imagem na listagem.</div>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Conteúdo</label>
                         <textarea name="content" rows="12" class="form-control"><?= htmlspecialchars($post['content'] ?? '') ?></textarea>
                         <div class="form-text" style="color:var(--text-faint);">Suporta HTML básico.</div>

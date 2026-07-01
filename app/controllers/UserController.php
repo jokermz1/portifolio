@@ -2,11 +2,12 @@
 class UserController extends Controller {
     public function profile(): void {
         $this->requireAuth();
-        $user     = $this->currentUser();
-        $comments = (new Comment())->userComments((int) $user['id']);
-        $flash    = $this->getFlash();
-        $csrf     = $this->csrfToken();
-        $this->view('user/profile', compact('user', 'comments', 'flash', 'csrf'));
+        $user         = $this->currentUser();
+        $comments     = (new Comment())->userCommentsWithTarget((int) $user['id']);
+        $testimonials = (new Testimonial())->userTestimonials((int) $user['id']);
+        $flash        = $this->getFlash();
+        $csrf         = $this->csrfToken();
+        $this->view('user/profile', compact('user', 'comments', 'testimonials', 'flash', 'csrf'));
     }
 
     public function update(): void {

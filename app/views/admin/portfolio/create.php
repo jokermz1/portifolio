@@ -52,31 +52,14 @@
             <div class="card mb-4">
                 <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i>Galeria de Imagens</div>
                 <div class="card-body" id="upload-zone">
-                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-                        Podes <strong>escolher um ficheiro</strong> ou <strong>colar (Ctrl+V)</strong> uma imagem copiada — ideal para prints de ecrã.
-                    </p>
-
                     <label class="form-label">Imagem de Capa</label>
-                    <div class="input-group mb-2">
-                        <input type="file" name="image" class="form-control" accept="image/*" id="cover-input">
-                        <button type="button" class="btn btn-outline-secondary" id="cover-paste">
-                            <i class="bi bi-clipboard me-1"></i>Colar
-                        </button>
-                    </div>
+                    <input type="file" name="image" class="form-control mb-2" accept="image/*" id="cover-input">
                     <div id="cover-preview" class="mb-3" style="display:none;">
                         <img id="cover-img" src="" alt="" style="height:120px; border-radius:8px; object-fit:cover; border:1px solid rgba(183,117,255,.2);">
                     </div>
 
                     <label class="form-label">Imagens Adicionais <small style="color:var(--text-faint); font-weight:400;">(várias · escreve um título por imagem)</small></label>
-                    <div class="input-group mb-1">
-                        <input type="file" name="images[]" class="form-control" accept="image/*" multiple id="gallery-input">
-                        <button type="button" class="btn btn-outline-secondary" id="gallery-paste">
-                            <i class="bi bi-clipboard me-1"></i>Colar
-                        </button>
-                    </div>
-                    <small style="color:var(--text-faint); font-size:11px;">
-                        <i class="bi bi-info-circle me-1"></i>Copia uma imagem e clica em <strong>Colar</strong> (ou Ctrl+V). As imagens vão-se acumulando.
-                    </small>
+                    <input type="file" name="images[]" class="form-control mb-1" accept="image/*" multiple id="gallery-input">
                     <div id="gallery-preview" class="row g-3 mt-1"></div>
                 </div>
             </div>
@@ -119,30 +102,31 @@
     const galleryInput = document.getElementById('gallery-input');
     const galleryWrap  = document.getElementById('gallery-preview');
 
-    let galleryFiles = [];          // acumula os File da galeria
-    let pasteTarget  = 'gallery';   // para onde vai o Ctrl+V (muda ao focar a capa)
+    // —— Capa ——————————————————————————————————————
+    // A colagem é tratada pela "zona de colar" geral do admin (admin.js),
+    // que define o ficheiro e dispara o evento change.
+    coverInput.addEventListener('change', function () {
+        if (!this.files[0]) return;
+        coverImg.src = URL.createObjectURL(this.files[0]);
+        coverPreview.style.display = 'block';
+    });
 
-    // —— Helpers ————————————————————————————————
-    function renameBlob(blob) {
-        let ext = (blob.type.split('/')[1] || 'png').toLowerCase();
-        if (ext === 'jpeg') ext = 'jpg';
-        const stamp = Date.now() + '-' + Math.random().toString(36).slice(2, 7);
-        return new File([blob], 'colado-' + stamp + '.' + ext, { type: blob.type });
-    }
-
-    function syncGalleryInput() {
-        const dt = new DataTransfer();
-        galleryFiles.forEach(f => dt.items.add(f));
-        galleryInput.files = dt.files;
-    }
-
+    // —— Galeria (input.files é a fonte de verdade) ————————————
     function renderGallery() {
-        // preserva os títulos já escritos (pela ordem)
-        const caps = Array.from(galleryWrap.querySelectorAll('input[name="image_captions[]"]')).map(i => i.value);
+        // preserva as legendas já escritas, associadas a cada ficheiro
+        const prev = {};
+        galleryWrap.querySelectorAll('[data-sig]').forEach(function (el) {
+            const cap = el.querySelector('input[name="image_captions[]"]');
+            prev[el.dataset.sig] = cap ? cap.value : '';
+        });
+
         galleryWrap.innerHTML = '';
-        galleryFiles.forEach((file, idx) => {
+        Array.from(galleryInput.files).forEach(function (file, idx) {
+            const sig = file.name + '_' + file.size;
+
             const col = document.createElement('div');
             col.className = 'col-6 col-md-4';
+            col.dataset.sig = sig;
 
             const box = document.createElement('div');
             box.className = 'position-relative';
@@ -155,14 +139,19 @@
             del.type = 'button';
             del.innerHTML = '×';
             del.style.cssText = 'position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:#f87171;border:none;color:#fff;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;';
-            del.onclick = () => { galleryFiles.splice(idx, 1); syncGalleryInput(); renderGallery(); };
+            del.onclick = function () {
+                const dt = new DataTransfer();
+                Array.from(galleryInput.files).forEach(function (f, i) { if (i !== idx) dt.items.add(f); });
+                galleryInput.files = dt.files;
+                renderGallery();
+            };
 
             const cap = document.createElement('input');
             cap.type = 'text';
             cap.name = 'image_captions[]';
             cap.className = 'form-control form-control-sm mt-2';
             cap.placeholder = 'Título da imagem';
-            cap.value = caps[idx] || '';
+            cap.value = prev[sig] || '';
 
             box.appendChild(img);
             box.appendChild(del);
@@ -170,74 +159,8 @@
             col.appendChild(cap);
             galleryWrap.appendChild(col);
         });
-        syncGalleryInput();
     }
 
-    function addGalleryFiles(files) {
-        files.forEach(f => galleryFiles.push(f));
-        renderGallery();
-    }
-
-    function setCover(file) {
-        const dt = new DataTransfer();
-        dt.items.add(file);
-        coverInput.files = dt.files;
-        coverImg.src = URL.createObjectURL(file);
-        coverPreview.style.display = 'block';
-    }
-
-    async function readClipboardImage() {
-        const items = await navigator.clipboard.read();
-        for (const item of items) {
-            const type = item.types.find(t => t.startsWith('image/'));
-            if (type) return renameBlob(await item.getType(type));
-        }
-        return null;
-    }
-
-    // —— Capa ————————————————————————————————————
-    coverInput.addEventListener('focus', () => pasteTarget = 'cover');
-    coverInput.addEventListener('change', function () {
-        if (this.files[0]) setCover(this.files[0]);
-    });
-    document.getElementById('cover-paste').addEventListener('click', async () => {
-        pasteTarget = 'cover';
-        try {
-            const f = await readClipboardImage();
-            if (f) setCover(f); else alert('Não há nenhuma imagem copiada. Copia uma imagem primeiro.');
-        } catch {
-            alert('O navegador bloqueou o acesso à área de transferência. Usa Ctrl+V em vez do botão.');
-        }
-    });
-
-    // —— Galeria ——————————————————————————————————
-    galleryInput.addEventListener('focus', () => pasteTarget = 'gallery');
-    galleryInput.addEventListener('change', function () {
-        addGalleryFiles(Array.from(this.files));
-    });
-    document.getElementById('gallery-paste').addEventListener('click', async () => {
-        pasteTarget = 'gallery';
-        try {
-            const f = await readClipboardImage();
-            if (f) addGalleryFiles([f]); else alert('Não há nenhuma imagem copiada. Copia uma imagem primeiro.');
-        } catch {
-            alert('O navegador bloqueou o acesso à área de transferência. Usa Ctrl+V em vez do botão.');
-        }
-    });
-
-    // —— Ctrl+V em qualquer ponto ————————————————————
-    document.addEventListener('paste', function (e) {
-        const files = [];
-        for (const item of (e.clipboardData ? e.clipboardData.items : [])) {
-            if (item.type && item.type.startsWith('image/')) {
-                const blob = item.getAsFile();
-                if (blob) files.push(renameBlob(blob));
-            }
-        }
-        if (!files.length) return;
-        e.preventDefault();
-        if (pasteTarget === 'cover') setCover(files[0]);
-        else addGalleryFiles(files);
-    });
+    galleryInput.addEventListener('change', renderGallery);
 })();
 </script>

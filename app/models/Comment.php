@@ -70,4 +70,23 @@ class Comment extends Model {
         $stmt->execute([$userId]);
         return $stmt->fetchAll();
     }
+
+    /**
+     * Comentários do utilizador, já com o slug e título da publicação-alvo
+     * (post do blog ou projeto do portefólio) resolvidos, para criar o link
+     * directo para a publicação.
+     */
+    public function userCommentsWithTarget(int $userId): array {
+        $sql = "SELECT c.*,
+                       COALESCE(p.slug,  pr.slug)  AS target_slug,
+                       COALESCE(p.title, pr.title) AS target_title
+                FROM {$this->table} c
+                LEFT JOIN posts    p  ON c.entity_type = 'post'    AND c.entity_id = p.id
+                LEFT JOIN projects pr ON c.entity_type = 'project' AND c.entity_id = pr.id
+                WHERE c.user_id = ?
+                ORDER BY c.created_at DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll();
+    }
 }

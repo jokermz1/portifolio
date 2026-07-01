@@ -22,6 +22,7 @@ class AdminBlogController extends Controller {
         $data  = [
             'title'        => $this->sanitize($this->input('title', '')),
             'excerpt'      => $this->sanitize($this->input('excerpt', '')),
+            'category'     => $this->sanitize($this->input('category', '')) ?: null,
             'content'      => $this->input('content', ''),
             'external_url' => $this->sanitize($this->input('external_url', '')),
             'is_published' => (int) $this->input('is_published', 0),
@@ -65,6 +66,7 @@ class AdminBlogController extends Controller {
         $data = [
             'title'        => $this->sanitize($this->input('title', '')),
             'excerpt'      => $this->sanitize($this->input('excerpt', '')),
+            'category'     => $this->sanitize($this->input('category', '')) ?: null,
             'content'      => $this->input('content', ''),
             'external_url' => $this->sanitize($this->input('external_url', '')),
             'is_published' => $isPublished,

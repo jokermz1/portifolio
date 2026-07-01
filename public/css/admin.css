@@ -788,3 +788,106 @@ hr { border-color: var(--border); opacity: 1; }
 
   #admin-content main { padding: 20px 16px 40px; }
 }
+
+/* ── Botão de alternância de tema ───────────────────────────── */
+.topbar-toggle-theme {
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  padding: 5px 9px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color var(--transition), border-color var(--transition);
+}
+.topbar-toggle-theme:hover { color: var(--accent); border-color: var(--accent); }
+
+.admin-login-theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  padding: 7px 11px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color var(--transition), border-color var(--transition);
+}
+.admin-login-theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ── Zona de colar imagem (Ctrl+V) ──────────────────────────── */
+.paste-zone {
+  margin-top: 6px;
+  padding: 8px 12px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+.paste-zone:hover,
+.paste-zone:focus { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.paste-zone.has-file { border-style: solid; border-color: rgba(120,200,120,.5); color: #7fd18f; background: rgba(120,200,120,.06); }
+
+.theme-icon-light { display: none; }
+[data-theme="light"] .theme-icon-dark { display: none; }
+[data-theme="light"] .theme-icon-light { display: inline-block; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TEMA CLARO — painel de administração
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  color-scheme: light;
+  --bg-base:       #eceaf2;
+  --bg-sidebar:    #ffffff;
+  --bg-content:    #f4f2f8;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #f6f2fe;
+  --border:        rgba(0,0,0,.09);
+  --border-strong: rgba(0,0,0,.14);
+  --text-primary:  #1a1a24;
+  --text-muted:    #6c6678;
+  --text-faint:    #9a94a6;
+}
+
+[data-theme="light"] .card,
+[data-theme="light"] .stat-card { box-shadow: 0 2px 12px rgba(0,0,0,.04); }
+
+[data-theme="light"] #admin-sidebar,
+[data-theme="light"] #admin-topbar { box-shadow: 0 1px 12px rgba(0,0,0,.05); }
+
+/* Campos de formulário */
+[data-theme="light"] .form-control,
+[data-theme="light"] .form-select {
+  background: #ffffff !important;
+  color: #1a1a24 !important;
+}
+[data-theme="light"] .form-control:focus,
+[data-theme="light"] .form-select:focus {
+  background: #ffffff !important;
+}
+[data-theme="light"] .form-select {
+  background-color: #ffffff !important;
+  color-scheme: light;
+}
+[data-theme="light"] .form-select option {
+  background-color: #ffffff;
+  color: #1a1a24;
+}
+
+/* Cartão de login */
+[data-theme="light"] .login-card {
+  background: #ffffff;
+  box-shadow: 0 12px 40px rgba(0,0,0,.08);
+}
+
+/* Scrollbar */
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); }

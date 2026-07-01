@@ -11,11 +11,11 @@ $projectUrl = $project['project_url'] ?: ($links[0]['url'] ?? '');
             <div class="row justify-content-center text-center">
                 <div class="col-xl-9">
                     <p class="letter-space fs-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
-                        <a href="<?= BASE_URL ?>/" class="text-primary text-decoration-none">Home</a>
-                        <span class="mx-2 text-muted">/</span>
-                        <a href="<?= BASE_URL ?>/portfolio" class="text-primary text-decoration-none">Portfolio</a>
-                        <span class="mx-2 text-muted">/</span>
-                        <span class="text-muted"><?= htmlspecialchars($project['title']) ?></span>
+                        <a href="<?= BASE_URL ?>/" class="text-primary text-decoration-none"><?= t('Home') ?></a>
+                        <span class="mx-2" style="color:#8f86a3;">/</span>
+                        <a href="<?= BASE_URL ?>/portfolio" class="text-primary text-decoration-none"><?= t('Portfolio') ?></a>
+                        <span class="mx-2" style="color:#8f86a3;">/</span>
+                        <span style="color:#d0c9de;"><?= htmlspecialchars($project['title']) ?></span>
                     </p>
                     <h1 class="banner-size display-1" data-aos="fade-up" data-aos-duration="1200">
                         <?= htmlspecialchars($project['title']) ?>
@@ -58,26 +58,26 @@ $projectUrl = $project['project_url'] ?: ($links[0]['url'] ?? '');
                         <div class="col-lg-4">
                             <?php if (!empty($project['client'])): ?>
                             <div class="mb-4">
-                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;">CLIENT</p>
+                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;"><?= t('CLIENT') ?></p>
                                 <p class="fs-5 text-white mb-0"><?= htmlspecialchars($project['client']) ?></p>
                             </div>
                             <?php endif; ?>
 
                             <div class="mb-4">
-                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;">DATE</p>
+                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;"><?= t('DATE') ?></p>
                                 <p class="fs-5 text-white mb-0"><?= date('d-m-Y', strtotime($project['created_at'])) ?></p>
                             </div>
 
                             <?php if (!empty($project['category'])): ?>
                             <div class="mb-4">
-                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;">CATEGORY</p>
+                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;"><?= t('CATEGORY') ?></p>
                                 <p class="fs-5 text-white mb-0"><?= htmlspecialchars($project['category']) ?></p>
                             </div>
                             <?php endif; ?>
 
                             <?php if (!empty($projectUrl)): ?>
                             <div class="mb-4">
-                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;">PROJECT LINK</p>
+                                <p class="letter-space text-primary mb-1" style="font-size:0.75rem;"><?= t('PROJECT LINK') ?></p>
                                 <a href="<?= htmlspecialchars($projectUrl) ?>" target="_blank" rel="noopener noreferrer"
                                    class="fs-5 text-white text-decoration-none text-break border-bottom border-primary">
                                     <?= htmlspecialchars($projectUrl) ?>
@@ -145,12 +145,12 @@ $projectUrl = $project['project_url'] ?: ($links[0]['url'] ?? '');
                     <!-- ══ Voltar / Ver projeto ════════════════ -->
                     <div class="d-flex flex-wrap gap-3 mt-5 pt-3">
                         <a href="<?= BASE_URL ?>/portfolio" class="btn btn-outline-light rounded-pill px-4 py-3">
-                            ← All Projects
+                            ← <?= t('All Projects') ?>
                         </a>
                         <?php if (!empty($projectUrl)): ?>
                         <a href="<?= htmlspecialchars($projectUrl) ?>" target="_blank" rel="noopener noreferrer"
                            class="btn button rounded-pill position-relative pe-5">
-                            <span>View Live Project</span>
+                            <span><?= t('View Live Project') ?></span>
                             <div class="position-absolute top-50 end-0 translate-middle-y me-2">
                                 <svg class="arrow-right bg-white text-black rounded-circle p-2" width="35" height="35">
                                     <use xlink:href="#arrow-right"></use>
@@ -163,7 +163,7 @@ $projectUrl = $project['project_url'] ?: ($links[0]['url'] ?? '');
                     <!-- ══ Projetos relacionados ═══════════════ -->
                     <?php if (!empty($related)): ?>
                     <hr class="border-light border-opacity-25 my-5">
-                    <h3 class="display-5 mb-4">Related projects<span class="text-primary">.</span></h3>
+                    <h3 class="display-5 mb-4"><?= t('Related projects') ?><span class="text-primary">.</span></h3>
                     <div class="row g-4">
                         <?php foreach ($related as $r): ?>
                         <div class="col-md-4">

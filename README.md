@@ -69,28 +69,35 @@ FLUSH PRIVILEGES;
 
 > **Desenvolvimento local com root:** pode simplificar e usar `root` sem senha (padrão XAMPP) — veja o passo seguinte.
 
-### 4. Configurar a base de dados
+### 4. Configurar as credenciais (`config/env.php`)
 
-Edite o ficheiro [`config/database.php`](config/database.php):
+Todas as credenciais sensíveis (base de dados, URL base e admin) ficam **num único ficheiro**: [`config/env.php`](config/env.php). Este ficheiro **não é versionado** (está no `.gitignore`), por isso não vai parar ao repositório.
+
+Copie o modelo e preencha com os seus valores:
+
+```bash
+cp config/env.example.php config/env.php
+```
+
+Depois edite o `config/env.php`:
 
 ```php
+// Base de dados
 define('DB_HOST',    'localhost');
 define('DB_NAME',    'portfolio_db');
 define('DB_USER',    'portfolio_db');    // ou 'root' em dev
 define('DB_PASS',    'K9x#mP2$vL7@nQ4'); // ou '' se usar root sem senha
 define('DB_CHARSET', 'utf8mb4');
+
+// URL base do site (sem barra final)
+define('BASE_URL',   'http://localhost/portifolio');
+
+// Credenciais do administrador (ver passo 7 para gerar o hash)
+define('ADMIN_EMAIL',         'seu@email.com');
+define('ADMIN_PASSWORD_HASH', '$2y$12$...');
 ```
 
-### 5. Configurar a aplicação
-
-Edite o ficheiro [`config/config.php`](config/config.php):
-
-```php
-define('BASE_URL', 'http://localhost/portifolio/public');
-define('APP_NAME', 'Portfólio');
-```
-
-> Altere `BASE_URL` caso use um domínio ou subpasta diferente.
+> Os ficheiros [`config/config.php`](config/config.php) (nome da app, uploads, sessão) e [`config/database.php`](config/database.php) já leem os valores a partir do `env.php` — normalmente **não precisa de os editar**.
 
 ### 6. Importar o schema da base de dados
 
@@ -113,7 +120,7 @@ mysql -u portfolio_db -p portfolio_db < database/add_resume.sql
 
 #### Opção C — Script de setup no browser
 
-Aceda a `http://localhost/portifolio/database/setup.php`, preencha o email e a senha de admin e clique em **Gerar Hash**. Copie o resultado gerado para `config/config.php`:
+Aceda a `http://localhost/portifolio/database/setup.php`, preencha o email e a senha de admin e clique em **Gerar Hash**. Copie o resultado gerado para `config/env.php`:
 
 ```php
 define('ADMIN_EMAIL',         'seu@email.com');
@@ -130,7 +137,7 @@ Se não usou o script de setup, gere o hash manualmente no terminal PHP:
 php -r "echo password_hash('suasenha', PASSWORD_BCRYPT, ['cost'=>12]);"
 ```
 
-Cole o resultado em [`config/config.php`](config/config.php):
+Cole o resultado em [`config/env.php`](config/env.php):
 
 ```php
 define('ADMIN_EMAIL',         'seu@email.com');
@@ -174,8 +181,10 @@ portifolio/
 │   ├── models/             # Modelos (PDO)
 │   └── views/              # Templates PHP
 ├── config/
-│   ├── config.php          # URL base, credenciais admin, sessão
-│   └── database.php        # Credenciais da base de dados
+│   ├── env.php             # Credenciais sensíveis (NÃO versionado)
+│   ├── env.example.php     # Modelo das credenciais (copiar p/ env.php)
+│   ├── config.php          # Nome da app, uploads, sessão (lê o env.php)
+│   └── database.php        # Liga à BD (lê o env.php)
 ├── database/
 │   ├── schema.sql          # Schema principal + seeds
 │   ├── add_faqs_team.sql   # Migração FAQs + Equipa
@@ -196,9 +205,10 @@ portifolio/
 |---|---|
 | Página em branco / 500 | Verifique os logs em `C:\xampp\apache\logs\error.log` |
 | `mod_rewrite` não funciona | Confirme que `AllowOverride All` está activo no `httpd.conf` |
-| Erro de ligação à BD | Verifique `config/database.php` — utilizador, senha e nome da BD |
+| Erro de ligação à BD | Verifique `config/env.php` — utilizador, senha e nome da BD |
+| `Configuração em falta` | Falta o `config/env.php` — copie `config/env.example.php` para `config/env.php` |
 | Imagens não carregam | Confirme que `public/uploads/` existe e tem permissões de escrita |
-| Acesso negado ao admin | Confirme o hash em `config/config.php` e use o email correcto |
+| Acesso negado ao admin | Confirme o hash em `config/env.php` e use o email correcto |
 
 ---
 

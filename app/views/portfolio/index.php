@@ -12,15 +12,15 @@ $catSlug = fn(string $cat): string =>
             <div class="row justify-content-center text-center">
                 <div class="col-xl-8">
                     <p class="letter-space text-primary fs-5" data-aos="fade-up" data-aos-duration="1000">
-                        <a href="<?= BASE_URL ?>/" class="text-primary text-decoration-none">Home</a>
+                        <a href="<?= BASE_URL ?>/" class="text-primary text-decoration-none"><?= t('Home') ?></a>
                         <span class="mx-2 text-muted">›</span>
-                        <span class="text-white">Portfolio</span>
+                        <span class="text-white"><?= t('Portfolio') ?></span>
                     </p>
                     <h2 class="banner-size display-1" data-aos="fade-up" data-aos-duration="1200">
-                        Portfolio<span class="text-primary">.</span>
+                        <?= t('Portfolio') ?><span class="text-primary">.</span>
                     </h2>
                     <p class="text-muted" data-aos="fade-up" data-aos-duration="1400">
-                        A showcase of my favourite projects — each design tells a unique story.
+                        <?= t('A showcase of my favourite projects — each design tells a unique story.') ?>
                     </p>
                 </div>
             </div>
@@ -39,9 +39,9 @@ $catSlug = fn(string $cat): string =>
 
                 <!-- Heading -->
                 <div class="text-center mb-5">
-                    <h3 class="display-3">Latest projects<span class="text-primary">.</span></h3>
-                    <p class="text-muted">Here's a showcase of some of my favourite projects.<br>
-                        Each design tells a unique story and reflects the client's brand essence.</p>
+                    <h3 class="display-3"><?= t('Latest projects') ?><span class="text-primary">.</span></h3>
+                    <p class="text-muted"><?= t("Here's a showcase of some of my favourite projects.") ?><br>
+                        <?= t("Each design tells a unique story and reflects the client's brand essence.") ?></p>
                 </div>
 
                 <?php if (!empty($projects)): ?>
@@ -50,7 +50,7 @@ $catSlug = fn(string $cat): string =>
                 <div class="text-center my-5">
                     <p>
                         <button class="filter-button py-3 px-5 me-2 mb-3 active" data-filter="*">
-                            All
+                            <?= t('All') ?>
                         </button>
                         <?php foreach ($categories as $cat): ?>
                         <button class="filter-button py-3 px-5 me-2 mb-3"
@@ -96,7 +96,7 @@ $catSlug = fn(string $cat): string =>
 
                 <?php else: ?>
                 <div class="text-center py-5">
-                    <p class="text-muted fs-5">No projects published yet. Check back soon!</p>
+                    <p class="text-muted fs-5"><?= t('No projects published yet. Check back soon!') ?></p>
                 </div>
                 <?php endif; ?>
 

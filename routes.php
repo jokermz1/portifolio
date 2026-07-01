@@ -18,6 +18,9 @@ $router->get('/about',          'AboutController@index');
 // Reviews / Depoimentos (submissão pública, sem login)
 $router->post('/reviews',       'TestimonialController@store');
 
+// Idioma da interface (i18n)
+$router->get('/lang/{code}',    'LangController@set');
+
 // ============================================================
 // Autenticação pública
 // ============================================================
@@ -162,6 +165,12 @@ $router->post('/admin/testimonials/{id}/approve',   'AdminTestimonialController@
 $router->post('/admin/testimonials/{id}/reject',    'AdminTestimonialController@reject');
 $router->post('/admin/testimonials/{id}/feature',   'AdminTestimonialController@feature');
 $router->post('/admin/testimonials/{id}/delete',    'AdminTestimonialController@delete');
+
+// ============================================================
+// Admin — Traduções (i18n)
+// ============================================================
+$router->get('/admin/translations',  'AdminTranslationController@index');
+$router->post('/admin/translations', 'AdminTranslationController@update');
 
 // ============================================================
 // Admin — Definições gerais

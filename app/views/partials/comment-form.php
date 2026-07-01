@@ -5,9 +5,52 @@
  */
 $parentId = $parentId ?? null;
 ?>
+<?php if (empty($GLOBALS['__cmt_form_css'])): $GLOBALS['__cmt_form_css'] = true; ?>
+<style>
+/* ═══ Formulário de comentário ═══════════════════════════════ */
+.comment-form .cmt-form-title { color: #ffffff; font-weight: 600; }
+.comment-form .form-label { color: #d9d2e8; }
+.comment-form .form-check-label { color: #cfc8de; cursor: pointer; }
+.comment-form .form-check-label i { color: #b775ff; }
+.comment-form .form-check-input:checked {
+    background-color: #8F3AEC;
+    border-color: #8F3AEC;
+}
+
+.comment-form textarea.form-control {
+    background: rgba(15, 14, 16, .6);
+    color: #f1eef8;
+    border: 1px solid rgba(183, 117, 255, .28);
+}
+.comment-form textarea.form-control::placeholder { color: #8f86a3; }
+.comment-form textarea.form-control:focus {
+    background: rgba(15, 14, 16, .8);
+    color: #fff;
+    border-color: #8F3AEC;
+    box-shadow: 0 0 0 .2rem rgba(143, 58, 236, .25);
+}
+.comment-form .cmt-hint { color: #a99fbb; }
+
+/* Caixa "Inicie sessão para comentar" */
+.cmt-login-box {
+    background: rgba(143, 58, 236, .08);
+    border: 1px solid rgba(183, 117, 255, .28);
+    border-radius: 14px;
+    color: #d9d2e8;
+    padding: 1.1rem 1.25rem;
+}
+.cmt-login-box i { color: #b775ff; }
+.cmt-login-box a {
+    color: #c9a7ff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.cmt-login-box a:hover { text-decoration: underline; }
+</style>
+<?php endif; ?>
 <?php if ($user): ?>
 <div class="comment-form mt-4">
-    <h5 class="mb-3"><?= $parentId ? 'Responder' : 'Deixar um comentário' ?></h5>
+    <h5 class="cmt-form-title mb-3"><?= $parentId ? 'Responder' : 'Deixar um comentário' ?></h5>
     <form method="POST" action="<?= BASE_URL ?>/comments">
         <input type="hidden" name="_csrf"        value="<?= htmlspecialchars($csrf) ?>">
         <input type="hidden" name="entity_type"  value="<?= htmlspecialchars($entityType) ?>">
@@ -19,7 +62,7 @@ $parentId = $parentId ?? null;
         <?php if (!$parentId): ?>
         <div class="mb-3">
             <label class="form-label fw-semibold">Tipo</label>
-            <div class="d-flex gap-3">
+            <div class="d-flex gap-3 flex-wrap">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="type" value="comment" id="type_comment" checked>
                     <label class="form-check-label" for="type_comment">
@@ -43,21 +86,23 @@ $parentId = $parentId ?? null;
         <?php endif; ?>
 
         <div class="mb-3">
-            <textarea class="form-control bg-dark text-white border-secondary" name="content" rows="4"
+            <textarea class="form-control" name="content" rows="4"
                       placeholder="Escreva aqui..." required minlength="5"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">
-            <i class="bi bi-send me-1"></i> Publicar
-        </button>
-        <small class="text-muted ms-3">
-            <i class="bi bi-clock me-1"></i>Aguarda moderação antes de ser publicado.
-        </small>
+        <div class="d-flex align-items-center flex-wrap gap-2">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-send me-1"></i> Publicar
+            </button>
+            <small class="cmt-hint">
+                <i class="bi bi-clock me-1"></i>Aguarda moderação antes de ser publicado.
+            </small>
+        </div>
     </form>
 </div>
 <?php else: ?>
-<div class="alert alert-dark border border-secondary mt-4">
+<div class="cmt-login-box mt-4">
     <i class="bi bi-lock me-2"></i>
-    <a href="<?= BASE_URL ?>/login" class="text-primary">Inicie sessão</a> ou
-    <a href="<?= BASE_URL ?>/register" class="text-primary">registe-se</a> para comentar.
+    <a href="<?= BASE_URL ?>/login">Inicie sessão</a> ou
+    <a href="<?= BASE_URL ?>/register">registe-se</a> para comentar.
 </div>
 <?php endif; ?>
