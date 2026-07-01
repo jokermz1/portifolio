@@ -1,7 +1,8 @@
 .claude/
+./claude
 *.zip
 /public/uploads/
 .checklist
-
+.checklist*
 # Credenciais sensíveis (nunca versionar)
 config/env.php
