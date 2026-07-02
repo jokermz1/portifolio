@@ -1,13 +1,13 @@
 <?php $pageTitle = 'Editar Item de Currículo — Admin'; ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Editar Item</h1>
+        <h1 class="page-title"><?= t('Editar Item') ?></h1>
         <span style="font-size:12px; color:var(--text-faint);">
-            <?= $item['type'] === 'education' ? 'Educação' : 'Experiência Profissional' ?>
+            <?= $item['type'] === 'education' ? t('Educação') : t('Experiência Profissional') ?>
         </span>
     </div>
     <a href="<?= BASE_URL ?>/admin/resume" class="btn btn-outline-secondary btn-sm">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
+        <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
     </a>
 </div>
 
@@ -20,20 +20,20 @@
 
                 <!-- Tipo -->
                 <div class="col-md-6">
-                    <label class="form-label">Tipo *</label>
+                    <label class="form-label"><?= t('Tipo') ?> *</label>
                     <div class="d-flex gap-3 mt-1">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="type" id="type_edu"
                                    value="education" <?= $item['type'] === 'education' ? 'checked' : '' ?>>
                             <label class="form-check-label" for="type_edu">
-                                <i class="bi bi-mortarboard me-1" style="color:#B775FF;"></i>Educação
+                                <i class="bi bi-mortarboard me-1" style="color:#B775FF;"></i><?= t('Educação') ?>
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="type" id="type_exp"
                                    value="experience" <?= $item['type'] === 'experience' ? 'checked' : '' ?>>
                             <label class="form-check-label" for="type_exp">
-                                <i class="bi bi-briefcase me-1" style="color:#38bdf8;"></i>Experiência
+                                <i class="bi bi-briefcase me-1" style="color:#38bdf8;"></i><?= t('Experiência') ?>
                             </label>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
 
                 <!-- Ordem -->
                 <div class="col-md-3">
-                    <label class="form-label">Ordem</label>
+                    <label class="form-label"><?= t('Ordem') ?></label>
                     <input type="number" name="sort_order" value="<?= (int)$item['sort_order'] ?>"
                            class="form-control" min="0">
                 </div>
@@ -51,14 +51,14 @@
                     <div class="form-check form-switch mb-2">
                         <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                id="is_active" <?= $item['is_active'] ? 'checked' : '' ?>>
-                        <label class="form-check-label" for="is_active">Ativo</label>
+                        <label class="form-check-label" for="is_active"><?= t('Ativo') ?></label>
                     </div>
                 </div>
 
                 <!-- Título -->
                 <div class="col-12">
                     <label class="form-label" id="title-label">
-                        <?= $item['type'] === 'education' ? 'Grau / Título *' : 'Cargo / Função *' ?>
+                        <?= $item['type'] === 'education' ? t('Grau / Título') . ' *' : t('Cargo / Função') . ' *' ?>
                     </label>
                     <input type="text" name="title" class="form-control" required
                            id="title-input"
@@ -67,7 +67,7 @@
 
                 <!-- Período -->
                 <div class="col-md-4">
-                    <label class="form-label">Período</label>
+                    <label class="form-label"><?= t('Período') ?></label>
                     <input type="text" name="period" class="form-control"
                            value="<?= htmlspecialchars($item['period'] ?? '') ?>"
                            placeholder="ex: 2018 – 2022">
@@ -76,7 +76,7 @@
                 <!-- Subtítulo -->
                 <div class="col-md-8">
                     <label class="form-label" id="subtitle-label">
-                        <?= $item['type'] === 'education' ? 'Instituição' : 'Empresa' ?>
+                        <?= $item['type'] === 'education' ? t('Instituição') : t('Empresa') ?>
                     </label>
                     <input type="text" name="subtitle" class="form-control"
                            id="subtitle-input"
@@ -85,10 +85,10 @@
 
                 <!-- Descrição -->
                 <div class="col-12">
-                    <label class="form-label">Descrição</label>
+                    <label class="form-label"><?= t('Descrição') ?></label>
                     <textarea name="description" class="form-control" rows="4"><?= htmlspecialchars($item['description'] ?? '') ?></textarea>
                     <small style="color:var(--text-faint); font-size:11px;">
-                        Pode usar nova linha para separar parágrafos.
+                        <?= t('Pode usar nova linha para separar parágrafos.') ?>
                     </small>
                 </div>
 
@@ -96,7 +96,7 @@
                 <div class="col-12">
                     <label class="form-label">
                         <i class="bi bi-paperclip me-1" style="color:var(--accent);"></i>
-                        Anexo / Comprovante
+                        <?= t('Anexo / Comprovante') ?>
                     </label>
 
                     <?php if (!empty($item['attachment'])): ?>
@@ -119,7 +119,7 @@
                             </p>
                             <a href="<?= UPLOAD_URL ?>resume/<?= htmlspecialchars($item['attachment']) ?>"
                                target="_blank" style="font-size:11px; color:#B775FF;">
-                                <i class="bi bi-box-arrow-up-right me-1"></i>Abrir ficheiro
+                                <i class="bi bi-box-arrow-up-right me-1"></i><?= t('Abrir ficheiro') ?>
                             </a>
                         </div>
                         <div class="form-check mb-0">
@@ -127,26 +127,26 @@
                                    value="1" id="remove_attachment">
                             <label class="form-check-label" for="remove_attachment"
                                    style="font-size:12px; color:#ff6b6b;">
-                                Apagar
+                                <?= t('Apagar') ?>
                             </label>
                         </div>
                     </div>
                     <label class="form-label" style="font-size:12px; color:var(--text-faint); margin-bottom:4px;">
-                        Substituir por outro ficheiro (opcional):
+                        <?= t('Substituir por outro ficheiro (opcional):') ?>
                     </label>
                     <?php endif; ?>
 
                     <input type="file" name="attachment" class="form-control"
                            accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx">
                     <small style="color:var(--text-faint); font-size:11px;">
-                        PDF, imagem ou documento Word. Máx. 15 MB.
-                        <?= !empty($item['attachment']) ? 'Carregar novo substitui o anterior.' : 'Exemplo: diploma, certificado.' ?>
+                        <?= t('PDF, imagem ou documento Word. Máx. 15 MB.') ?>
+                        <?= !empty($item['attachment']) ? t('Carregar novo substitui o anterior.') : t('Exemplo: diploma, certificado.') ?>
                     </small>
                 </div>
 
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-save me-1"></i>Guardar Alterações
+                        <i class="bi bi-save me-1"></i><?= t('Guardar Alterações') ?>
                     </button>
                 </div>
 
@@ -162,11 +162,11 @@ const subtitleLabel = document.getElementById('subtitle-label');
 
 radios.forEach(r => r.addEventListener('change', () => {
     if (r.value === 'education') {
-        titleLabel.textContent    = 'Grau / Título *';
-        subtitleLabel.textContent = 'Instituição';
+        titleLabel.textContent    = <?= json_encode(t('Grau / Título') . ' *') ?>;
+        subtitleLabel.textContent = <?= json_encode(t('Instituição')) ?>;
     } else {
-        titleLabel.textContent    = 'Cargo / Função *';
-        subtitleLabel.textContent = 'Empresa';
+        titleLabel.textContent    = <?= json_encode(t('Cargo / Função') . ' *') ?>;
+        subtitleLabel.textContent = <?= json_encode(t('Empresa')) ?>;
     }
 }));
 </script>

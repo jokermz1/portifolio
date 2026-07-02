@@ -1,8 +1,8 @@
 <?php $pageTitle = 'Novo Projeto — Admin'; ?>
 <div class="page-header">
-    <h1 class="page-title">Novo Projeto</h1>
+    <h1 class="page-title"><?= t('Novo Projeto') ?></h1>
     <a href="<?= BASE_URL ?>/admin/portfolio" class="btn btn-outline-secondary btn-sm">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
+        <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
     </a>
 </div>
 
@@ -13,15 +13,15 @@
         <!-- ── Coluna principal ── -->
         <div class="col-lg-8">
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-folder2 me-2" style="color:var(--accent);"></i>Informações do Projeto</div>
+                <div class="card-header"><i class="bi bi-folder2 me-2" style="color:var(--accent);"></i><?= t('Informações do Projeto') ?></div>
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label">Título *</label>
+                            <label class="form-label"><?= t('Título') ?> *</label>
                             <input type="text" name="title" class="form-control" required>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label">Categoria</label>
+                            <label class="form-label"><?= t('Categoria') ?></label>
                             <input type="text" name="category" list="cat-list" class="form-control" placeholder="ex: Web Design">
                             <datalist id="cat-list">
                                 <?php foreach ($categories as $cat): ?>
@@ -30,15 +30,15 @@
                             </datalist>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label">Cliente</label>
+                            <label class="form-label"><?= t('Cliente') ?></label>
                             <input type="text" name="client" class="form-control" placeholder="ex: Hachicko Tee">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Descrição curta</label>
+                            <label class="form-label"><?= t('Descrição curta') ?></label>
                             <textarea name="description" class="form-control" rows="2"></textarea>
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Conteúdo</label>
+                            <label class="form-label"><?= t('Conteúdo') ?></label>
                             <textarea name="content" class="form-control" rows="6"></textarea>
                         </div>
                     </div>
@@ -50,15 +50,15 @@
 
             <!-- Galeria de imagens -->
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i>Galeria de Imagens</div>
+                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i><?= t('Galeria de Imagens') ?></div>
                 <div class="card-body" id="upload-zone">
-                    <label class="form-label">Imagem de Capa</label>
+                    <label class="form-label"><?= t('Imagem de Capa') ?></label>
                     <input type="file" name="image" class="form-control mb-2" accept="image/*" id="cover-input">
                     <div id="cover-preview" class="mb-3" style="display:none;">
                         <img id="cover-img" src="" alt="" style="height:120px; border-radius:8px; object-fit:cover; border:1px solid rgba(183,117,255,.2);">
                     </div>
 
-                    <label class="form-label">Imagens Adicionais <small style="color:var(--text-faint); font-weight:400;">(várias · escreve um título por imagem)</small></label>
+                    <label class="form-label"><?= t('Imagens Adicionais') ?> <small style="color:var(--text-faint); font-weight:400;"><?= t('(várias · escreve um título por imagem)') ?></small></label>
                     <input type="file" name="images[]" class="form-control mb-1" accept="image/*" multiple id="gallery-input">
                     <div id="gallery-preview" class="row g-3 mt-1"></div>
                 </div>
@@ -68,25 +68,25 @@
         <!-- ── Coluna lateral ── -->
         <div class="col-lg-4">
             <div class="card mb-4" style="position:sticky; top:20px;">
-                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i>Publicação</div>
+                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i><?= t('Publicação') ?></div>
                 <div class="card-body">
                     <div class="form-check form-switch mb-3">
                         <input class="form-check-input" type="checkbox" name="is_published" value="1" id="is_published" checked>
-                        <label class="form-check-label" for="is_published">Publicado</label>
+                        <label class="form-check-label" for="is_published"><?= t('Publicado') ?></label>
                     </div>
                     <div class="form-check form-switch mb-4">
                         <input class="form-check-input" type="checkbox" name="is_featured" value="1" id="is_featured">
-                        <label class="form-check-label" for="is_featured">Destacado na homepage</label>
+                        <label class="form-check-label" for="is_featured"><?= t('Destacado na homepage') ?></label>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label">Ordem</label>
+                        <label class="form-label"><?= t('Ordem') ?></label>
                         <input type="number" name="sort_order" min="0" value="0" class="form-control">
                         <small style="color:var(--text-faint); font-size:11px;">
-                            <i class="bi bi-info-circle me-1"></i>0 = automático (por data). 1 = aparece primeiro, depois 2, 3…
+                            <i class="bi bi-info-circle me-1"></i><?= t('0 = automático (por data). 1 = aparece primeiro, depois 2, 3…') ?>
                         </small>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-save me-1"></i>Criar Projeto
+                        <i class="bi bi-save me-1"></i><?= t('Criar Projeto') ?>
                     </button>
                 </div>
             </div>

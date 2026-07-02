@@ -3,14 +3,14 @@ $pageTitle   = 'Editar Projeto — Admin';
 $extraImages = Project::galleryItems($project['images'] ?? '[]');
 ?>
 <div class="page-header">
-    <h1 class="page-title">Editar Projeto</h1>
+    <h1 class="page-title"><?= t('Editar Projeto') ?></h1>
     <div class="d-flex gap-2">
         <a href="<?= BASE_URL ?>/portfolio/<?= htmlspecialchars($project['slug']) ?>"
            target="_blank" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-eye me-1"></i>Ver no site
+            <i class="bi bi-eye me-1"></i><?= t('Ver no site') ?>
         </a>
         <a href="<?= BASE_URL ?>/admin/portfolio" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-arrow-left me-1"></i>Voltar
+            <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
         </a>
     </div>
 </div>
@@ -22,16 +22,16 @@ $extraImages = Project::galleryItems($project['images'] ?? '[]');
         <!-- ── Coluna principal ── -->
         <div class="col-lg-8">
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-folder2 me-2" style="color:var(--accent);"></i>Informações do Projeto</div>
+                <div class="card-header"><i class="bi bi-folder2 me-2" style="color:var(--accent);"></i><?= t('Informações do Projeto') ?></div>
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label">Título *</label>
+                            <label class="form-label"><?= t('Título') ?> *</label>
                             <input type="text" name="title" value="<?= htmlspecialchars($project['title']) ?>"
                                    class="form-control" required>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label">Categoria</label>
+                            <label class="form-label"><?= t('Categoria') ?></label>
                             <input type="text" name="category" list="cat-list"
                                    value="<?= htmlspecialchars($project['category'] ?? '') ?>"
                                    class="form-control" placeholder="ex: Web Design">
@@ -42,18 +42,18 @@ $extraImages = Project::galleryItems($project['images'] ?? '[]');
                             </datalist>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label">Cliente</label>
+                            <label class="form-label"><?= t('Cliente') ?></label>
                             <input type="text" name="client"
                                    value="<?= htmlspecialchars($project['client'] ?? '') ?>"
                                    class="form-control" placeholder="ex: Hachicko Tee">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Descrição curta</label>
+                            <label class="form-label"><?= t('Descrição curta') ?></label>
                             <textarea name="description" class="form-control"
                                       rows="2"><?= htmlspecialchars($project['description'] ?? '') ?></textarea>
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Conteúdo</label>
+                            <label class="form-label"><?= t('Conteúdo') ?></label>
                             <textarea name="content" class="form-control"
                                       rows="6"><?= htmlspecialchars($project['content'] ?? '') ?></textarea>
                         </div>
@@ -67,10 +67,10 @@ $extraImages = Project::galleryItems($project['images'] ?? '[]');
 
             <!-- Imagens -->
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i>Galeria de Imagens</div>
+                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i><?= t('Galeria de Imagens') ?></div>
                 <div class="card-body">
                     <!-- Capa -->
-                    <label class="form-label">Imagem de Capa</label>
+                    <label class="form-label"><?= t('Imagem de Capa') ?></label>
                     <?php if (!empty($project['image'])): ?>
                     <div class="mb-2">
                         <img src="<?= UPLOAD_URL ?>projects/<?= htmlspecialchars($project['image']) ?>"
@@ -82,12 +82,12 @@ $extraImages = Project::galleryItems($project['images'] ?? '[]');
                     </div>
                     <?php endif; ?>
                     <input type="file" name="image" class="form-control mb-1" accept="image/*" id="cover-input">
-                    <small style="color:var(--text-faint); font-size:11px;">Deixe vazio para manter a actual.</small>
+                    <small style="color:var(--text-faint); font-size:11px;"><?= t('Deixe vazio para manter a actual.') ?></small>
 
                     <!-- Galeria extra existente -->
                     <?php if ($extraImages): ?>
                     <hr style="border-color:rgba(255,255,255,.07); margin:18px 0 14px;">
-                    <label class="form-label">Imagens da Galeria <small style="color:var(--text-faint); font-weight:400;">— dá um título a cada imagem · clica × para remover</small></label>
+                    <label class="form-label"><?= t('Imagens da Galeria') ?> <small style="color:var(--text-faint); font-weight:400;"><?= t('— dá um título a cada imagem · clica × para remover') ?></small></label>
                     <div class="row g-3 mb-3" id="existing-gallery">
                         <?php foreach ($extraImages as $g): $file = $g['file']; $hash = md5($file); ?>
                         <div class="col-6 col-md-4" id="wrap-<?= $hash ?>">
@@ -100,14 +100,14 @@ $extraImages = Project::galleryItems($project['images'] ?? '[]');
                             </div>
                             <input type="text" name="image_captions[<?= htmlspecialchars($file) ?>]"
                                    value="<?= htmlspecialchars($g['caption']) ?>"
-                                   class="form-control form-control-sm mt-2" placeholder="Título da imagem">
+                                   class="form-control form-control-sm mt-2" placeholder="<?= e_t('Título da imagem') ?>">
                         </div>
                         <?php endforeach; ?>
                     </div>
                     <?php endif; ?>
 
                     <!-- Upload novos -->
-                    <label class="form-label">Adicionar Imagens <small style="color:var(--text-faint); font-weight:400;">(multi-selecção)</small></label>
+                    <label class="form-label"><?= t('Adicionar Imagens') ?> <small style="color:var(--text-faint); font-weight:400;"><?= t('(multi-selecção)') ?></small></label>
                     <input type="file" name="images[]" id="gallery-input" accept="image/*" multiple class="form-control">
                     <div id="gallery-preview" class="d-flex flex-wrap gap-2 mt-3"></div>
                 </div>
@@ -117,28 +117,28 @@ $extraImages = Project::galleryItems($project['images'] ?? '[]');
         <!-- ── Coluna lateral ── -->
         <div class="col-lg-4">
             <div class="card" style="position:sticky; top:20px;">
-                <div class="card-header"><i class="bi bi-toggles me-2" style="color:var(--accent);"></i>Publicação</div>
+                <div class="card-header"><i class="bi bi-toggles me-2" style="color:var(--accent);"></i><?= t('Publicação') ?></div>
                 <div class="card-body">
                     <div class="form-check form-switch mb-3">
                         <input class="form-check-input" type="checkbox" name="is_published" value="1"
                                id="is_published" <?= $project['is_published'] ? 'checked' : '' ?>>
-                        <label class="form-check-label" for="is_published">Publicado</label>
+                        <label class="form-check-label" for="is_published"><?= t('Publicado') ?></label>
                     </div>
                     <div class="form-check form-switch mb-4">
                         <input class="form-check-input" type="checkbox" name="is_featured" value="1"
                                id="is_featured" <?= $project['is_featured'] ? 'checked' : '' ?>>
-                        <label class="form-check-label" for="is_featured">Destacado na homepage</label>
+                        <label class="form-check-label" for="is_featured"><?= t('Destacado na homepage') ?></label>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label">Ordem</label>
+                        <label class="form-label"><?= t('Ordem') ?></label>
                         <input type="number" name="sort_order" min="0"
                                value="<?= (int) ($project['sort_order'] ?? 0) ?>" class="form-control">
                         <small style="color:var(--text-faint); font-size:11px;">
-                            <i class="bi bi-info-circle me-1"></i>0 = automático (por data). 1 = aparece primeiro, depois 2, 3…
+                            <i class="bi bi-info-circle me-1"></i><?= t('0 = automático (por data). 1 = aparece primeiro, depois 2, 3…') ?>
                         </small>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-save me-1"></i>Guardar Alterações
+                        <i class="bi bi-save me-1"></i><?= t('Guardar Alterações') ?>
                     </button>
                 </div>
             </div>

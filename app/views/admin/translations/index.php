@@ -41,13 +41,13 @@ foreach ($keys as $k) {
 
 <div class="page-header">
     <div>
-        <h1 class="page-title">Traduções da Interface</h1>
+        <h1 class="page-title"><?= t('Traduções da Interface') ?></h1>
         <span style="font-size:12px; color:var(--text-faint);">
-            Traduz apenas as palavras do sistema (menus, botões, títulos). O conteúdo criado não é afetado.
+            <?= t('Traduz apenas as palavras do sistema (menus, botões, títulos). O conteúdo criado não é afetado.') ?>
         </span>
     </div>
     <a href="<?= BASE_URL ?>/" target="_blank" class="btn btn-outline-secondary btn-sm">
-        <i class="bi bi-eye me-1"></i>Ver Site
+        <i class="bi bi-eye me-1"></i><?= t('Ver Site') ?>
     </a>
 </div>
 
@@ -57,20 +57,20 @@ foreach ($keys as $k) {
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
             <span>
-                <i class="bi bi-translate me-2" style="color:var(--accent);"></i>Strings (<?= count($keys) ?>)
+                <i class="bi bi-translate me-2" style="color:var(--accent);"></i><?= t('Strings') ?> (<?= count($keys) ?>)
                 <span id="tr-untranslated" class="tr-badge-warn<?= $untranslated ? '' : ' d-none' ?>" style="margin-left:8px;">
-                    <i class="bi bi-exclamation-circle me-1"></i><span class="tr-untranslated-n"><?= $untranslated ?></span>&nbsp;por traduzir
+                    <i class="bi bi-exclamation-circle me-1"></i><span class="tr-untranslated-n"><?= $untranslated ?></span>&nbsp;<?= t('por traduzir') ?>
                 </span>
             </span>
             <input type="text" class="form-control form-control-sm" id="tr-filter"
-                   placeholder="Filtrar…" style="max-width:220px;">
+                   placeholder="<?= e_t('Filtrar…') ?>" style="max-width:220px;">
         </div>
         <div class="card-body p-0">
             <div class="table-responsive" id="tr-table-wrap">
                 <table class="table table-hover align-middle mb-0" id="tr-table">
                     <thead>
                         <tr>
-                            <th style="min-width:200px;">Chave (texto original)</th>
+                            <th style="min-width:200px;"><?= t('Chave (texto original)') ?></th>
                             <?php foreach ($langs as $code => $label): ?>
                             <th><?= htmlspecialchars($label) ?> <small style="color:var(--text-faint);">(<?= strtoupper($code) ?>)</small></th>
                             <?php endforeach; ?>
@@ -97,7 +97,7 @@ foreach ($keys as $k) {
                         <tr><td colspan="<?= count($langs) + 1 ?>">
                             <div class="empty-state">
                                 <i class="bi bi-translate"></i>
-                                <p>Ainda não há strings. Adiciona a primeira abaixo.</p>
+                                <p><?= t('Ainda não há strings. Adiciona a primeira abaixo.') ?></p>
                             </div>
                         </td></tr>
                         <?php endif; ?>
@@ -108,9 +108,9 @@ foreach ($keys as $k) {
     </div>
 
     <div class="card mb-4">
-        <div class="card-header"><i class="bi bi-plus-circle me-2" style="color:var(--accent);"></i>Nova string</div>
+        <div class="card-header"><i class="bi bi-plus-circle me-2" style="color:var(--accent);"></i><?= t('Nova string') ?></div>
         <div class="card-body">
-            <label class="form-label">Chave (texto original em inglês)</label>
+            <label class="form-label"><?= t('Chave (texto original em inglês)') ?></label>
             <input type="text" name="new_key" class="form-control" placeholder="ex: Read More">
             <div class="form-text">
                 Depois de guardar, preenche as traduções na tabela acima. Usa esta mesma chave no código com <code>&lt;?= t('...') ?&gt;</code>.
@@ -121,7 +121,7 @@ foreach ($keys as $k) {
 
     <div class="pb-4">
         <button type="submit" class="btn btn-primary px-5">
-            <i class="bi bi-save me-2"></i>Guardar Traduções
+            <i class="bi bi-save me-2"></i><?= t('Guardar Traduções') ?>
         </button>
     </div>
 </form>

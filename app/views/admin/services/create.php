@@ -1,8 +1,8 @@
 <?php $pageTitle = 'Novo Serviço — Admin'; ?>
 <div class="page-header">
-    <h1 class="page-title">Novo Serviço</h1>
+    <h1 class="page-title"><?= t('Novo Serviço') ?></h1>
     <a href="<?= BASE_URL ?>/admin/services" class="btn btn-sm btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
+        <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
     </a>
 </div>
 
@@ -12,21 +12,21 @@
             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
 
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i>Informações</div>
+                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i><?= t('Informações') ?></div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label class="form-label">Título <span style="color:#f87171;">*</span></label>
+                        <label class="form-label"><?= t('Título') ?> <span style="color:#f87171;">*</span></label>
                         <input type="text" name="title" class="form-control"
                                required value="<?= htmlspecialchars($_POST['title'] ?? '') ?>">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Descrição</label>
+                        <label class="form-label"><?= t('Descrição') ?></label>
                         <textarea name="description" rows="4" class="form-control"><?= htmlspecialchars($_POST['description'] ?? '') ?></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Ícone (Iconify)</label>
+                        <label class="form-label"><?= t('Ícone (Iconify)') ?></label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 <iconify-icon id="icon-preview" icon="<?= htmlspecialchars($_POST['icon'] ?? 'bi:star') ?>"
@@ -43,15 +43,15 @@
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label">Ordem</label>
+                            <label class="form-label"><?= t('Ordem') ?></label>
                             <input type="number" name="sort_order" min="0" class="form-control"
                                    value="<?= (int)($_POST['sort_order'] ?? 0) ?>">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Estado</label>
+                            <label class="form-label"><?= t('Estado') ?></label>
                             <select name="is_active" class="form-select">
-                                <option value="1" selected>Ativo</option>
-                                <option value="0">Inativo</option>
+                                <option value="1" selected><?= t('Ativo') ?></option>
+                                <option value="0"><?= t('Inativo') ?></option>
                             </select>
                         </div>
                     </div>
@@ -63,15 +63,15 @@
 
             <!-- Imagens -->
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i>Imagens</div>
+                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i><?= t('Imagens') ?></div>
                 <div class="card-body">
-                    <label class="form-label">Imagem Principal</label>
+                    <label class="form-label"><?= t('Imagem Principal') ?></label>
                     <input type="file" name="image" id="cover-input" accept="image/*" class="form-control mb-3">
                     <div id="cover-preview" style="display:none;" class="mb-3">
                         <img id="cover-img" src="" alt="" style="height:120px; border-radius:8px; object-fit:cover; border:1px solid rgba(183,117,255,.2);">
                     </div>
 
-                    <label class="form-label">Imagens Adicionais <small style="color:var(--text-faint); font-weight:400;">(multi-selecção)</small></label>
+                    <label class="form-label"><?= t('Imagens Adicionais') ?> <small style="color:var(--text-faint); font-weight:400;"><?= t('(multi-selecção)') ?></small></label>
                     <input type="file" name="images[]" id="gallery-input" accept="image/*" multiple class="form-control">
                     <div id="gallery-preview" class="d-flex flex-wrap gap-2 mt-3"></div>
                 </div>
@@ -79,9 +79,9 @@
 
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary btn-sm">
-                    <i class="bi bi-check-circle me-1"></i>Criar Serviço
+                    <i class="bi bi-check-circle me-1"></i><?= t('Criar Serviço') ?>
                 </button>
-                <a href="<?= BASE_URL ?>/admin/services" class="btn btn-outline-secondary btn-sm">Cancelar</a>
+                <a href="<?= BASE_URL ?>/admin/services" class="btn btn-outline-secondary btn-sm"><?= t('Cancelar') ?></a>
             </div>
         </form>
     </div>

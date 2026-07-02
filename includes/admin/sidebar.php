@@ -145,7 +145,7 @@ function adminActive(string $path, string $uri, string $base): string {
             <a class="nav-link <?= adminActive('/admin/settings', $uri, $base) ?>"
                href="<?= BASE_URL ?>/admin/settings">
                 <i class="bi bi-sliders"></i>
-                Definições
+                <?= t('Definições') ?>
             </a>
         </li>
     </ul>
@@ -153,7 +153,7 @@ function adminActive(string $path, string $uri, string $base): string {
     <div class="sidebar-footer">
         <a href="<?= BASE_URL ?>/admin/logout" class="nav-link">
             <i class="bi bi-box-arrow-left"></i>
-            Terminar Sessão
+            <?= t('Terminar Sessão') ?>
         </a>
     </div>
 </nav>

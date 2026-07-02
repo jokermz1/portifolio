@@ -1,8 +1,8 @@
 <?php $pageTitle = 'Novo Membro — Admin'; ?>
 <div class="page-header">
-    <h1 class="page-title">Novo Membro</h1>
+    <h1 class="page-title"><?= t('Novo Membro') ?></h1>
     <a href="<?= BASE_URL ?>/admin/team" class="btn btn-outline-secondary btn-sm">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
+        <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
     </a>
 </div>
 
@@ -12,38 +12,38 @@
             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label">Nome *</label>
+                    <label class="form-label"><?= t('Nome') ?> *</label>
                     <input type="text" name="name" class="form-control" required>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Função / Cargo</label>
+                    <label class="form-label"><?= t('Função / Cargo') ?></label>
                     <input type="text" name="role" class="form-control"
                            placeholder="ex: Designer, Developer, Advisor">
                 </div>
                 <div class="col-12">
-                    <label class="form-label">Bio</label>
+                    <label class="form-label"><?= t('Bio') ?></label>
                     <textarea name="bio" class="form-control"
-                              rows="3" placeholder="Breve descrição..."></textarea>
+                              rows="3" placeholder="<?= e_t('Breve descrição...') ?>"></textarea>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Foto</label>
+                    <label class="form-label"><?= t('Foto') ?></label>
                     <input type="file" name="photo" accept="image/*" class="form-control">
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Ordem</label>
+                    <label class="form-label"><?= t('Ordem') ?></label>
                     <input type="number" name="sort_order" value="0" class="form-control">
                 </div>
                 <div class="col-md-3 d-flex align-items-end">
                     <div class="form-check form-switch mb-2">
                         <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                id="is_active" checked>
-                        <label class="form-check-label" for="is_active">Ativo</label>
+                        <label class="form-check-label" for="is_active"><?= t('Ativo') ?></label>
                     </div>
                 </div>
 
                 <div class="col-12">
                     <hr>
-                    <p class="section-label">Redes Sociais</p>
+                    <p class="section-label"><?= t('Redes Sociais') ?></p>
                 </div>
 
                 <div class="col-md-6">
@@ -74,7 +74,7 @@
 
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-save me-1"></i>Criar Membro
+                        <i class="bi bi-save me-1"></i><?= t('Criar Membro') ?>
                     </button>
                 </div>
             </div>

@@ -4,12 +4,12 @@ $settings  = (new Setting())->allKeyed();
 ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Currículo</h1>
-        <span style="font-size:12px; color:var(--text-faint);">Educação &amp; Experiência Profissional</span>
+        <h1 class="page-title"><?= t('Currículo') ?></h1>
+        <span style="font-size:12px; color:var(--text-faint);"><?= t('Educação') ?> &amp; <?= t('Experiência Profissional') ?></span>
     </div>
     <?php if ($items !== null): ?>
     <a href="<?= BASE_URL ?>/admin/resume/create" class="btn btn-primary btn-sm">
-        <i class="bi bi-plus-circle me-1"></i>Novo Item
+        <i class="bi bi-plus-circle me-1"></i><?= t('Novo Item') ?>
     </a>
     <?php endif; ?>
 </div>
@@ -41,21 +41,21 @@ $settings  = (new Setting())->allKeyed();
 <div class="card mb-4">
     <div class="card-header d-flex align-items-center gap-2">
         <i class="bi bi-person-lines-fill" style="color:var(--accent);"></i>
-        Sumário do Perfil
+        <?= t('Sumário do Perfil') ?>
         <small style="color:var(--text-faint); margin-left:auto; font-weight:400;">
-            Aparece na secção Resume da página About Me
+            <?= t('Aparece na secção Resume da página About Me') ?>
         </small>
     </div>
     <div class="card-body">
         <form method="POST" action="<?= BASE_URL ?>/admin/resume/summary">
             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
             <div class="mb-3">
-                <label class="form-label">Resumo Profissional</label>
+                <label class="form-label"><?= t('Resumo Profissional') ?></label>
                 <textarea name="resume_summary" class="form-control" rows="3"
-                    placeholder="Ex: Desenvolvedor com X anos de experiência em..."><?= htmlspecialchars($settings['resume_summary'] ?? '') ?></textarea>
+                    placeholder="<?= e_t('Ex: Desenvolvedor com X anos de experiência em...') ?>"><?= htmlspecialchars($settings['resume_summary'] ?? '') ?></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-sm">
-                <i class="bi bi-save me-1"></i>Guardar Sumário
+                <i class="bi bi-save me-1"></i><?= t('Guardar Sumário') ?>
             </button>
         </form>
     </div>
@@ -67,7 +67,7 @@ $settings  = (new Setting())->allKeyed();
         <div class="card h-100">
             <div class="card-header d-flex align-items-center gap-2">
                 <i class="bi bi-mortarboard-fill" style="color:#B775FF;"></i>
-                Educação
+                <?= t('Educação') ?>
                 <span class="badge ms-1" style="background:rgba(255,255,255,.08); color:var(--text-muted);">
                     <?= count(array_filter($items, fn($i) => $i['type'] === 'education')) ?>
                 </span>
@@ -79,10 +79,10 @@ $settings  = (new Setting())->allKeyed();
                     <table class="table table-hover mb-0">
                         <thead>
                             <tr>
-                                <th>Título</th>
-                                <th>Período</th>
-                                <th>Instituição</th>
-                                <th>Estado</th>
+                                <th><?= t('Título') ?></th>
+                                <th><?= t('Período') ?></th>
+                                <th><?= t('Instituição') ?></th>
+                                <th><?= t('Estado') ?></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -94,18 +94,18 @@ $settings  = (new Setting())->allKeyed();
                                 <td style="color:var(--text-muted);"><?= htmlspecialchars($item['subtitle'] ?? '—') ?></td>
                                 <td>
                                     <span class="badge bg-<?= $item['is_active'] ? 'success' : 'secondary' ?>">
-                                        <?= $item['is_active'] ? 'Ativo' : 'Inativo' ?>
+                                        <?= $item['is_active'] ? t('Ativo') : t('Inativo') ?>
                                     </span>
                                 </td>
                                 <td>
                                     <a href="<?= BASE_URL ?>/admin/resume/<?= $item['id'] ?>/edit"
-                                       class="btn btn-sm btn-outline-primary" title="Editar">
+                                       class="btn btn-sm btn-outline-primary" title="<?= e_t('Editar') ?>">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <form method="POST" action="<?= BASE_URL ?>/admin/resume/<?= $item['id'] ?>/delete"
-                                          class="d-inline" onsubmit="return confirm('Apagar item?')">
+                                          class="d-inline" onsubmit="return confirm('<?= e_t('Apagar item?') ?>')">
                                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
-                                        <button class="btn btn-sm btn-outline-danger" title="Apagar">
+                                        <button class="btn btn-sm btn-outline-danger" title="<?= e_t('Apagar') ?>">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
@@ -118,7 +118,7 @@ $settings  = (new Setting())->allKeyed();
                 <?php else: ?>
                 <div class="empty-state">
                     <i class="bi bi-mortarboard"></i>
-                    <p>Nenhuma formação adicionada ainda.</p>
+                    <p><?= t('Nenhuma formação adicionada ainda.') ?></p>
                 </div>
                 <?php endif; ?>
             </div>
@@ -129,7 +129,7 @@ $settings  = (new Setting())->allKeyed();
         <div class="card h-100">
             <div class="card-header d-flex align-items-center gap-2">
                 <i class="bi bi-briefcase-fill" style="color:#38bdf8;"></i>
-                Experiência Profissional
+                <?= t('Experiência Profissional') ?>
                 <span class="badge ms-1" style="background:rgba(255,255,255,.08); color:var(--text-muted);">
                     <?= count(array_filter($items, fn($i) => $i['type'] === 'experience')) ?>
                 </span>
@@ -141,10 +141,10 @@ $settings  = (new Setting())->allKeyed();
                     <table class="table table-hover mb-0">
                         <thead>
                             <tr>
-                                <th>Cargo</th>
-                                <th>Período</th>
-                                <th>Empresa</th>
-                                <th>Estado</th>
+                                <th><?= t('Cargo') ?></th>
+                                <th><?= t('Período') ?></th>
+                                <th><?= t('Empresa') ?></th>
+                                <th><?= t('Estado') ?></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -156,18 +156,18 @@ $settings  = (new Setting())->allKeyed();
                                 <td style="color:var(--text-muted);"><?= htmlspecialchars($item['subtitle'] ?? '—') ?></td>
                                 <td>
                                     <span class="badge bg-<?= $item['is_active'] ? 'success' : 'secondary' ?>">
-                                        <?= $item['is_active'] ? 'Ativo' : 'Inativo' ?>
+                                        <?= $item['is_active'] ? t('Ativo') : t('Inativo') ?>
                                     </span>
                                 </td>
                                 <td>
                                     <a href="<?= BASE_URL ?>/admin/resume/<?= $item['id'] ?>/edit"
-                                       class="btn btn-sm btn-outline-primary" title="Editar">
+                                       class="btn btn-sm btn-outline-primary" title="<?= e_t('Editar') ?>">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <form method="POST" action="<?= BASE_URL ?>/admin/resume/<?= $item['id'] ?>/delete"
-                                          class="d-inline" onsubmit="return confirm('Apagar item?')">
+                                          class="d-inline" onsubmit="return confirm('<?= e_t('Apagar item?') ?>')">
                                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
-                                        <button class="btn btn-sm btn-outline-danger" title="Apagar">
+                                        <button class="btn btn-sm btn-outline-danger" title="<?= e_t('Apagar') ?>">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
@@ -180,7 +180,7 @@ $settings  = (new Setting())->allKeyed();
                 <?php else: ?>
                 <div class="empty-state">
                     <i class="bi bi-briefcase"></i>
-                    <p>Nenhuma experiência adicionada ainda.</p>
+                    <p><?= t('Nenhuma experiência adicionada ainda.') ?></p>
                 </div>
                 <?php endif; ?>
             </div>

@@ -3,9 +3,9 @@ $pageTitle   = 'Editar Serviço — Admin';
 $extraImages = json_decode($service['images'] ?? '[]', true) ?: [];
 ?>
 <div class="page-header">
-    <h1 class="page-title">Editar Serviço</h1>
+    <h1 class="page-title"><?= t('Editar Serviço') ?></h1>
     <a href="<?= BASE_URL ?>/admin/services" class="btn btn-sm btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
+        <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
     </a>
 </div>
 
@@ -15,22 +15,22 @@ $extraImages = json_decode($service['images'] ?? '[]', true) ?: [];
             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
 
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i>Informações</div>
+                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i><?= t('Informações') ?></div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label class="form-label">Título <span style="color:#f87171;">*</span></label>
+                        <label class="form-label"><?= t('Título') ?> <span style="color:#f87171;">*</span></label>
                         <input type="text" name="title" class="form-control"
                                required value="<?= htmlspecialchars($service['title']) ?>">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Descrição</label>
+                        <label class="form-label"><?= t('Descrição') ?></label>
                         <textarea name="description" rows="4"
                                   class="form-control"><?= htmlspecialchars($service['description'] ?? '') ?></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Ícone (Iconify)</label>
+                        <label class="form-label"><?= t('Ícone (Iconify)') ?></label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 <iconify-icon id="icon-preview" icon="<?= htmlspecialchars($service['icon'] ?? 'bi:star') ?>"
@@ -47,15 +47,15 @@ $extraImages = json_decode($service['images'] ?? '[]', true) ?: [];
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label">Ordem</label>
+                            <label class="form-label"><?= t('Ordem') ?></label>
                             <input type="number" name="sort_order" min="0" class="form-control"
                                    value="<?= (int)$service['sort_order'] ?>">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Estado</label>
+                            <label class="form-label"><?= t('Estado') ?></label>
                             <select name="is_active" class="form-select">
-                                <option value="1" <?= $service['is_active'] ? 'selected' : '' ?>>Ativo</option>
-                                <option value="0" <?= !$service['is_active'] ? 'selected' : '' ?>>Inativo</option>
+                                <option value="1" <?= $service['is_active'] ? 'selected' : '' ?>><?= t('Ativo') ?></option>
+                                <option value="0" <?= !$service['is_active'] ? 'selected' : '' ?>><?= t('Inativo') ?></option>
                             </select>
                         </div>
                     </div>
@@ -68,9 +68,9 @@ $extraImages = json_decode($service['images'] ?? '[]', true) ?: [];
 
             <!-- Imagens -->
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i>Imagens</div>
+                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i><?= t('Imagens') ?></div>
                 <div class="card-body">
-                    <label class="form-label">Imagem Principal</label>
+                    <label class="form-label"><?= t('Imagem Principal') ?></label>
                     <?php if (!empty($service['image'])): ?>
                     <div class="mb-2">
                         <img src="<?= UPLOAD_URL ?>services/<?= htmlspecialchars($service['image']) ?>"
@@ -82,11 +82,11 @@ $extraImages = json_decode($service['images'] ?? '[]', true) ?: [];
                     </div>
                     <?php endif; ?>
                     <input type="file" name="image" id="cover-input" accept="image/*" class="form-control mb-1">
-                    <small style="color:var(--text-faint); font-size:11px;">Deixe vazio para manter a actual.</small>
+                    <small style="color:var(--text-faint); font-size:11px;"><?= t('Deixe vazio para manter a actual.') ?></small>
 
                     <?php if ($extraImages): ?>
                     <hr style="border-color:rgba(255,255,255,.07); margin:18px 0 14px;">
-                    <label class="form-label">Imagens da Galeria <small style="color:var(--text-faint); font-weight:400;">— clica × para remover</small></label>
+                    <label class="form-label"><?= t('Imagens da Galeria') ?> <small style="color:var(--text-faint); font-weight:400;"><?= t('— clica × para remover') ?></small></label>
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         <?php foreach ($extraImages as $img): ?>
                         <div class="position-relative" id="wrap-<?= md5($img) ?>">
@@ -100,7 +100,7 @@ $extraImages = json_decode($service['images'] ?? '[]', true) ?: [];
                     </div>
                     <?php endif; ?>
 
-                    <label class="form-label">Adicionar Imagens <small style="color:var(--text-faint); font-weight:400;">(multi-selecção)</small></label>
+                    <label class="form-label"><?= t('Adicionar Imagens') ?> <small style="color:var(--text-faint); font-weight:400;"><?= t('(multi-selecção)') ?></small></label>
                     <input type="file" name="images[]" id="gallery-input" accept="image/*" multiple class="form-control">
                     <div id="gallery-preview" class="d-flex flex-wrap gap-2 mt-3"></div>
                 </div>
@@ -108,9 +108,9 @@ $extraImages = json_decode($service['images'] ?? '[]', true) ?: [];
 
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary btn-sm">
-                    <i class="bi bi-check-circle me-1"></i>Guardar Alterações
+                    <i class="bi bi-check-circle me-1"></i><?= t('Guardar Alterações') ?>
                 </button>
-                <a href="<?= BASE_URL ?>/admin/services" class="btn btn-outline-secondary btn-sm">Cancelar</a>
+                <a href="<?= BASE_URL ?>/admin/services" class="btn btn-outline-secondary btn-sm"><?= t('Cancelar') ?></a>
             </div>
         </form>
     </div>

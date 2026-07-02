@@ -3,11 +3,11 @@
     <div>
         <h1 class="page-title"><?= htmlspecialchars($user['name']) ?></h1>
         <span style="font-size:12px; color:var(--text-faint);">
-            Membro desde <?= date('d/m/Y', strtotime($user['created_at'])) ?>
+            <?= t('Membro desde') ?> <?= date('d/m/Y', strtotime($user['created_at'])) ?>
         </span>
     </div>
     <a href="<?= BASE_URL ?>/admin/users" class="btn btn-outline-secondary btn-sm">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
+        <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
     </a>
 </div>
 
@@ -29,16 +29,16 @@
             <p style="color:var(--text-muted); font-size:12px;"><?= htmlspecialchars($user['bio'] ?? '—') ?></p>
             <hr>
             <div class="d-flex justify-content-between" style="font-size:12px; color:var(--text-muted);">
-                <span>Estado</span>
+                <span><?= t('Estado') ?></span>
                 <span class="badge bg-<?= $user['is_active'] ? 'success' : 'danger' ?>">
-                    <?= $user['is_active'] ? 'Ativo' : 'Suspenso' ?>
+                    <?= $user['is_active'] ? t('Ativo') : t('Suspenso') ?>
                 </span>
             </div>
             <form method="POST" action="<?= BASE_URL ?>/admin/users/<?= $user['id'] ?>/toggle" class="mt-3"
-                  onsubmit="return confirm('Confirmar?')">
+                  onsubmit="return confirm('<?= e_t('Confirmar?') ?>')">
                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                 <button class="btn btn-sm <?= $user['is_active'] ? 'btn-outline-danger' : 'btn-outline-secondary' ?> w-100">
-                    <?= $user['is_active'] ? 'Suspender utilizador' : 'Reativar utilizador' ?>
+                    <?= $user['is_active'] ? t('Suspender utilizador') : t('Reativar utilizador') ?>
                 </button>
             </form>
         </div>
@@ -48,14 +48,14 @@
         <div class="card">
             <div class="card-header d-flex align-items-center gap-2">
                 <i class="bi bi-chat-dots" style="color:#fbbf24;"></i>
-                Histórico de Comentários
+                <?= t('Histórico de Comentários') ?>
                 <span class="badge ms-1" style="background:rgba(255,255,255,.08); color:var(--text-muted);"><?= count($comments) ?></span>
             </div>
             <div class="card-body p-0">
                 <?php if (empty($comments)): ?>
                     <div class="empty-state">
                         <i class="bi bi-chat"></i>
-                        <p>Nenhum comentário ainda.</p>
+                        <p><?= t('Nenhum comentário ainda.') ?></p>
                     </div>
                 <?php else: ?>
                 <div class="list-group list-group-flush">

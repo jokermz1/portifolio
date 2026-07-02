@@ -1,11 +1,11 @@
 <?php $pageTitle = 'Blog — Admin'; ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Blog</h1>
-        <span style="font-size:12px; color:var(--text-faint);"><?= count($posts) ?> post<?= count($posts) !== 1 ? 's' : '' ?></span>
+        <h1 class="page-title"><?= t('Blog') ?></h1>
+        <span style="font-size:12px; color:var(--text-faint);"><?= count($posts) ?> <?= t('Posts') ?></span>
     </div>
     <a href="<?= BASE_URL ?>/admin/blog/create" class="btn btn-primary btn-sm">
-        <i class="bi bi-plus-circle me-1"></i>Novo Post
+        <i class="bi bi-plus-circle me-1"></i><?= t('Novo Post') ?>
     </a>
 </div>
 
@@ -15,11 +15,11 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th style="width:60px;">Img</th>
-                        <th>Título</th>
-                        <th>Estado</th>
-                        <th>Data</th>
-                        <th>Ações</th>
+                        <th style="width:60px;"><?= t('Imagem') ?></th>
+                        <th><?= t('Título') ?></th>
+                        <th><?= t('Estado') ?></th>
+                        <th><?= t('Data') ?></th>
+                        <th><?= t('Ações') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
                         </td>
                         <td>
                             <span class="badge bg-<?= $p['is_published'] ? 'success' : 'secondary' ?>">
-                                <?= $p['is_published'] ? 'Publicado' : 'Rascunho' ?>
+                                <?= $p['is_published'] ? t('Publicado') : t('Rascunho') ?>
                             </span>
                         </td>
                         <td style="white-space:nowrap; color:var(--text-muted);">
@@ -55,17 +55,17 @@
                         </td>
                         <td>
                             <a href="<?= BASE_URL ?>/admin/blog/<?= $p['id'] ?>/edit"
-                               class="btn btn-sm btn-outline-primary" title="Editar">
+                               class="btn btn-sm btn-outline-primary" title="<?= e_t('Editar') ?>">
                                 <i class="bi bi-pencil"></i>
                             </a>
                             <a href="<?= BASE_URL ?>/blog/<?= htmlspecialchars($p['slug']) ?>"
-                               target="_blank" class="btn btn-sm btn-outline-secondary" title="Ver no site">
+                               target="_blank" class="btn btn-sm btn-outline-secondary" title="<?= e_t('Ver no site') ?>">
                                 <i class="bi bi-box-arrow-up-right"></i>
                             </a>
                             <form method="POST" action="<?= BASE_URL ?>/admin/blog/<?= $p['id'] ?>/delete"
-                                  class="d-inline" onsubmit="return confirm('Apagar este post?')">
+                                  class="d-inline" onsubmit="return confirm('<?= e_t('Apagar este post?') ?>')">
                                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
-                                <button class="btn btn-sm btn-outline-danger" title="Apagar">
+                                <button class="btn btn-sm btn-outline-danger" title="<?= e_t('Apagar') ?>">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </form>
@@ -76,7 +76,7 @@
                     <tr><td colspan="5">
                         <div class="empty-state">
                             <i class="bi bi-file-earmark-text"></i>
-                            <p>Nenhum post criado ainda.</p>
+                            <p><?= t('Nenhum post criado ainda.') ?></p>
                         </div>
                     </td></tr>
                     <?php endif; ?>

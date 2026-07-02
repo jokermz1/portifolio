@@ -1,11 +1,11 @@
 <?php $pageTitle = 'Team — Admin'; ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Team Members</h1>
-        <span style="font-size:12px; color:var(--text-faint);"><?= count($members) ?> membro<?= count($members) !== 1 ? 's' : '' ?></span>
+        <h1 class="page-title"><?= t('Team Members') ?></h1>
+        <span style="font-size:12px; color:var(--text-faint);"><?= count($members) ?> <?= t('Membros') ?></span>
     </div>
     <a href="<?= BASE_URL ?>/admin/team/create" class="btn btn-primary btn-sm">
-        <i class="bi bi-plus-circle me-1"></i>Novo Membro
+        <i class="bi bi-plus-circle me-1"></i><?= t('Novo Membro') ?>
     </a>
 </div>
 
@@ -15,12 +15,12 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Foto</th>
-                        <th>Nome</th>
-                        <th>Função</th>
-                        <th>Ordem</th>
-                        <th>Estado</th>
-                        <th>Ações</th>
+                        <th><?= t('Foto') ?></th>
+                        <th><?= t('Nome') ?></th>
+                        <th><?= t('Função') ?></th>
+                        <th><?= t('Ordem') ?></th>
+                        <th><?= t('Estado') ?></th>
+                        <th><?= t('Ações') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,16 +42,16 @@
                         <td style="color:var(--text-muted);"><?= (int)$m['sort_order'] ?></td>
                         <td>
                             <span class="badge bg-<?= $m['is_active'] ? 'success' : 'secondary' ?>">
-                                <?= $m['is_active'] ? 'Ativo' : 'Inativo' ?>
+                                <?= $m['is_active'] ? t('Ativo') : t('Inativo') ?>
                             </span>
                         </td>
                         <td>
                             <a href="<?= BASE_URL ?>/admin/team/<?= $m['id'] ?>/edit"
-                               class="btn btn-sm btn-outline-primary" title="Editar"><i class="bi bi-pencil"></i></a>
+                               class="btn btn-sm btn-outline-primary" title="<?= e_t('Editar') ?>"><i class="bi bi-pencil"></i></a>
                             <form method="POST" action="<?= BASE_URL ?>/admin/team/<?= $m['id'] ?>/delete"
-                                  class="d-inline" onsubmit="return confirm('Apagar membro?')">
+                                  class="d-inline" onsubmit="return confirm('<?= e_t('Apagar membro?') ?>')">
                                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
-                                <button class="btn btn-sm btn-outline-danger" title="Apagar"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" title="<?= e_t('Apagar') ?>"><i class="bi bi-trash"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -60,7 +60,7 @@
                     <tr><td colspan="6">
                         <div class="empty-state">
                             <i class="bi bi-people"></i>
-                            <p>Nenhum membro adicionado ainda.</p>
+                            <p><?= t('Nenhum membro adicionado ainda.') ?></p>
                         </div>
                     </td></tr>
                     <?php endif; ?>

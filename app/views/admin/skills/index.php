@@ -2,11 +2,11 @@
 
 <div class="page-header">
     <div>
-        <h1 class="page-title">Skills</h1>
-        <span style="font-size:12px; color:var(--text-faint);">Adiciona, edita e reordena as skills que aparecem na página About</span>
+        <h1 class="page-title"><?= t('Skills') ?></h1>
+        <span style="font-size:12px; color:var(--text-faint);"><?= t('Adiciona, edita e reordena as skills que aparecem na página About') ?></span>
     </div>
     <button type="submit" form="skills-form" class="btn btn-primary btn-sm">
-        <i class="bi bi-save me-1"></i>Guardar tudo
+        <i class="bi bi-save me-1"></i><?= t('Guardar tudo') ?>
     </button>
 </div>
 
@@ -30,10 +30,10 @@
                         gap:10px; padding:10px 16px; border-bottom:1px solid var(--border);
                         font-size:11px; font-weight:700; color:var(--text-faint);
                         text-transform:uppercase; letter-spacing:.08em;">
-                <span>Nome</span>
-                <span>Categoria</span>
-                <span>Nível</span>
-                <span class="text-center">Ord.</span>
+                <span><?= t('Nome') ?></span>
+                <span><?= t('Categoria') ?></span>
+                <span><?= t('Nível') ?></span>
+                <span class="text-center"><?= t('Ord.') ?></span>
                 <span></span>
             </div>
 
@@ -47,7 +47,7 @@
                     <input type="hidden" name="skill_id[]" value="<?= $s['id'] ?>">
                     <!-- Nome -->
                     <input type="text" name="skill_name[]" class="form-control form-control-sm"
-                           value="<?= htmlspecialchars($s['name']) ?>" placeholder="Nome da skill" required>
+                           value="<?= htmlspecialchars($s['name']) ?>" placeholder="<?= e_t('Nome da skill') ?>" required>
                     <!-- Categoria -->
                     <input type="text" name="skill_category[]" class="form-control form-control-sm"
                            value="<?= htmlspecialchars($s['category'] ?? 'Geral') ?>"
@@ -69,7 +69,7 @@
                            value="<?= (int)$s['sort_order'] ?>" min="0" style="padding:4px 6px;">
                     <!-- Apagar -->
                     <button type="button" class="btn btn-sm btn-outline-danger delete-btn"
-                            style="padding:4px 8px;" title="Remover">
+                            style="padding:4px 8px;" title="<?= e_t('Remover') ?>">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
@@ -80,7 +80,7 @@
             <div style="padding:12px 16px; border-top:1px dashed var(--border);">
                 <button type="button" id="add-skill-btn"
                         class="btn btn-sm" style="color:var(--accent); border:1px dashed rgba(183,117,255,.35); background:rgba(183,117,255,.05);">
-                    <i class="bi bi-plus-circle me-1"></i>Adicionar Skill
+                    <i class="bi bi-plus-circle me-1"></i><?= t('Adicionar Skill') ?>
                 </button>
             </div>
 
@@ -99,7 +99,7 @@
 
     <div class="d-flex gap-2 mt-3">
         <button type="submit" class="btn btn-primary">
-            <i class="bi bi-save me-1"></i>Guardar tudo
+            <i class="bi bi-save me-1"></i><?= t('Guardar tudo') ?>
         </button>
     </div>
 </form>
@@ -112,7 +112,7 @@
                 border-bottom:1px solid var(--border); background:rgba(183,117,255,.03);">
         <input type="hidden" name="skill_id[]" value="0">
         <input type="text" name="skill_name[]" class="form-control form-control-sm"
-               placeholder="Nome da skill" required>
+               placeholder="<?= e_t('Nome da skill') ?>" required>
         <input type="text" name="skill_category[]" class="form-control form-control-sm"
                value="Geral" list="cat-list" placeholder="Categoria">
         <div style="display:flex; align-items:center; gap:8px;">

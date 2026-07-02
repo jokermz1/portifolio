@@ -1,23 +1,23 @@
 <?php $pageTitle = 'Comentários Pendentes — Admin'; ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Moderação</h1>
+        <h1 class="page-title"><?= t('Moderação') ?></h1>
         <span style="font-size:12px; color:var(--text-faint);">
             <?php if (!empty($comments)): ?>
-                <span style="color:#fbbf24;"><?= count($comments) ?> pendente<?= count($comments) !== 1 ? 's' : '' ?></span>
+                <span style="color:#fbbf24;"><?= count($comments) ?> <?= t('Pendentes') ?></span>
             <?php else: ?>
-                Tudo em dia
+                <?= t('Tudo em dia') ?>
             <?php endif; ?>
         </span>
     </div>
     <a href="<?= BASE_URL ?>/admin/comments/all" class="btn btn-outline-secondary btn-sm">
-        <i class="bi bi-list me-1"></i>Ver todos
+        <i class="bi bi-list me-1"></i><?= t('Ver todos') ?>
     </a>
 </div>
 
 <?php if (empty($comments)): ?>
     <div class="alert alert-success">
-        <i class="bi bi-check-circle me-2"></i>Nenhum comentário pendente. Tudo em dia!
+        <i class="bi bi-check-circle me-2"></i><?= t('Nenhum comentário pendente. Tudo em dia!') ?>
     </div>
 <?php else: ?>
 <div class="row g-3">
@@ -53,20 +53,20 @@
                     <form method="POST" action="<?= BASE_URL ?>/admin/comments/<?= $c['id'] ?>/approve">
                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                         <button type="submit" class="btn btn-success btn-sm">
-                            <i class="bi bi-check-circle me-1"></i>Aprovar
+                            <i class="bi bi-check-circle me-1"></i><?= t('Aprovar') ?>
                         </button>
                     </form>
                     <form method="POST" action="<?= BASE_URL ?>/admin/comments/<?= $c['id'] ?>/reject">
                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                         <button type="submit" class="btn btn-outline-warning btn-sm">
-                            <i class="bi bi-slash-circle me-1"></i>Rejeitar
+                            <i class="bi bi-slash-circle me-1"></i><?= t('Rejeitar') ?>
                         </button>
                     </form>
                     <form method="POST" action="<?= BASE_URL ?>/admin/comments/<?= $c['id'] ?>/delete"
-                          onsubmit="return confirm('Apagar permanentemente?')">
+                          onsubmit="return confirm('<?= e_t('Apagar permanentemente?') ?>')">
                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                         <button type="submit" class="btn btn-outline-danger btn-sm">
-                            <i class="bi bi-trash me-1"></i>Apagar
+                            <i class="bi bi-trash me-1"></i><?= t('Apagar') ?>
                         </button>
                     </form>
                     <small style="color:var(--text-faint); margin-left:auto;">

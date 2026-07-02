@@ -3,9 +3,9 @@ $pageTitle   = 'Editar Post — Admin';
 $extraImages = json_decode($post['images'] ?? '[]', true) ?: [];
 ?>
 <div class="page-header">
-    <h1 class="page-title">Editar Post</h1>
+    <h1 class="page-title"><?= t('Editar Post') ?></h1>
     <a href="<?= BASE_URL ?>/admin/blog" class="btn btn-sm btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
+        <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
     </a>
 </div>
 
@@ -16,28 +16,28 @@ $extraImages = json_decode($post['images'] ?? '[]', true) ?: [];
         <!-- ── Coluna principal ── -->
         <div class="col-lg-8">
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-journal-text me-2" style="color:var(--accent);"></i>Conteúdo</div>
+                <div class="card-header"><i class="bi bi-journal-text me-2" style="color:var(--accent);"></i><?= t('Conteúdo') ?></div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label class="form-label">Título <span style="color:#f87171;">*</span></label>
+                        <label class="form-label"><?= t('Título') ?> <span style="color:#f87171;">*</span></label>
                         <input type="text" name="title" class="form-control"
                                required value="<?= htmlspecialchars($post['title']) ?>">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Resumo</label>
+                        <label class="form-label"><?= t('Resumo') ?></label>
                         <textarea name="excerpt" rows="2" class="form-control"><?= htmlspecialchars($post['excerpt'] ?? '') ?></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Categoria</label>
+                        <label class="form-label"><?= t('Categoria') ?></label>
                         <input type="text" name="category" class="form-control"
                                placeholder="Ex.: Design, Tecnologia, Negócios…"
                                value="<?= htmlspecialchars($post['category'] ?? '') ?>">
-                        <div class="form-text" style="color:var(--text-faint);">Aparece como etiqueta sobre a imagem na listagem.</div>
+                        <div class="form-text" style="color:var(--text-faint);"><?= t('Aparece como etiqueta sobre a imagem na listagem.') ?></div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Conteúdo</label>
+                        <label class="form-label"><?= t('Conteúdo') ?></label>
                         <textarea name="content" rows="12" class="form-control"><?= htmlspecialchars($post['content'] ?? '') ?></textarea>
-                        <div class="form-text" style="color:var(--text-faint);">Suporta HTML básico.</div>
+                        <div class="form-text" style="color:var(--text-faint);"><?= t('Suporta HTML básico.') ?></div>
                     </div>
                 </div>
             </div>
@@ -48,9 +48,9 @@ $extraImages = json_decode($post['images'] ?? '[]', true) ?: [];
 
             <!-- Imagens -->
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i>Imagens</div>
+                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i><?= t('Imagens') ?></div>
                 <div class="card-body">
-                    <label class="form-label">Imagem de Capa</label>
+                    <label class="form-label"><?= t('Imagem de Capa') ?></label>
                     <?php if (!empty($post['image'])): ?>
                     <div class="mb-2">
                         <img src="<?= UPLOAD_URL ?>posts/<?= htmlspecialchars($post['image']) ?>"
@@ -62,11 +62,11 @@ $extraImages = json_decode($post['images'] ?? '[]', true) ?: [];
                     </div>
                     <?php endif; ?>
                     <input type="file" name="image" id="cover-input" accept="image/*" class="form-control mb-1">
-                    <small style="color:var(--text-faint); font-size:11px;">Deixe vazio para manter a actual.</small>
+                    <small style="color:var(--text-faint); font-size:11px;"><?= t('Deixe vazio para manter a actual.') ?></small>
 
                     <?php if ($extraImages): ?>
                     <hr style="border-color:rgba(255,255,255,.07); margin:18px 0 14px;">
-                    <label class="form-label">Imagens da Galeria <small style="color:var(--text-faint); font-weight:400;">— clica × para remover</small></label>
+                    <label class="form-label"><?= t('Imagens da Galeria') ?> <small style="color:var(--text-faint); font-weight:400;"><?= t('— clica × para remover') ?></small></label>
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         <?php foreach ($extraImages as $img): ?>
                         <div class="position-relative" id="wrap-<?= md5($img) ?>">
@@ -80,7 +80,7 @@ $extraImages = json_decode($post['images'] ?? '[]', true) ?: [];
                     </div>
                     <?php endif; ?>
 
-                    <label class="form-label">Adicionar Imagens <small style="color:var(--text-faint); font-weight:400;">(multi-selecção)</small></label>
+                    <label class="form-label"><?= t('Adicionar Imagens') ?> <small style="color:var(--text-faint); font-weight:400;"><?= t('(multi-selecção)') ?></small></label>
                     <input type="file" name="images[]" id="gallery-input" accept="image/*" multiple class="form-control">
                     <div id="gallery-preview" class="d-flex flex-wrap gap-2 mt-3"></div>
                 </div>
@@ -90,22 +90,22 @@ $extraImages = json_decode($post['images'] ?? '[]', true) ?: [];
         <!-- ── Coluna lateral ── -->
         <div class="col-lg-4">
             <div class="card" style="position:sticky; top:20px;">
-                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i>Publicação</div>
+                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i><?= t('Publicação') ?></div>
                 <div class="card-body">
                     <div class="form-check form-switch mb-3">
                         <input class="form-check-input" type="checkbox" name="is_published"
                                value="1" id="is_published"
                                <?= $post['is_published'] ? 'checked' : '' ?>>
-                        <label class="form-check-label" for="is_published">Publicado</label>
+                        <label class="form-check-label" for="is_published"><?= t('Publicado') ?></label>
                     </div>
                     <?php if ($post['published_at']): ?>
                     <p style="color:var(--text-muted); font-size:12px; margin-bottom:12px;">
                         <i class="bi bi-calendar3 me-1"></i>
-                        Publicado em <?= date('d/m/Y H:i', strtotime($post['published_at'])) ?>
+                        <?= t('Publicado em') ?> <?= date('d/m/Y H:i', strtotime($post['published_at'])) ?>
                     </p>
                     <?php endif; ?>
                     <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-check-circle me-1"></i>Guardar Alterações
+                        <i class="bi bi-check-circle me-1"></i><?= t('Guardar Alterações') ?>
                     </button>
                 </div>
             </div>

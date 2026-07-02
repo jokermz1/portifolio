@@ -802,6 +802,20 @@ hr { border-color: var(--border); opacity: 1; }
 }
 .topbar-toggle-theme:hover { color: var(--accent); border-color: var(--accent); }
 
+/* Menu dropdown (ex.: seletor de idioma na topbar) */
+.dropdown-menu {
+  --bs-dropdown-bg: #17161f;
+  --bs-dropdown-color: var(--text-primary);
+  --bs-dropdown-link-color: var(--text-primary);
+  --bs-dropdown-link-hover-color: var(--text-primary);
+  --bs-dropdown-link-hover-bg: var(--bg-card-hover);
+  --bs-dropdown-border-color: var(--border-strong);
+  --bs-dropdown-link-active-bg: var(--accent);
+  --bs-dropdown-link-active-color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+[data-theme="light"] .dropdown-menu { --bs-dropdown-bg: #ffffff; }
+
 .admin-login-theme-toggle {
   position: fixed;
   top: 20px;

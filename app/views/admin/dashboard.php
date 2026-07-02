@@ -1,19 +1,19 @@
 <?php $pageTitle = 'Dashboard — Admin'; ?>
 
 <div class="page-header">
-    <h1 class="page-title">Dashboard</h1>
-    <span style="font-size:12px; color: var(--text-faint);">Visão geral do painel</span>
+    <h1 class="page-title"><?= t('Dashboard') ?></h1>
+    <span style="font-size:12px; color: var(--text-faint);"><?= t('Visão geral do painel') ?></span>
 </div>
 
 <!-- Stats -->
 <div class="row g-3 mb-4">
     <?php
     $cards = [
-        ['projects',         'Projetos',     'bi-folder2-open', 'purple', '/admin/portfolio'],
-        ['posts',            'Posts',        'bi-journal-text', 'blue',   '/admin/blog'],
-        ['users',            'Utilizadores', 'bi-people',       'green',  '/admin/users'],
-        ['messages_unread',  'Mensagens',    'bi-envelope',     'amber',  '/admin/messages'],
-        ['comments_pending', 'Pendentes',    'bi-chat-dots',    'red',    '/admin/comments/pending'],
+        ['projects',         t('Projetos'),     'bi-folder2-open', 'purple', '/admin/portfolio'],
+        ['posts',            t('Posts'),        'bi-journal-text', 'blue',   '/admin/blog'],
+        ['users',            t('Utilizadores'), 'bi-people',       'green',  '/admin/users'],
+        ['messages_unread',  t('Mensagens'),    'bi-envelope',     'amber',  '/admin/messages'],
+        ['comments_pending', t('Pendentes'),    'bi-chat-dots',    'red',    '/admin/comments/pending'],
     ];
     foreach ($cards as [$key, $label, $icon, $color, $link]): ?>
     <div class="col-6 col-lg-4 col-xl">
@@ -36,12 +36,12 @@
     <div class="col-lg-7">
         <div class="card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-chat-dots me-2" style="color:#fbbf24;"></i>Comentários Pendentes</span>
-                <a href="<?= BASE_URL ?>/admin/comments/pending" class="btn btn-outline-warning btn-sm">Ver todos</a>
+                <span><i class="bi bi-chat-dots me-2" style="color:#fbbf24;"></i><?= t('Comentários Pendentes') ?></span>
+                <a href="<?= BASE_URL ?>/admin/comments/pending" class="btn btn-outline-warning btn-sm"><?= t('Ver todos') ?></a>
             </div>
             <div class="card-body p-0">
                 <?php if (empty($pendingComments)): ?>
-                    <p class="p-4 mb-0" style="color: var(--text-muted); font-size:13px;">Nenhum comentário pendente.</p>
+                    <p class="p-4 mb-0" style="color: var(--text-muted); font-size:13px;"><?= t('Nenhum comentário pendente.') ?></p>
                 <?php else: ?>
                 <div class="list-group list-group-flush">
                     <?php foreach (array_slice($pendingComments, 0, 5) as $c): ?>
@@ -77,12 +77,12 @@
     <div class="col-lg-5">
         <div class="card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-envelope me-2" style="color:#f87171;"></i>Mensagens Não Lidas</span>
-                <a href="<?= BASE_URL ?>/admin/messages" class="btn btn-outline-danger btn-sm">Ver todas</a>
+                <span><i class="bi bi-envelope me-2" style="color:#f87171;"></i><?= t('Mensagens Não Lidas') ?></span>
+                <a href="<?= BASE_URL ?>/admin/messages" class="btn btn-outline-danger btn-sm"><?= t('Ver todas') ?></a>
             </div>
             <div class="card-body p-0">
                 <?php if (empty($unreadMessages)): ?>
-                    <p class="p-4 mb-0" style="color: var(--text-muted); font-size:13px;">Nenhuma mensagem não lida.</p>
+                    <p class="p-4 mb-0" style="color: var(--text-muted); font-size:13px;"><?= t('Nenhuma mensagem não lida.') ?></p>
                 <?php else: ?>
                 <div class="list-group list-group-flush">
                     <?php foreach (array_slice($unreadMessages, 0, 5) as $m): ?>

@@ -2,11 +2,11 @@
 
 <div class="page-header">
     <div>
-        <h1 class="page-title">About Me</h1>
-        <span style="font-size:12px; color:var(--text-faint);">Informação pessoal exibida na página pública About</span>
+        <h1 class="page-title"><?= t('About Me') ?></h1>
+        <span style="font-size:12px; color:var(--text-faint);"><?= t('Informação pessoal exibida na página pública About') ?></span>
     </div>
     <a href="<?= BASE_URL ?>/about" target="_blank" class="btn btn-outline-secondary btn-sm">
-        <i class="bi bi-eye me-1"></i>Ver página
+        <i class="bi bi-eye me-1"></i><?= t('Ver página') ?>
     </a>
 </div>
 
@@ -38,31 +38,31 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center gap-2">
                     <i class="bi bi-person-fill" style="color:var(--accent);"></i>
-                    Dados Pessoais
+                    <?= t('Dados Pessoais') ?>
                 </div>
                 <div class="card-body">
                     <div class="row g-3">
 
                         <div class="col-md-6">
-                            <label class="form-label">Nome Completo</label>
+                            <label class="form-label"><?= t('Nome Completo') ?></label>
                             <input type="text" name="owner_name" class="form-control"
                                    placeholder="ex: João Silva"
                                    value="<?= htmlspecialchars($settings['owner_name'] ?? '') ?>">
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">Título / Perfil</label>
+                            <label class="form-label"><?= t('Título / Perfil') ?></label>
                             <input type="text" name="owner_title" class="form-control"
                                    placeholder="ex: Full Stack Developer"
                                    value="<?= htmlspecialchars($settings['owner_title'] ?? '') ?>">
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label">Biografia</label>
+                            <label class="form-label"><?= t('Biografia') ?></label>
                             <textarea name="owner_bio" class="form-control" rows="6"
-                                      placeholder="Escreve um texto sobre ti. Cada parágrafo separado por uma linha vazia."><?= htmlspecialchars($settings['owner_bio'] ?? '') ?></textarea>
+                                      placeholder="<?= e_t('Escreve um texto sobre ti. Cada parágrafo separado por uma linha vazia.') ?>"><?= htmlspecialchars($settings['owner_bio'] ?? '') ?></textarea>
                             <small style="color:var(--text-faint); font-size:11px;">
-                                Cada linha em branco cria um novo parágrafo na página About.
+                                <?= t('Cada linha em branco cria um novo parágrafo na página About.') ?>
                             </small>
                         </div>
 
@@ -74,13 +74,13 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center gap-2">
                     <i class="bi bi-telephone-fill" style="color:var(--accent);"></i>
-                    Contactos
+                    <?= t('Contactos') ?>
                 </div>
                 <div class="card-body">
                     <div class="row g-3">
 
                         <div class="col-md-6">
-                            <label class="form-label">Email</label>
+                            <label class="form-label"><?= t('Email') ?></label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                 <input type="email" name="owner_email" class="form-control"
@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">Telefone</label>
+                            <label class="form-label"><?= t('Telefone') ?></label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-phone"></i></span>
                                 <input type="text" name="owner_phone" class="form-control"
@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label">Localidade / Morada</label>
+                            <label class="form-label"><?= t('Localidade / Morada') ?></label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
                                 <input type="text" name="owner_address" class="form-control"
@@ -116,10 +116,10 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <label class="form-label mb-0">
                             <i class="bi bi-plus-circle me-1" style="color:var(--accent);"></i>
-                            Contactos Adicionais
+                            <?= t('Contactos Adicionais') ?>
                         </label>
                         <button type="button" class="btn btn-outline-primary btn-sm" id="add-contact-btn">
-                            <i class="bi bi-plus me-1"></i>Adicionar
+                            <i class="bi bi-plus me-1"></i><?= t('Adicionar') ?>
                         </button>
                     </div>
                     <div id="contacts-list">
@@ -159,7 +159,7 @@
 
                         <!-- CV -->
                         <div class="col-12">
-                            <label class="form-label">Currículo (CV)</label>
+                            <label class="form-label"><?= t('Currículo (CV)') ?></label>
 
                             <!-- Tabs: Ficheiro ou Link -->
                             <ul class="nav nav-pills mb-3" style="gap:6px;" id="cv-tabs">
@@ -226,8 +226,8 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center gap-2">
                     <i class="bi bi-share-fill" style="color:var(--accent);"></i>
-                    Redes Sociais
-                    <small style="color:var(--text-faint); margin-left:auto; font-weight:400;">Deixa em branco para não mostrar</small>
+                    <?= t('Redes Sociais') ?>
+                    <small style="color:var(--text-faint); margin-left:auto; font-weight:400;"><?= t('Deixa em branco para não mostrar') ?></small>
                 </div>
                 <div class="card-body">
                     <div class="row g-3">
@@ -285,7 +285,7 @@
             <div class="card" style="position:sticky; top:20px;">
                 <div class="card-header d-flex align-items-center gap-2">
                     <i class="bi bi-image-fill" style="color:var(--accent);"></i>
-                    Foto de Perfil
+                    <?= t('Foto de Perfil') ?>
                 </div>
                 <div class="card-body text-center">
 
@@ -305,7 +305,7 @@
 
                     <label class="btn btn-outline-primary btn-sm w-100" for="photo-input">
                         <i class="bi bi-upload me-1"></i>
-                        <?= !empty($settings['owner_photo']) ? 'Alterar foto' : 'Carregar foto' ?>
+                        <?= !empty($settings['owner_photo']) ? t('Alterar foto') : t('Carregar foto') ?>
                     </label>
                     <input type="file" id="photo-input" name="owner_photo"
                            accept="image/jpeg,image/png,image/webp"
@@ -327,7 +327,7 @@
             <div class="card mt-3">
                 <div class="card-header d-flex align-items-center gap-2">
                     <i class="bi bi-eye" style="color:var(--accent);"></i>
-                    Pré-visualização rápida
+                    <?= t('Pré-visualização rápida') ?>
                 </div>
                 <div class="card-body" style="font-size:12px; color:var(--text-muted); line-height:1.8;">
                     <p class="mb-1"><strong style="color:var(--text-secondary);">Nome:</strong> <span id="prev-name"><?= htmlspecialchars($settings['owner_name'] ?? '—') ?></span></p>
@@ -342,7 +342,7 @@
     <!-- Botão Guardar -->
     <div class="d-flex gap-2 mt-2 mb-4">
         <button type="submit" class="btn btn-primary px-4">
-            <i class="bi bi-save me-1"></i>Guardar About Me
+            <i class="bi bi-save me-1"></i><?= t('Guardar About Me') ?>
         </button>
         <a href="<?= BASE_URL ?>/about" target="_blank" class="btn btn-outline-secondary">
             <i class="bi bi-box-arrow-up-right me-1"></i>Ver resultado

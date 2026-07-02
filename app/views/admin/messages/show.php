@@ -1,13 +1,13 @@
 <?php $pageTitle = 'Mensagem — Admin'; ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Mensagem</h1>
+        <h1 class="page-title"><?= t('Mensagem') ?></h1>
         <span style="font-size:12px; color:var(--text-faint);">
             <?= date('d/m/Y \à\s H:i', strtotime($message['created_at'])) ?>
         </span>
     </div>
     <a href="<?= BASE_URL ?>/admin/messages" class="btn btn-sm btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
+        <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
     </a>
 </div>
 
@@ -15,11 +15,11 @@
     <div class="col-lg-8">
         <div class="card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span class="fw-semibold"><?= htmlspecialchars($message['subject'] ?? '(sem assunto)') ?></span>
+                <span class="fw-semibold"><?= htmlspecialchars($message['subject'] ?: t('(sem assunto)')) ?></span>
                 <?php if ($message['is_read']): ?>
-                <span class="badge" style="background:rgba(255,255,255,.06); color:var(--text-muted);">Lida</span>
+                <span class="badge" style="background:rgba(255,255,255,.06); color:var(--text-muted);"><?= t('Lida') ?></span>
                 <?php else: ?>
-                <span class="badge" style="background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent-glow);">Nova</span>
+                <span class="badge" style="background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent-glow);"><?= t('Nova') ?></span>
                 <?php endif; ?>
             </div>
             <div class="card-body">
@@ -33,7 +33,7 @@
     <div class="col-lg-4">
         <div class="card mb-3">
             <div class="card-header">
-                <span class="section-label mb-0">Remetente</span>
+                <span class="section-label mb-0"><?= t('Remetente') ?></span>
             </div>
             <div class="card-body">
                 <p class="fw-semibold mb-1"><?= htmlspecialchars($message['name']) ?></p>
@@ -56,14 +56,14 @@
             <div class="card-body">
                 <p style="color:var(--text-muted); font-size:12px; margin:0;">
                     <i class="bi bi-calendar3 me-1"></i>
-                    Recebida em <?= date('d/m/Y \à\s H:i', strtotime($message['created_at'])) ?>
+                    <?= t('Recebida em') ?> <?= date('d/m/Y \à\s H:i', strtotime($message['created_at'])) ?>
                 </p>
             </div>
         </div>
 
         <a href="mailto:<?= htmlspecialchars($message['email']) ?>?subject=Re: <?= rawurlencode($message['subject'] ?? '') ?>"
            class="btn btn-primary btn-sm w-100">
-            <i class="bi bi-reply me-1"></i>Responder por e-mail
+            <i class="bi bi-reply me-1"></i><?= t('Responder por e-mail') ?>
         </a>
     </div>
 </div>

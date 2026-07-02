@@ -1,8 +1,8 @@
 <?php $pageTitle = 'Novo Post — Admin'; ?>
 <div class="page-header">
-    <h1 class="page-title">Novo Post</h1>
+    <h1 class="page-title"><?= t('Novo Post') ?></h1>
     <a href="<?= BASE_URL ?>/admin/blog" class="btn btn-sm btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
+        <i class="bi bi-arrow-left me-1"></i><?= t('Voltar') ?>
     </a>
 </div>
 
@@ -13,30 +13,30 @@
         <!-- ── Coluna principal ── -->
         <div class="col-lg-8">
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-journal-text me-2" style="color:var(--accent);"></i>Conteúdo</div>
+                <div class="card-header"><i class="bi bi-journal-text me-2" style="color:var(--accent);"></i><?= t('Conteúdo') ?></div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label class="form-label">Título <span style="color:#f87171;">*</span></label>
+                        <label class="form-label"><?= t('Título') ?> <span style="color:#f87171;">*</span></label>
                         <input type="text" name="title" class="form-control" required
-                               placeholder="Título do post" value="<?= htmlspecialchars($_POST['title'] ?? '') ?>">
+                               placeholder="<?= e_t('Título do post') ?>" value="<?= htmlspecialchars($_POST['title'] ?? '') ?>">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Resumo</label>
+                        <label class="form-label"><?= t('Resumo') ?></label>
                         <textarea name="excerpt" rows="2" class="form-control"
-                                  placeholder="Breve resumo exibido na listagem…"><?= htmlspecialchars($_POST['excerpt'] ?? '') ?></textarea>
+                                  placeholder="<?= e_t('Breve resumo exibido na listagem…') ?>"><?= htmlspecialchars($_POST['excerpt'] ?? '') ?></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Categoria</label>
+                        <label class="form-label"><?= t('Categoria') ?></label>
                         <input type="text" name="category" class="form-control"
                                placeholder="Ex.: Design, Tecnologia, Negócios…"
                                value="<?= htmlspecialchars($_POST['category'] ?? '') ?>">
-                        <div class="form-text" style="color:var(--text-faint);">Aparece como etiqueta sobre a imagem na listagem.</div>
+                        <div class="form-text" style="color:var(--text-faint);"><?= t('Aparece como etiqueta sobre a imagem na listagem.') ?></div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Conteúdo</label>
+                        <label class="form-label"><?= t('Conteúdo') ?></label>
                         <textarea name="content" rows="12" class="form-control"
-                                  placeholder="Conteúdo completo do post…"><?= htmlspecialchars($_POST['content'] ?? '') ?></textarea>
-                        <div class="form-text" style="color:var(--text-faint);">Suporta HTML básico.</div>
+                                  placeholder="<?= e_t('Conteúdo completo do post…') ?>"><?= htmlspecialchars($_POST['content'] ?? '') ?></textarea>
+                        <div class="form-text" style="color:var(--text-faint);"><?= t('Suporta HTML básico.') ?></div>
                     </div>
                 </div>
             </div>
@@ -46,15 +46,15 @@
 
             <!-- Galeria -->
             <div class="card mb-4">
-                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i>Imagens</div>
+                <div class="card-header"><i class="bi bi-images me-2" style="color:var(--accent);"></i><?= t('Imagens') ?></div>
                 <div class="card-body">
-                    <label class="form-label">Imagem de Capa</label>
+                    <label class="form-label"><?= t('Imagem de Capa') ?></label>
                     <input type="file" name="image" id="cover-input" accept="image/*" class="form-control mb-3">
                     <div id="cover-preview" style="display:none;" class="mb-3">
                         <img id="cover-img" src="" alt="" style="height:120px; border-radius:8px; object-fit:cover; border:1px solid rgba(183,117,255,.2);">
                     </div>
 
-                    <label class="form-label">Imagens Adicionais <small style="color:var(--text-faint); font-weight:400;">(multi-selecção)</small></label>
+                    <label class="form-label"><?= t('Imagens Adicionais') ?> <small style="color:var(--text-faint); font-weight:400;"><?= t('(multi-selecção)') ?></small></label>
                     <input type="file" name="images[]" id="gallery-input" accept="image/*" multiple class="form-control">
                     <div id="gallery-preview" class="d-flex flex-wrap gap-2 mt-3"></div>
                 </div>
@@ -64,17 +64,17 @@
         <!-- ── Coluna lateral ── -->
         <div class="col-lg-4">
             <div class="card" style="position:sticky; top:20px;">
-                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i>Publicação</div>
+                <div class="card-header"><i class="bi bi-gear me-2" style="color:var(--accent);"></i><?= t('Publicação') ?></div>
                 <div class="card-body">
                     <div class="form-check form-switch mb-4">
                         <input class="form-check-input" type="checkbox" name="is_published"
                                value="1" id="is_published"
                                <?= !empty($_POST['is_published']) ? 'checked' : '' ?>>
-                        <label class="form-check-label" for="is_published">Publicar agora</label>
+                        <label class="form-check-label" for="is_published"><?= t('Publicar agora') ?></label>
                     </div>
-                    <div class="form-text mb-3" style="color:var(--text-faint);">Se desmarcado, fica como rascunho.</div>
+                    <div class="form-text mb-3" style="color:var(--text-faint);"><?= t('Se desmarcado, fica como rascunho.') ?></div>
                     <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-check-circle me-1"></i>Criar Post
+                        <i class="bi bi-check-circle me-1"></i><?= t('Criar Post') ?>
                     </button>
                 </div>
             </div>

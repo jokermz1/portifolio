@@ -17,6 +17,8 @@ $router->get('/about',          'AboutController@index');
 
 // Reviews / Depoimentos (submissão pública, sem login)
 $router->post('/reviews',       'TestimonialController@store');
+$router->post('/testimonials/{id}/edit',   'TestimonialController@update');
+$router->post('/testimonials/{id}/delete', 'TestimonialController@delete');
 
 // Idioma da interface (i18n)
 $router->get('/lang/{code}',    'LangController@set');

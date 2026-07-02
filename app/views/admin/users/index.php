@@ -1,8 +1,8 @@
 <?php $pageTitle = 'Utilizadores — Admin'; ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Utilizadores</h1>
-        <span style="font-size:12px; color:var(--text-faint);"><?= count($users) ?> registado<?= count($users) !== 1 ? 's' : '' ?></span>
+        <h1 class="page-title"><?= t('Utilizadores') ?></h1>
+        <span style="font-size:12px; color:var(--text-faint);"><?= count($users) ?> <?= t('Utilizadores') ?></span>
     </div>
 </div>
 
@@ -12,11 +12,11 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Utilizador</th>
-                        <th>Email</th>
-                        <th>Registado em</th>
-                        <th>Estado</th>
-                        <th>Ações</th>
+                        <th><?= t('Utilizador') ?></th>
+                        <th><?= t('Email') ?></th>
+                        <th><?= t('Registado em') ?></th>
+                        <th><?= t('Estado') ?></th>
+                        <th><?= t('Ações') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,18 +40,18 @@
                         <td style="color:var(--text-muted);"><?= date('d/m/Y', strtotime($u['created_at'])) ?></td>
                         <td>
                             <?php if ($u['is_active']): ?>
-                                <span class="badge bg-success">Ativo</span>
+                                <span class="badge bg-success"><?= t('Ativo') ?></span>
                             <?php else: ?>
-                                <span class="badge bg-danger">Suspenso</span>
+                                <span class="badge bg-danger"><?= t('Suspenso') ?></span>
                             <?php endif; ?>
                         </td>
                         <td>
                             <a href="<?= BASE_URL ?>/admin/users/<?= $u['id'] ?>"
-                               class="btn btn-sm btn-outline-secondary" title="Ver detalhes">
+                               class="btn btn-sm btn-outline-secondary" title="<?= e_t('Ver detalhes') ?>">
                                 <i class="bi bi-eye"></i>
                             </a>
                             <form method="POST" action="<?= BASE_URL ?>/admin/users/<?= $u['id'] ?>/toggle" class="d-inline"
-                                  onsubmit="return confirm('<?= $u['is_active'] ? 'Suspender' : 'Reativar' ?> este utilizador?')">
+                                  onsubmit="return confirm('<?= $u['is_active'] ? e_t('Suspender este utilizador?') : e_t('Reativar este utilizador?') ?>')">
                                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                                 <button type="submit"
                                         class="btn btn-sm <?= $u['is_active'] ? 'btn-outline-danger' : 'btn-outline-secondary' ?>">
@@ -65,7 +65,7 @@
                     <tr><td colspan="5">
                         <div class="empty-state">
                             <i class="bi bi-people"></i>
-                            <p>Nenhum utilizador registado ainda.</p>
+                            <p><?= t('Nenhum utilizador registado ainda.') ?></p>
                         </div>
                     </td></tr>
                     <?php endif; ?>

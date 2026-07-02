@@ -23,19 +23,19 @@ if (!function_exists('avatarTag')) {
     }
 }
 $statusBadge = [
-    'pending'  => ['warning text-dark', 'Pendente'],
-    'approved' => ['success', 'Aprovado'],
-    'rejected' => ['secondary', 'Rejeitado'],
+    'pending'  => ['warning text-dark', t('Pendente')],
+    'approved' => ['success', t('Aprovado')],
+    'rejected' => ['secondary', t('Rejeitado')],
 ];
 ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Depoimentos</h1>
+        <h1 class="page-title"><?= t('Depoimentos') ?></h1>
         <span style="font-size:12px; color:var(--text-faint);">
             <?php if (!empty($pending)): ?>
-                <span style="color:#fbbf24;"><?= count($pending) ?> a aguardar moderação</span>
+                <span style="color:#fbbf24;"><?= count($pending) ?> <?= t('a aguardar moderação') ?></span>
             <?php else: ?>
-                Tudo em dia · <?= count($all) ?> no total
+                <?= t('Tudo em dia') ?> · <?= count($all) ?> <?= t('no total') ?>
             <?php endif; ?>
         </span>
     </div>
@@ -44,7 +44,7 @@ $statusBadge = [
 <!-- ─── Pendentes ───────────────────────────────────────────── -->
 <?php if (!empty($pending)): ?>
 <h6 class="text-uppercase mb-3" style="color:var(--text-muted); letter-spacing:.05em;">
-    <i class="bi bi-hourglass-split me-1"></i>A aguardar moderação
+    <i class="bi bi-hourglass-split me-1"></i><?= t('A aguardar moderação') ?>
 </h6>
 <div class="row g-3 mb-4">
     <?php foreach ($pending as $t): ?>
@@ -79,20 +79,20 @@ $statusBadge = [
                     <form method="POST" action="<?= BASE_URL ?>/admin/testimonials/<?= $t['id'] ?>/approve">
                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                         <button type="submit" class="btn btn-success btn-sm">
-                            <i class="bi bi-check-circle me-1"></i>Aprovar
+                            <i class="bi bi-check-circle me-1"></i><?= t('Aprovar') ?>
                         </button>
                     </form>
                     <form method="POST" action="<?= BASE_URL ?>/admin/testimonials/<?= $t['id'] ?>/reject">
                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                         <button type="submit" class="btn btn-outline-warning btn-sm">
-                            <i class="bi bi-slash-circle me-1"></i>Rejeitar
+                            <i class="bi bi-slash-circle me-1"></i><?= t('Rejeitar') ?>
                         </button>
                     </form>
                     <form method="POST" action="<?= BASE_URL ?>/admin/testimonials/<?= $t['id'] ?>/delete"
-                          onsubmit="return confirm('Apagar permanentemente?')">
+                          onsubmit="return confirm('<?= e_t('Apagar permanentemente?') ?>')">
                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                         <button type="submit" class="btn btn-outline-danger btn-sm">
-                            <i class="bi bi-trash me-1"></i>Apagar
+                            <i class="bi bi-trash me-1"></i><?= t('Apagar') ?>
                         </button>
                     </form>
                     <small style="color:var(--text-faint); margin-left:auto;">
@@ -108,7 +108,7 @@ $statusBadge = [
 
 <!-- ─── Todos ───────────────────────────────────────────────── -->
 <h6 class="text-uppercase mb-3" style="color:var(--text-muted); letter-spacing:.05em;">
-    <i class="bi bi-list-ul me-1"></i>Todos os depoimentos
+    <i class="bi bi-list-ul me-1"></i><?= t('Todos os depoimentos') ?>
 </h6>
 <div class="card">
     <div class="card-body p-0">
@@ -116,13 +116,13 @@ $statusBadge = [
             <table class="table table-hover mb-0 align-middle">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Avaliação</th>
-                        <th>Mensagem</th>
-                        <th>Estado</th>
-                        <th>Destaque</th>
-                        <th>Data</th>
-                        <th>Ações</th>
+                        <th><?= t('Nome') ?></th>
+                        <th><?= t('Avaliação') ?></th>
+                        <th><?= t('Mensagem') ?></th>
+                        <th><?= t('Estado') ?></th>
+                        <th><?= t('Destaque') ?></th>
+                        <th><?= t('Data') ?></th>
+                        <th><?= t('Ações') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -158,7 +158,7 @@ $statusBadge = [
                         <td>
                             <form method="POST" action="<?= BASE_URL ?>/admin/testimonials/<?= $t['id'] ?>/feature" class="d-inline">
                                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
-                                <button class="btn btn-sm btn-link p-0" title="Alternar destaque na página inicial">
+                                <button class="btn btn-sm btn-link p-0" title="<?= e_t('Alternar destaque na página inicial') ?>">
                                     <i class="bi bi-star<?= $t['is_featured'] ? '-fill' : '' ?>"
                                        style="color:<?= $t['is_featured'] ? '#fbbf24' : 'var(--text-faint)' ?>;font-size:18px;"></i>
                                 </button>
@@ -169,19 +169,19 @@ $statusBadge = [
                             <?php if ($t['status'] !== 'approved'): ?>
                             <form method="POST" action="<?= BASE_URL ?>/admin/testimonials/<?= $t['id'] ?>/approve" class="d-inline">
                                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
-                                <button class="btn btn-sm btn-outline-success" title="Aprovar"><i class="bi bi-check-lg"></i></button>
+                                <button class="btn btn-sm btn-outline-success" title="<?= e_t('Aprovar') ?>"><i class="bi bi-check-lg"></i></button>
                             </form>
                             <?php endif; ?>
                             <?php if ($t['status'] !== 'rejected'): ?>
                             <form method="POST" action="<?= BASE_URL ?>/admin/testimonials/<?= $t['id'] ?>/reject" class="d-inline">
                                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
-                                <button class="btn btn-sm btn-outline-warning" title="Rejeitar"><i class="bi bi-slash-circle"></i></button>
+                                <button class="btn btn-sm btn-outline-warning" title="<?= e_t('Rejeitar') ?>"><i class="bi bi-slash-circle"></i></button>
                             </form>
                             <?php endif; ?>
                             <form method="POST" action="<?= BASE_URL ?>/admin/testimonials/<?= $t['id'] ?>/delete" class="d-inline"
-                                  onsubmit="return confirm('Apagar depoimento?')">
+                                  onsubmit="return confirm('<?= e_t('Apagar depoimento?') ?>')">
                                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
-                                <button class="btn btn-sm btn-outline-danger" title="Apagar"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" title="<?= e_t('Apagar') ?>"><i class="bi bi-trash"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -190,7 +190,7 @@ $statusBadge = [
                     <tr><td colspan="7">
                         <div class="empty-state">
                             <i class="bi bi-chat-square-quote"></i>
-                            <p>Ainda não há depoimentos.</p>
+                            <p><?= t('Ainda não há depoimentos.') ?></p>
                         </div>
                     </td></tr>
                     <?php endif; ?>
@@ -202,5 +202,7 @@ $statusBadge = [
 
 <p class="mt-3" style="font-size:12px; color:var(--text-faint);">
     <i class="bi bi-info-circle me-1"></i>
-    Só aparecem na página inicial os depoimentos <strong>aprovados</strong> e com a <i class="bi bi-star-fill" style="color:#fbbf24;"></i> de destaque ativa.
+    <?= t('Só aparecem na página inicial os depoimentos aprovados e com a') ?>
+    <i class="bi bi-star-fill" style="color:#fbbf24;"></i>
+    <?= t('de destaque ativa.') ?>
 </p>

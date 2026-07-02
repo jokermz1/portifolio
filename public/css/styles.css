@@ -906,3 +906,20 @@ a.profile-comment:hover .pc-go svg { transform: translateX(4px); }
 .pc-stars { color: #fbbf24; font-size: 0.9rem; letter-spacing: 1px; }
 .pc-stars .bi-star { color: rgba(183, 117, 255, 0.3); }
 [data-theme="light"] .pc-stars .bi-star { color: rgba(0, 0, 0, 0.2); }
+
+/* Select do formulário de perfil (edição de depoimento) */
+.profile-form .form-select {
+  background-color: rgba(15, 14, 16, 0.55);
+  color: #f1eef8;
+  border: 1px solid rgba(183, 117, 255, 0.28);
+  border-radius: 10px;
+}
+.profile-form .form-select:focus {
+  border-color: #8f3aec;
+  box-shadow: 0 0 0 0.2rem rgba(143, 58, 236, 0.25);
+}
+[data-theme="light"] .profile-form .form-select {
+  background-color: #ffffff;
+  color: #16151a;
+  border-color: rgba(0, 0, 0, 0.15);
+}

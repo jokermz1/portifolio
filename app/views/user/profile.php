@@ -158,14 +158,15 @@ $typeIcon = [
                         <?php if (empty($testimonials)): ?>
                             <p class="text-muted"><?= e_t("You haven't left any testimonials yet.") ?></p>
                         <?php else: ?>
-                            <?php foreach ($testimonials as $tst):
+                            <?php
+                            $ratingLabels = [5 => 'Excellent', 4 => 'Very good', 3 => 'Good', 2 => 'Fair', 1 => 'Poor'];
+                            foreach ($testimonials as $tst):
                                 [$sClass, $sLabel] = $statusMap[$tst['status']] ?? ['is-pending', $tst['status']];
-                                $rating   = max(0, min(5, (int) $tst['rating']));
-                                $tUrl     = $tst['status'] === 'approved' ? BASE_URL . '/#testimonial' : null;
-                                $meta     = trim(($tst['role'] ?? '') . (!empty($tst['location']) ? ' · ' . $tst['location'] : ''), ' ·');
-                                $tag      = $tUrl ? 'a' : 'div';
+                                $rating = max(0, min(5, (int) $tst['rating']));
+                                $tUrl   = $tst['status'] === 'approved' ? BASE_URL . '/#testimonial' : null;
+                                $meta   = trim(($tst['role'] ?? '') . (!empty($tst['location']) ? ' · ' . $tst['location'] : ''), ' ·');
                             ?>
-                            <<?= $tag ?> class="profile-comment mb-3"<?= $tUrl ? ' href="' . $tUrl . '"' : '' ?>>
+                            <div class="profile-comment mb-3" id="testimonial-<?= (int) $tst['id'] ?>">
                                 <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
                                     <div class="d-flex align-items-center gap-2 flex-wrap">
                                         <span class="pc-stars">
@@ -181,21 +182,77 @@ $typeIcon = [
                                     <small class="pc-meta"><?= date('d/m/Y H:i', strtotime($tst['created_at'])) ?></small>
                                 </div>
 
-                                <p class="pc-body mb-2"
-                                   style="display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;">
-                                    <?= nl2br(htmlspecialchars($tst['content'])) ?>
-                                </p>
+                                <p class="pc-body mb-2"><?= nl2br(htmlspecialchars($tst['content'])) ?></p>
 
                                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                                     <small class="pc-meta"><?= htmlspecialchars($meta) ?></small>
-                                    <?php if ($tUrl): ?>
-                                        <span class="pc-go d-inline-flex align-items-center gap-1">
-                                            <?= e_t('View on homepage') ?>
-                                            <svg width="15" height="15"><use xlink:href="#arrow-right"></use></svg>
-                                        </span>
-                                    <?php endif; ?>
+                                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                                        <?php if ($tUrl): ?>
+                                            <a href="<?= $tUrl ?>" class="pc-go d-inline-flex align-items-center gap-1 me-1">
+                                                <?= e_t('View on homepage') ?>
+                                                <svg width="15" height="15"><use xlink:href="#arrow-right"></use></svg>
+                                            </a>
+                                        <?php endif; ?>
+                                        <button type="button" class="btn btn-sm btn-outline-light rounded-pill edit-testimonial"
+                                                data-id="<?= (int) $tst['id'] ?>">
+                                            <i class="bi bi-pencil me-1"></i><?= e_t('Edit') ?>
+                                        </button>
+                                        <form method="POST" action="<?= BASE_URL ?>/testimonials/<?= (int) $tst['id'] ?>/delete"
+                                              onsubmit="return confirm('<?= e_t('Delete this testimonial?') ?>')">
+                                            <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill">
+                                                <i class="bi bi-trash me-1"></i><?= e_t('Delete') ?>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </<?= $tag ?>>
+
+                                <!-- Formulário de edição (oculto) -->
+                                <div class="testimonial-edit d-none mt-3 pt-3" id="edit-testimonial-<?= (int) $tst['id'] ?>"
+                                     style="border-top:1px solid rgba(183,117,255,.18);">
+                                    <form class="profile-form row g-2" method="POST"
+                                          action="<?= BASE_URL ?>/testimonials/<?= (int) $tst['id'] ?>/edit">
+                                        <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
+                                        <div class="col-md-6">
+                                            <input type="text" name="name" class="form-control" required
+                                                   value="<?= htmlspecialchars($tst['name']) ?>"
+                                                   placeholder="<?= e_t('O seu nome*') ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select name="rating" class="form-select">
+                                                <?php foreach ($ratingLabels as $r => $lbl): ?>
+                                                    <option value="<?= $r ?>" <?= (int) $tst['rating'] === $r ? 'selected' : '' ?>>
+                                                        <?= str_repeat('★', $r) ?> — <?= e_t($lbl) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="role" class="form-control"
+                                                   value="<?= htmlspecialchars($tst['role'] ?? '') ?>"
+                                                   placeholder="<?= e_t('Cargo / empresa (opcional)') ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="location" class="form-control"
+                                                   value="<?= htmlspecialchars($tst['location'] ?? '') ?>"
+                                                   placeholder="<?= e_t('Localização (ex.: Maputo)') ?>">
+                                        </div>
+                                        <div class="col-12">
+                                            <textarea name="content" class="form-control" rows="3" required minlength="5"
+                                                      placeholder="<?= e_t('A sua avaliação*') ?>"><?= htmlspecialchars($tst['content']) ?></textarea>
+                                        </div>
+                                        <div class="col-12 d-flex gap-2">
+                                            <button type="submit" class="btn btn-sm button rounded-pill px-4">
+                                                <span><i class="bi bi-check2 me-1"></i><?= e_t('Save') ?></span>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill cancel-testimonial"
+                                                    data-id="<?= (int) $tst['id'] ?>">
+                                                <?= e_t('Cancel') ?>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
@@ -206,3 +263,28 @@ $typeIcon = [
         </div><!-- /row -->
     </div>
 </section>
+
+<script>
+(function () {
+    // Alternar formulários de edição de depoimento
+    document.querySelectorAll('.edit-testimonial').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var el = document.getElementById('edit-testimonial-' + btn.dataset.id);
+            if (el) el.classList.toggle('d-none');
+        });
+    });
+    document.querySelectorAll('.cancel-testimonial').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var el = document.getElementById('edit-testimonial-' + btn.dataset.id);
+            if (el) el.classList.add('d-none');
+        });
+    });
+
+    // Ativar o separador indicado no endereço (#tab-comments / #tab-testimonials)
+    var h = window.location.hash;
+    if (h) {
+        var trigger = document.querySelector('[data-bs-target="' + h + '"]');
+        if (trigger && window.bootstrap) new bootstrap.Tab(trigger).show();
+    }
+})();
+</script>

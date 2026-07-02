@@ -1,11 +1,11 @@
 <?php $pageTitle = 'Serviços — Admin'; ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Serviços</h1>
-        <span style="font-size:12px; color:var(--text-faint);"><?= count($services) ?> serviço<?= count($services) !== 1 ? 's' : '' ?></span>
+        <h1 class="page-title"><?= t('Serviços') ?></h1>
+        <span style="font-size:12px; color:var(--text-faint);"><?= count($services) ?> <?= t('Serviços') ?></span>
     </div>
     <a href="<?= BASE_URL ?>/admin/services/create" class="btn btn-primary btn-sm">
-        <i class="bi bi-plus-circle me-1"></i>Novo Serviço
+        <i class="bi bi-plus-circle me-1"></i><?= t('Novo Serviço') ?>
     </a>
 </div>
 
@@ -15,11 +15,11 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Título</th>
-                        <th>Ícone</th>
-                        <th>Ordem</th>
-                        <th>Estado</th>
-                        <th>Ações</th>
+                        <th><?= t('Título') ?></th>
+                        <th><?= t('Ícone') ?></th>
+                        <th><?= t('Ordem') ?></th>
+                        <th><?= t('Estado') ?></th>
+                        <th><?= t('Ações') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,18 +45,18 @@
                         <td style="color:var(--text-muted);"><?= (int)$s['sort_order'] ?></td>
                         <td>
                             <span class="badge bg-<?= $s['is_active'] ? 'success' : 'secondary' ?>">
-                                <?= $s['is_active'] ? 'Ativo' : 'Inativo' ?>
+                                <?= $s['is_active'] ? t('Ativo') : t('Inativo') ?>
                             </span>
                         </td>
                         <td>
                             <a href="<?= BASE_URL ?>/admin/services/<?= $s['id'] ?>/edit"
-                               class="btn btn-sm btn-outline-primary" title="Editar">
+                               class="btn btn-sm btn-outline-primary" title="<?= e_t('Editar') ?>">
                                 <i class="bi bi-pencil"></i>
                             </a>
                             <form method="POST" action="<?= BASE_URL ?>/admin/services/<?= $s['id'] ?>/delete"
-                                  class="d-inline" onsubmit="return confirm('Apagar serviço?')">
+                                  class="d-inline" onsubmit="return confirm('<?= e_t('Apagar serviço?') ?>')">
                                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
-                                <button class="btn btn-sm btn-outline-danger" title="Apagar"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" title="<?= e_t('Apagar') ?>"><i class="bi bi-trash"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -65,7 +65,7 @@
                     <tr><td colspan="5">
                         <div class="empty-state">
                             <i class="bi bi-gear"></i>
-                            <p>Nenhum serviço criado ainda.</p>
+                            <p><?= t('Nenhum serviço criado ainda.') ?></p>
                         </div>
                     </td></tr>
                     <?php endif; ?>

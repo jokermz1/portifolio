@@ -1,11 +1,11 @@
 <?php $pageTitle = 'Portfólio — Admin'; ?>
 <div class="page-header">
     <div>
-        <h1 class="page-title">Projetos</h1>
-        <span style="font-size:12px; color:var(--text-faint);"><?= count($projects) ?> projeto<?= count($projects) !== 1 ? 's' : '' ?></span>
+        <h1 class="page-title"><?= t('Projetos') ?></h1>
+        <span style="font-size:12px; color:var(--text-faint);"><?= count($projects) ?> <?= count($projects) !== 1 ? t('projetos') : t('projeto') ?></span>
     </div>
     <a href="<?= BASE_URL ?>/admin/portfolio/create" class="btn btn-primary btn-sm">
-        <i class="bi bi-plus-circle me-1"></i>Novo Projeto
+        <i class="bi bi-plus-circle me-1"></i><?= t('Novo Projeto') ?>
     </a>
 </div>
 
@@ -15,14 +15,14 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Ordem</th>
-                        <th>Imagem</th>
-                        <th>Título</th>
-                        <th>Categoria</th>
-                        <th>Estado</th>
-                        <th>Destaque</th>
-                        <th>Data</th>
-                        <th>Ações</th>
+                        <th><?= t('Ordem') ?></th>
+                        <th><?= t('Imagem') ?></th>
+                        <th><?= t('Título') ?></th>
+                        <th><?= t('Categoria') ?></th>
+                        <th><?= t('Estado') ?></th>
+                        <th><?= t('Destaque') ?></th>
+                        <th><?= t('Data') ?></th>
+                        <th><?= t('Ações') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +49,7 @@
                         <td><small style="color:var(--text-muted);"><?= htmlspecialchars($p['category'] ?? '—') ?></small></td>
                         <td>
                             <span class="badge bg-<?= $p['is_published'] ? 'success' : 'secondary' ?>">
-                                <?= $p['is_published'] ? 'Publicado' : 'Rascunho' ?>
+                                <?= $p['is_published'] ? t('Publicado') : t('Rascunho') ?>
                             </span>
                         </td>
                         <td>
@@ -62,13 +62,13 @@
                         <td><small style="color:var(--text-muted);"><?= date('d/m/Y', strtotime($p['created_at'])) ?></small></td>
                         <td>
                             <a href="<?= BASE_URL ?>/admin/portfolio/<?= $p['id'] ?>/edit"
-                               class="btn btn-sm btn-outline-primary" title="Editar">
+                               class="btn btn-sm btn-outline-primary" title="<?= e_t('Editar') ?>">
                                 <i class="bi bi-pencil"></i>
                             </a>
                             <form method="POST" action="<?= BASE_URL ?>/admin/portfolio/<?= $p['id'] ?>/delete" class="d-inline"
-                                  onsubmit="return confirm('Apagar projeto?')">
+                                  onsubmit="return confirm('<?= e_t('Apagar projeto?') ?>')">
                                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($flash['_csrf'] ?? '') ?>">
-                                <button class="btn btn-sm btn-outline-danger" title="Apagar"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" title="<?= e_t('Apagar') ?>"><i class="bi bi-trash"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -77,7 +77,7 @@
                     <tr><td colspan="8">
                         <div class="empty-state">
                             <i class="bi bi-folder2-open"></i>
-                            <p>Nenhum projeto criado ainda.</p>
+                            <p><?= t('Nenhum projeto criado ainda.') ?></p>
                         </div>
                     </td></tr>
                     <?php endif; ?>
